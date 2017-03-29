@@ -1,0 +1,20 @@
+.header { 
+ h1 {
+    font-weight: 500;
+    text-transform: uppercase;
+    padding: 0;
+    margin: 0;
+    font-size: 1.5rem;
+    color: $highlight-text-color;
+    letter-spacing: 1px;
+    overflow: visible;
+    &:after {
+      content: "Beta";
+      position: absolute;
+      font-size: .8rem;
+      color: $subdued-text-color;
+      display: inline-block;
+      margin-left: .3rem;
+    }
+  }
+}

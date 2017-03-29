@@ -5,11 +5,37 @@ const webpack = require('webpack')
 const webpackConfig = require('../config/webpack.config')
 const project = require('../config/project.config')
 const compress = require('compression')
+const app = express();
 
-const app = express()
+//(Ege)
+const session = require('express-session');
 
 // Apply gzip compression
 app.use(compress())
+
+// (Ege)
+// DATABASE SETUP
+const serverConfig = require('./config')
+const mongoose = require('mongoose');
+
+mongoose.Promise = global.Promise;
+
+//mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/segmentsdb');
+mongoose.connect(serverConfig.mongoURL);
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function (callback) {
+  console.log("database connected");
+});
+
+//const testData = require('./testData');
+const loadTestData = require('./testData')
+const loadTestData2 = require('./testData2')
+
+
+//Initialize Session
+
+app.use(session({ secret : 'thesis', resave : true, saveUninitialized : true }));
 
 // ------------------------------------
 // Apply Webpack HMR Middleware
