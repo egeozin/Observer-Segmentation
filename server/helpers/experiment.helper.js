@@ -1,9 +1,9 @@
-const Experiment = require('./models/experiment')
+const Experiment = require('../models/experiment')
 const cuid = require('cuid')
 const sanitizeHtml = require('sanitize-html')
 
 
-export function getExperiments(req, res) {
+const getExperiments = function(req, res) {
 	Experiment.find().sort('-created_at').exec((err, experiments) => {
 		if (err) {
 			res.status(500).send(err);
@@ -13,7 +13,7 @@ export function getExperiments(req, res) {
 }
 
 
-export function addExperiment(req, res) {
+const addExperiment = function(req, res) {
 
 	if (!req.body.experiment.name || !req.body.experiment.description) {
 		res.status(403).end();
@@ -35,6 +35,11 @@ export function addExperiment(req, res) {
 
 }
 
-export function addSegmentation(req, res) {
+const addSegmentation = function(req, res) {
 
+}
+
+module.exports = {
+	getExperiments,
+	addExperiment
 }

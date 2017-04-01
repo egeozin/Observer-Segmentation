@@ -7,8 +7,11 @@ const project = require('../config/project.config')
 const compress = require('compression')
 const app = express();
 
+
 //(Ege)
-const session = require('express-session');
+var bodyParser = require('body-parser')
+//var cookieParser = require('cookie-parser');
+const session = require('express-session')
 
 // Apply gzip compression
 app.use(compress())
@@ -16,26 +19,36 @@ app.use(compress())
 // (Ege)
 // DATABASE SETUP
 const serverConfig = require('./config')
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
+const experiments = require('./routes/experiment.routes')
+const loadTestData = require('./testData')
 
+// Set native promises as mongoose promise
 mongoose.Promise = global.Promise;
 
 //mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/segmentsdb');
-mongoose.connect(serverConfig.mongoURL);
+mongoose.connect(serverConfig.mongoURL, (error) => {
+  if (error) {
+    console.log("Please check whether MongoDB is installed or not!");
+    throw error;
+  }
+
+  loadTestData();
+});
+
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function (callback) {
   console.log("database connected");
 });
 
-//const testData = require('./testData');
-const loadTestData = require('./testData')
-const loadTestData2 = require('./testData2')
-
 
 //Initialize Session
 
 app.use(session({ secret : 'thesis', resave : true, saveUninitialized : true }));
+
+//API
+app.use('/api', experiments);
 
 // ------------------------------------
 // Apply Webpack HMR Middleware

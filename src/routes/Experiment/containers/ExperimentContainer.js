@@ -1,14 +1,14 @@
 import { connect } from 'react-redux'
-import { saveRecord, fetchExperiments } from '../modules/experiment'
+import { fetchExperiments } from '../modules/experiment'
 
 import Experiment from '../components/Experiment'
 
 import type { ExperimentObject } from '../interfaces/experiment'
 
-const mapActionCreators: {saveRecord: Function} = {
-	saveRecord,
+const mapActionCreators: {fetchExperiments: Function} = {
 	fetchExperiments
 }
+
 
 const mapStateToProps = (state): {experiment: ?ExperimentObject} => ({
 	experiments: state.experiment.experiments,

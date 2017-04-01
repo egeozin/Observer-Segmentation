@@ -1,0 +1,40 @@
+@import './variables';
+
+.experimentItem {
+	  position:relative;
+    border:0.5px solid rgba(38, 50, 56, 0.1);
+    border-radius:2px;
+    padding:10px;
+    margin-left:0px;
+    margin-top:0px;
+    margin-bottom:10px;
+    text-align:left;
+    background-color:white;
+    box-shadow: -1px -1px 1px 0.1px rgba(38, 50, 56, 0.05);
+
+    h3 {
+    	font-size:2rem
+    }
+
+}
+
+.experimentName {
+	font-size: 2rem;
+}
+
+.experimentDescription {
+	font-size: 1.5rem;
+}
+
+.experimentDate {
+	font-size: 1.2rem;
+}
+
+
+.divider{
+  border: 0;
+  height: 1px;
+  background: #ccc;
+  width: 90%;
+  margin: 32px auto 0;
+}

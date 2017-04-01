@@ -14,6 +14,7 @@ export type ExperimentObject = {
 export type ExperimentStateObject = {
 	recording:boolean,
 	saving: boolean,
+	fetched:boolean,
 	fetching: boolean,
 	current: ?string,
 	experiments:Array<ExperimentObject>,

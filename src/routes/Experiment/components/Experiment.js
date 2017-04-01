@@ -1,25 +1,46 @@
-import React from 'react'
+import React, {Component, PropTypes} from 'react'
 import './Experiment.scss'
 
-import type {ExperimentStateObject, ExperimentObject} from '../interfaces/experiment'
+import ExperimentList from './ExperimentList';
+import type {ExperimentObject} from '../interfaces/experiment'
+
+import {fetchExperiments} from '../modules/experiment'
 
 type Props = {
-	experiment: ?ExperimentObject,
-	fetchVideo:Function,
-	saveRecord: Function
+	experiments: ?Array<ExperimentObject>,
+	fetchExperiments: Function
 };
 
-export const Experiment = (props: Props) => (
+export default class Experiment extends Component {
 
-	<div>
-		<p> Woohoo! It will work </p>
-	</div>
+//export const Experiment = (props: Props) => (
+    constructor(props){
+        super(props);
+    }
 
-	)
+    componentWillMount() {
+    	this.props.fetchExperiments();
+    }
 
+	render(){
+		
+		return (
 
-Experiment.propTypes = {
+		<div >
+			<ExperimentList experiments={this.props.experiments} />
+		</div>
 	
+		)
+	}
+
 }
 
-export default Experiment
+Experiment.propTypes = {
+
+	experiments: PropTypes.arrayOf(PropTypes.shape({
+		name : PropTypes.string.isRequired,
+		description: PropTypes.string.isRequired,
+		created_at: PropTypes.string.isRequired
+	})).isRequired
+	
+}

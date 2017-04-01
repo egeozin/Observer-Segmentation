@@ -1,15 +1,16 @@
 var mongoose =require("mongoose");
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
-var UserSchema = mongoose.Schema({
+const UserSchema = mongoose.Schema({
 	user: {type: String, unique:true},
 	password: {type:String, unique:true},
-
+    completed_exp: {type:Boolean, default:false}
 })
 
-UserSchema.path('name').validate(function(value, done) {
+
+UserSchema.path('user').validate(function(value, done) {
 	var that = this;
-    that.model('User').count({ name: value }, function(err, count) {
+    that.model('User').count({ user: value }, function(err, count) {
         if (err) {
             return done(err);
         } 
@@ -19,13 +20,13 @@ UserSchema.path('name').validate(function(value, done) {
 }, 'Username already exists');
 
 
-UserSchema.path("name").validate(function(value) {
+UserSchema.path("user").validate(function(value) {
 	return /^[a-zA-Z0-9._-]/.test(value)},"Wrong characters!");
 
 
 UserSchema.pre("save",function(next, done) {
     var that = this;
-    mongoose.models["User"].findOne({name:that.name},function(err, results) {
+    mongoose.models["User"].findOne({user:that.user},function(err, results) {
         if(err) {
             next(err);
         } else if(results) {

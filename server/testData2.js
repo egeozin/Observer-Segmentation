@@ -11,16 +11,21 @@ var loadTestData2 = function() {
 			return;
 		}
 
+		console.log(count);
+
 		let segmentations = Segmentation.find().exec((err, segments) => {
 			if (err) {
 				console.log('error getting dummy segmentations for dummy experiment')
 				return;
 			} else {
+				console.log(segments);
 				return segments
 			}
 		});
 
 	})
+
+	console.log(segmentations);
 
 	if (segmentations.length > 1 ) {
 		Experiment.count().exec((err, count) => {
@@ -57,7 +62,7 @@ var loadTestData2 = function() {
 			});
 		});
 	} else {
-		console.log('feeding experiment dummies unsuccessful!')
+		console.log('Feeding experiment dummies unsuccessful!')
 	}
 }
 

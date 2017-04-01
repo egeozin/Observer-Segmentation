@@ -13,6 +13,7 @@ export const START_RECORD = 'START_RECORD'
 
 // Actions
 
+/*
 export function saveRecord(): Action {
 	return {
 		type:SAVE_RECORD
@@ -30,6 +31,7 @@ export function startRecord(): Action {
 		type:START_RECORD
 	}
 }
+*/
 
 export function requestExperiments(): Action {
 	return {
@@ -37,9 +39,12 @@ export function requestExperiments(): Action {
 	}
 }
 
-export function receiveExperiments(): Action {
+export function receiveExperiments(experiments:Array): Action {
 	return {
-		type:RECEIVE_EXPERIMENTS
+		type:RECEIVE_EXPERIMENTS,
+		payload: {
+			experiments
+		}
 	}
 }
 
@@ -48,6 +53,7 @@ export const fetchExperiments = (): Function => {
 		dispatch(requestExperiments())
 
 		return modelApi('experiments').then(res => {
+			console.log(res.experiments);
 			dispatch(receiveExperiments(res.experiments))
 		})
 		
@@ -56,12 +62,10 @@ export const fetchExperiments = (): Function => {
 }
 
 export const actions  = {
-	saveRecord, 
-	resetRecord,
-	startRecord,
+	requestExperiments,
+	receiveExperiments,
 	fetchExperiments
 }
-
 
 // Action Handlers 
 
@@ -85,7 +89,9 @@ const EXPERIMENT_ACTION_HANDLERS = {
 		return({...state, fetching:true})
 	},
 	[RECEIVE_EXPERIMENTS]: (state: ExperimentStateObject, action:{payload:Array<ExperimentObject>}): ExperimentStateObject => {
-		return ({ ...state, experiments: state.experiments.concat(action.payload), fetching:false})
+		return state.fetched ? 
+				  ({ ...state, fetching:false})
+				: ({ ...state, experiments: state.experiments.concat(action.payload.experiments), fetched: true, fetching:false})
 	},
 
 }
@@ -99,11 +105,6 @@ export default function experimentReducer (state:ExperimentStateObject = initial
 
 	return handler ? handler(state, action) : state
 }
-
-
-
-
-
 
 
 
