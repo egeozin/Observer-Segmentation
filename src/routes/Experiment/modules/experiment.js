@@ -1,4 +1,4 @@
-import type {ExperimentObject, ExperimentStateObject} from 'interfaces/record.js'
+import type {ExperimentObject, ExperimentStateObject} from 'interfaces/experiment.js'
 import modelApi from 'utils/modelApi';
 
 // Constants
@@ -53,7 +53,6 @@ export const fetchExperiments = (): Function => {
 		dispatch(requestExperiments())
 
 		return modelApi('experiments').then(res => {
-			console.log(res.experiments);
 			dispatch(receiveExperiments(res.experiments))
 		})
 		

@@ -45,7 +45,7 @@ db.once('open', function (callback) {
 
 //Initialize Session
 
-app.use(session({ secret : 'thesis', resave : true, saveUninitialized : true }));
+//app.use(session({ secret : 'thesis', resave : true, saveUninitialized : true }));
 
 //API
 app.use('/api', experiments);

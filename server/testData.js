@@ -60,13 +60,13 @@ const loadTestData = function() {
 											const name1 = 'test_1'
 											const name2 = 'test_2'
 									
-											const video1_a = 'https://www.youtube.com/watch?v=x8SEDH6res0'
-											const video1_b = 'https://www.youtube.com/watch?v=x8SEDH6res0'
-											const video1_c = 'https://www.youtube.com/watch?v=x8SEDH6res0'
+											const video1_a = 'x8SEDH6res0'
+											const video1_b = 'x8SEDH6res0'
+											const video1_c = 'x8SEDH6res0'
 								
-											const video2_a = 'https://www.youtube.com/watch?v=cLtKIsDekpM'
-											const video2_b = 'https://www.youtube.com/watch?v=cLtKIsDekpM'
-											const video2_c = 'https://www.youtube.com/watch?v=cLtKIsDekpM'
+											const video2_a = 'cLtKIsDekpM'
+											const video2_b = 'cLtKIsDekpM'
+											const video2_c = 'cLtKIsDekpM'
 								
 											const description1 = "Initial experiment test to check if everything is ok."
 											const description2 = "Another experiment test to check that listing works."

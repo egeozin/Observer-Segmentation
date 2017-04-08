@@ -4,18 +4,36 @@ import Home from './Home'
 import CounterRoute from './Counter'
 import ExperimentRoute from './Experiment'
 import ZenRoute from './Zen'
+import AuthRoute from './Auth'
 
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
 
 export const createRoutes = (store) => ({
   path        : '/',
-  component   : CoreLayout,
-  indexRoute  : Home,
+  //component   : CoreLayout,
+  //indexRoute  : Home,
   childRoutes : [
-    CounterRoute(store),
-    ZenRoute(store),
-    ExperimentRoute(store)
+
+    {
+      component:CoreLayout,
+      onEnter: requireAuth(store),
+      indexRoute: Hotme,
+      childRoutes: [
+        CounterRoute(store),
+        ZenRoute(store),
+        ExperimentRoute(store)
+      ]
+    },
+  
+    {
+      component: LoginLayout,
+      childRoutes: [
+        AuthRoute
+      ]
+
+    }, 
+
   ]
 })
 
