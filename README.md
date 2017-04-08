@@ -14,7 +14,9 @@ A web based software that can be used to collect data from human subjects in a r
 You can generate experiments similar to this format:
 
 <p align="center"><img src="https://github.mit.edu/egeozin/observer-dashboard/blob/master/images/experimental_procedure.png"/></p>
- 
+
+
+Folder Structure:
 
 ```
 .
