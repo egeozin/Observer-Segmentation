@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react'
 import './ExperimentList.scss'
 
 import type {ExperimentObject} from '../interfaces/experiment'
-import ExperimentListItem from './ExperimentListItem'
+import ExperimentListItem from '../ExperimentListItem'
 
 
 export const ExperimentList = (props:Props) => (

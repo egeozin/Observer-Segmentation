@@ -1,7 +1,6 @@
 import React from 'react'
 import './Zen.scss'
 
-
 import type {ZenObject} from '../interfaces/zen'
 
 type Props = {

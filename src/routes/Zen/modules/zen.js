@@ -41,6 +41,7 @@ export const fetchZen = (): Function => {
 	}
 }
 
+
 export const actions  = {
 	requestZen, 
 	receiveZen,
@@ -55,7 +56,6 @@ const ZEN_ACTION_HANDLERS = {
 		return({...state, fetching:true})
 	},
 	[RECEIVE_ZEN]: (state: ZenStateObject, action:{payload:ZenObject}): ZenStateObject => {
-		console.log(action.payload);
 		return ({ ...state, zens: state.zens.concat(action.payload), current: action.payload.id, fetching:false})
 	},
 	[SAVE_CURRENT_ZEN]: (state:ZenStateObject): ZenStateObject => {

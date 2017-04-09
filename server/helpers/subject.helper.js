@@ -1,7 +1,13 @@
 const Subject = require('../models/subject')
 const cuid = require('cuid')
 const sanitizeHtml = require('sanitize-html')
+const getIP = require('./checkip')
 
+
+/*
+ * This should be integrated with Experiments query.
+ *
+ */
 
 const getSubjects = function(req, res) {
 	Subject.find().sort('-created_at').exec((err, subjects) => {
@@ -20,24 +26,23 @@ const addSubject = function(req, res) {
 		console.log('You have to provide a name and description for your experiment');
 	}
 
-	const newSubject = new Subject(req.body.subject);
+	const newSubject = new Subject(req.body.signupInfo);
 
 	newSubject.email = sanitizeHtml(newSubject.email);
 	newSubject.password = sanitizeHtml(newExperiment.password);
 	newSubject.cuid = cuid();
-	newExperiment.save((err, exp) => {
+	newSubject.ip = getIP(req);
+
+	newSubject.save((err, sub) => {
 		if(err) {
 			res.status(500).send(err);
 		}
-		res.json({experiment: exp})
+		res.json({signupInfo: sub})
 	})
 
 
 }
 
-const addSegmentation = function(req, res) {
-
-}
 
 module.exports = {
 	getSubjects,

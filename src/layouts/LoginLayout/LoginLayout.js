@@ -5,14 +5,14 @@ import '../../styles/core.scss'
 
 export const LoginLayout = ({ children }) => (
   <div className='container text-center'>
-    <Header />
+    <LoginHeader />
     <div className='login-layout__viewport'>
       {children}
     </div>
   </div>
 )
 
-CoreLayout.propTypes = {
+LoginLayout.propTypes = {
   children : React.PropTypes.element.isRequired
 }
 

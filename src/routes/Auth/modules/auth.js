@@ -1,34 +1,27 @@
+import type {AuthObject, AuthSessionObject} from 'interfaces/auth.js'
 import modelApi from 'utils/modelApi';
 
 
 export const CREATE_SESSION = 'CREATE_SESSION'
-export const EMAIL_SIGN_UP_REQUEST = 'EMAIL_SIGN_UP_REQUEST'
 
-
-export function createSession(): Action {
+export function createSession(subject:Object): Action {
 	return {
 		type: CREATE_SESSION,
-		payload: {
-			subject
-		}
-
+		subject
 	}
-
 }
 
-
-export const emailSignUpRequest = (): Function => {
+export const emailSignUpRequest = (signupInfo: Object): Function => {
 	return (dispatch: Function) : Promise => {
 
-		return modelApi('subjects', 'post', {
+		return modelApi('signup', 'post', {
 			signupInfo: {
 				email: signupInfo.email,
 				password:signupInfo.password,
 			},
 		}).then(res => 
-			{dispatch(createSession(res.signupInfo))}
-		)
-		
+			{ dispatch(createSession(res.signupInfo)) }
+		)	
 	}
 
 }
@@ -38,23 +31,22 @@ export const actions  = {
 	emailSignUpRequest
 }
 
-
 // Action Handlers 
 
 const AUTH_ACTION_HANDLERS = {
 
-	[CREATE_SESSION]: (state: RecordStateObject): RecordStateObject => {
-		return state.current != null ? ({...state, saved: state.saved.concat(state.current)}) : state
+	[CREATE_SESSION]: (state: AuthSessionObject, action:{subject:AuthObject}): AuthSessionObject => {
+		return state.authed ? state : ({...state, subject: action.subject, authed: true}) 
 	},
 
 }
 
 // Reducer
 
-const initialState: AuthSessionObject = {email:null, authed:false, ip:null}
+const initialState: AuthSessionObject = {subject:null, authed:false, phase:0}
 
-export default function experimentReducer (state:ExperimentStateObject = initialState, action:Action): ExperimentStateObject {
-	const handler = EXPERIMENT_ACTION_HANDLERS[action.type]
+export default function authReducer (state:AuthSessionObject = initialState, action:Action): AuthSessionObject {
+	const handler = AUTH_ACTION_HANDLERS[action.type]
 
 	return handler ? handler(state, action) : state
 }

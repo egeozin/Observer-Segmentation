@@ -1,5 +1,6 @@
 // We only need to import the modules necessary for initial render
 import CoreLayout from '../layouts/CoreLayout'
+import LoginLayout from '../layouts/LoginLayout'
 import Home from './Home'
 import CounterRoute from './Counter'
 import ExperimentRoute from './Experiment'
@@ -9,33 +10,54 @@ import AuthRoute from './Auth'
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
 
-export const createRoutes = (store) => ({
-  path        : '/',
-  //component   : CoreLayout,
-  //indexRoute  : Home,
-  childRoutes : [
 
-    {
-      component:CoreLayout,
-      onEnter: requireAuth(store),
-      indexRoute: Hotme,
-      childRoutes: [
-        CounterRoute(store),
-        ZenRoute(store),
-        ExperimentRoute(store)
-      ]
-    },
+
+export const createRoutes = (store) => {
+
+  const requireAuth = (nextState, replace, cb) => {
+    const state = store.getState();
+    console.log(state);
+    console.log(nextState);
+    if (!state.auth) {
+      replace({
+        pathname:'/signup',
+        state:{nextPathname: nextState.location.pathname}
+      });
+    }
+    cb();
   
-    {
-      component: LoginLayout,
-      childRoutes: [
-        AuthRoute
+  }
+
+  return ({
+      path        : '/',
+      //component   : CoreLayout,
+      //indexRoute  : Home,
+      childRoutes : [
+
+        {
+          component:CoreLayout,
+          onEnter: requireAuth,
+          indexRoute: Home,
+          childRoutes: [
+            CounterRoute(store),
+            ZenRoute(store),
+            ExperimentRoute(store)
+          ]
+        },
+      
+        {
+          component: LoginLayout,
+          childRoutes: [
+            AuthRoute(store)
+          ]
+
+        }, 
+
       ]
+  });
 
-    }, 
+};
 
-  ]
-})
 
 /*  Note: childRoutes can be chunked or otherwise loaded programmatically
     using getChildRoutes with the following signature:

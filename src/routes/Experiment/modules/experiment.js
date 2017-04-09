@@ -57,7 +57,6 @@ export const fetchExperiments = (): Function => {
 		})
 		
 	}
-
 }
 
 export const actions  = {

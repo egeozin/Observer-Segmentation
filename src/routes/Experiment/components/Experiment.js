@@ -25,11 +25,9 @@ export default class Experiment extends Component {
 	render(){
 		
 		return (
-
-		<div >
-			<ExperimentList experiments={this.props.experiments} />
-		</div>
-	
+			<div >
+				<ExperimentList experiments={this.props.experiments} />
+			</div>
 		)
 	}
 
