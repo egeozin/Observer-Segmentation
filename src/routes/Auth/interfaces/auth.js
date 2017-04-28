@@ -1,7 +1,6 @@
 
 export type AuthObject = {
 	email: string,
-	password: string,
 	cuid: string,
 	ip: string,
 	completed_exp:boolean,

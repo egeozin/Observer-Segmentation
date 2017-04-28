@@ -48,8 +48,9 @@ db.once('open', function (callback) {
 //app.use(session({ secret : 'thesis', resave : true, saveUninitialized : true }));
 
 //API
+app.use(bodyParser.json({ limit: '20mb' }));
+app.use(bodyParser.urlencoded({ limit: '20mb', extended: false }));
 app.use('/api', experiments);
-
 // ------------------------------------
 // Apply Webpack HMR Middleware
 // ------------------------------------

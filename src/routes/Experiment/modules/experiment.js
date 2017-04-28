@@ -13,25 +13,6 @@ export const START_RECORD = 'START_RECORD'
 
 // Actions
 
-/*
-export function saveRecord(): Action {
-	return {
-		type:SAVE_RECORD
-	}
-}
-
-export function resetRecord(): Action {
-	return {
-		type:RESET_RECORD
-	}
-}
-
-export function startRecord(): Action {
-	return {
-		type:START_RECORD
-	}
-}
-*/
 
 export function requestExperiments(): Action {
 	return {

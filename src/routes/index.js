@@ -10,8 +10,6 @@ import AuthRoute from './Auth'
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
 
-
-
 export const createRoutes = (store) => {
 
   const requireAuth = (nextState, replace, cb) => {
@@ -28,12 +26,28 @@ export const createRoutes = (store) => {
   
   }
 
+  /*
+
+  const requirePublic = (nextState, replace, cb) => {
+    const state = store.getState();
+    if (state.auth) {
+      replace({
+        pathname:'/',
+        state:{nextPathname: nextState.location.pathname}
+      });
+    }
+    cb();
+  
+  }
+  
+  */
+
   return ({
       path        : '/',
       //component   : CoreLayout,
       //indexRoute  : Home,
       childRoutes : [
-
+        //authed
         {
           component:CoreLayout,
           onEnter: requireAuth,
@@ -44,7 +58,7 @@ export const createRoutes = (store) => {
             ExperimentRoute(store)
           ]
         },
-      
+        //non-authed
         {
           component: LoginLayout,
           childRoutes: [

@@ -20,7 +20,6 @@ class ExperimentListPage extend Component {
 			</div>
 
 			)
-
 	}
 
 }

@@ -20,7 +20,8 @@ export default class Auth extends Component {
         }
     }
 
-    signUpRequest = () => {
+    signUpRequest = (evt) => {
+        evt.preventDefault();
     	const emailRef = this.refs.email;
     	const passwordRef = this.refs.password;
     	if (emailRef && passwordRef) {

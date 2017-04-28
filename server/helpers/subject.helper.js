@@ -22,26 +22,39 @@ const getSubjects = function(req, res) {
 const addSubject = function(req, res) {
 
 	if (!req.body.signupInfo.email || !req.body.signupInfo.password) {
+		console.log('You have to provide an email and password for your experiment');
 		res.status(403).end();
-		console.log('You have to provide a name and description for your experiment');
+		
 	}
 
 	const newSubject = new Subject(req.body.signupInfo);
 
 	newSubject.email = sanitizeHtml(newSubject.email);
-	newSubject.password = sanitizeHtml(newExperiment.password);
+	newSubject.password = sanitizeHtml(newSubject.password);
 	newSubject.cuid = cuid();
 	newSubject.ip = getIP(req);
 
 	newSubject.save((err, sub) => {
 		if(err) {
+			console.log(err);
 			res.status(500).send(err);
 		}
-		res.json({signupInfo: sub})
-	})
+		console.log(sub);
+		res.json({ sub });
 
+	});
 
 }
+
+/*
+signupInfo: {
+			email:sub.email,
+			cuid:sub.cuid,
+			ip:sub.ip,
+			completed_exp: sub.completed_exp
+		}
+
+*/
 
 
 module.exports = {

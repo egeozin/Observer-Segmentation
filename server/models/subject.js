@@ -1,4 +1,5 @@
 var mongoose =require("mongoose");
+mongoose.Promise = global.Promise;
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
 
@@ -22,7 +23,7 @@ const SubjectSchema = mongoose.Schema({
     cuid: { type: 'String', required: true },
 })
 
-
+/*
 SubjectSchema.path('email').validate(function(value, done) {
 	var that = this;
     that.model('Subject').count({ email: value }, function(err, count) {
@@ -33,7 +34,7 @@ SubjectSchema.path('email').validate(function(value, done) {
         done(!count);
     });
 }, 'Email already exists');
-
+*/
 
 
 
