@@ -37,10 +37,15 @@ const addSubject = function(req, res) {
 	newSubject.save((err, sub) => {
 		if(err) {
 			console.log(err);
+			// Should send a response with error message, like "You should enter a valid username"
 			res.status(500).send(err);
 		}
-		console.log(sub);
-		res.json({ sub });
+		res.json({ signupInfo:{ 
+			name:sub.email,
+			cuid:sub.cuid,
+			ip:sub.ip,
+			completed_exp: sub.completed_exp
+		} });
 
 	});
 

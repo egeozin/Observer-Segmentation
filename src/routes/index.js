@@ -1,9 +1,11 @@
 // We only need to import the modules necessary for initial render
 import CoreLayout from '../layouts/CoreLayout'
 import LoginLayout from '../layouts/LoginLayout'
+import PhaseLayout from '../layouts/PhaseLayout'
 import Home from './Home'
 import CounterRoute from './Counter'
 import ExperimentRoute from './Experiment'
+import PhasesRoute from './Phase'
 import ZenRoute from './Zen'
 import AuthRoute from './Auth'
 
@@ -17,10 +19,10 @@ export const createRoutes = (store) => {
     console.log(state);
     console.log(nextState);
     if (!state.auth) {
-      replace({
-        pathname:'/signup',
-        state:{nextPathname: nextState.location.pathname}
-      });
+        replace({
+          pathname:'/signup',
+          state:{nextPathname: nextState.location.pathname}
+        });
     }
     cb();
   
@@ -58,6 +60,17 @@ export const createRoutes = (store) => {
             ExperimentRoute(store)
           ]
         },
+
+        {
+          component: PhaseLayout,
+          onEnter:requireAuth,
+          childRoutes: [
+            PhasesRoute(store)
+          ]
+
+        },
+
+
         //non-authed
         {
           component: LoginLayout,

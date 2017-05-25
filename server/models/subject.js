@@ -20,7 +20,7 @@ const SubjectSchema = mongoose.Schema({
 	password: {type:String, unique:true},
     ip: {type:String, unique:true},
     completed_exp: {type:Boolean, default:false},
-    cuid: { type: 'String', required: true },
+    cuid: { type:String, required: true },
 })
 
 /*

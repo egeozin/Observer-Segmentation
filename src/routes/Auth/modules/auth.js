@@ -3,6 +3,10 @@ import {browserHistory} from 'react-router'
 import modelApi from 'utils/modelApi';
 
 export const CREATE_SESSION = 'CREATE_SESSION'
+export const VALIDATE_ADMIN = 'VALIDATE_ADMIN'
+export const BRING_ADMIN = 'BRING_ADMIN'
+
+
 
 export function createSession(subject:Object): Action {
 	return {
@@ -11,15 +15,36 @@ export function createSession(subject:Object): Action {
 	}
 }
 
+export function validateAdmin(admin:Object): Action {
+	return {
+		type: VALIDATE_ADMIN,
+		admin
+	}
+}
+
+
+const apiCall = (path:string, signupInfo:Object): Function => {
+
+}
+
+/*
+ * API call for logging subjects and validating Admin 
+ * @method emailSignUpRequest
+ * @param {Object}
+ * @return {Promise}
+ */
+
 export const emailSignUpRequest = (signupInfo:Object): Function => {
 	return (dispatch: Function) : Promise => {
 		
 		return modelApi('signup', 'post', {
 			signupInfo: {email:signupInfo.email, password:signupInfo.password},
 		}).then(res => { 
-			dispatch(createSession(res.sub)) 
+			dispatch(createSession(res.signupInfo)) 
 		}).then(
-			browserHistory.push('/') // Redirect subjects to experiment
+			// Redirect subjects to experiment.
+			// Or if admin redirect to Experiment Analysis section
+			browserHistory.push('/phases') 
 		)
 	};
 }
@@ -34,9 +59,12 @@ export const actions  = {
 const AUTH_ACTION_HANDLERS = {
 
 	[CREATE_SESSION]: (state: AuthSessionObject, action:{subject:AuthObject}): AuthSessionObject => {
-		console.log(action.subject)
 		return state.authed ? state : ({...state, subject: action.subject, authed: true}) 
 	},
+
+	[VALIDATE_ADMIN]: (state: AuthSessionObject, action:{subject:AuthObject}): AuthSessionObject => {
+		return state.authed ? state : ({...state, subject: action.admin, authed: true}) 
+	}
 
 }
 

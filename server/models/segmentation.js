@@ -7,13 +7,14 @@ var SegmentationSchema = mongoose.Schema({
 	experimenter: {type:String, required:true},
 	//experiment: {type:ObjectId, ref:"Experiment", required:true},
 	experiment: {type:String, required:true},
-	phase: {type:Number, required:false},
-	orderId: Number,
+	type: {type:String, required:false},
+	orderId: {type:Number, reqired:false},
 	subject:{type:String, required:true},
 	description:{type:String, required:false},
-	breakpoints: [ Number],
-	duration: Number,
+	breakpoints: [Number],
+	duration: {type:Number, required:true},
 	labels: {type:[String], required:false},
+	cuid:{type:String, required:true},
 	created_at: {type:Date, default: Date.now}
 })
 

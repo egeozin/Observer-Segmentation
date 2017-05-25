@@ -1,0 +1,35 @@
+@import './variables';
+
+.initialInstructions {
+	position:relative;
+    margin-left:0px;
+    margin-top:0px;
+    margin-bottom:10px;
+    text-align:left;
+
+    h3 {
+    	font-size:2rem
+    }
+
+}
+
+.instructionsTitle {
+	font-size: 2rem;
+}
+
+.instructions {
+	font-size: 1.5rem;
+}
+
+.experimentDate {
+	font-size: 1.2rem;
+}
+
+
+.divider{
+  border: 0;
+  height: 1px;
+  background: #ccc;
+  width: 90%;
+  margin: 32px auto 0;
+}

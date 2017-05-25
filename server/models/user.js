@@ -5,7 +5,8 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 const UserSchema = mongoose.Schema({
 	user: {type: String, unique:true},
 	password: {type:String, unique:true},
-    completed_exp: {type:Boolean, default:false}
+    completed_exp: {type:Boolean, default:false},
+    cuid:{type:String, required:true}
 })
 
 

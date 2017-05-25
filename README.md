@@ -11,9 +11,12 @@ A web based software that can be used to collect data from human subjects in a r
 	Redux + React as frontend state management and view library.
 
 
-You can generate experiments similar to this format:
+You can generate experimental procedures similar to the following:
 
-<p align="center"><img src="https://github.mit.edu/egeozin/observer-dashboard/blob/master/images/experimental_procedure.png"/></p>
+<p align="center"><img src="https://github.mit.edu/egeozin/observer-dashboard/blob/master/images/retrospective_protocol.png"/></p>
+
+<p align="center"><img src="https://github.mit.edu/egeozin/observer-dashboard/blob/master/images/simultaneous_protocol.png"/></p>
+
 
 
 Folder Structure:

@@ -4,6 +4,9 @@ import { browserHistory } from 'react-router'
 import makeRootReducer from './reducers'
 import { updateLocation } from './location'
 
+
+//const initialState = {authed:false}
+
 export default (initialState = {}) => {
   // ======================================================
   // Middleware Configuration

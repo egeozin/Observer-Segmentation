@@ -1,6 +1,7 @@
 const User = require('./models/user');
 const Segmentation = require('./models/segmentation');
 const Experiment = require('./models/experiment');
+const cuid = require("cuid");
 
 
 const loadTestData = function() {
@@ -21,8 +22,13 @@ const loadTestData = function() {
 		const description1 = "Initial test to check if everything is ok.";
 		const description2 = "Another test to check that listing works.";
 
-		const segmentation1 = new Segmentation({experimenter:'Admin',experiment:'00_test_00', orderId:0, subject:'Subject_Admin', description:description1, breakpoints:breakpoints1, duration:duration1, labels:labels1});
-		const segmentation2 = new Segmentation({experimenter:'Admin',experiment:'00_test_01', orderId:1, subject:'Subject_Admin', description:description2, breakpoints:breakpoints2, duration:duration2, labels:labels2});
+		const s_cuid_1 = cuid(); 
+		const s_cuid_2 = cuid();
+
+		console.log
+
+		const segmentation1 = new Segmentation({experimenter:'Admin',experiment:'00_test_00', orderId:0, subject:'Subject_Admin', cuid:s_cuid_1 , description:description1, breakpoints:breakpoints1, duration:duration1, labels:labels1});
+		const segmentation2 = new Segmentation({experimenter:'Admin',experiment:'00_test_01', orderId:1, subject:'Subject_Admin', cuid:s_cuid_2 , description:description2, breakpoints:breakpoints2, duration:duration2, labels:labels2});
 
 		Segmentation.create([segmentation1, segmentation2], (error) => {
 			if (!error) {
@@ -44,7 +50,8 @@ const loadTestData = function() {
 							}
 							const experimenter1 = 'Admin';
 							const password1 = 'Test_012';
-							const user1 = new User({user: experimenter1, password: password1})
+							const u_cuid_1 = cuid();
+							const user1 = new User({user: experimenter1, password: password1, cuid: u_cuid_1})
 							
 							User.create(user1,  (error) => {
 								if (!error) {
@@ -74,12 +81,24 @@ const loadTestData = function() {
 											const segmentation1 = segments[0]
 											const segmentation2 = segments[1]
 
-											const experiment1 = new Experiment({experimenter: user[0]._id, cuid:'cikqgkv4q01ck7453ualdn3hd', name:name1, segmentations:[segmentation1._id, segmentation2._id] , description: description1,  videos:[video1_a, video1_b, video1_c]})
-											const experiment2 = new Experiment({experimenter: user[0]._id, cuid:'cikqgkv4q01ck7453ualdn3hf', name:name2, segmentations:segmentation2._id , description: description2,  videos:[video2_a, video2_b, video2_c]})
+											const e_cuid_1 = cuid()
+											console.log(e_cuid_1);
+											const e_cuid_2 = cuid()
+
+											const experiment1 = new Experiment({experimenter: user[0]._id, cuid:e_cuid_1, name:name1, segmentations:[segmentation1._id, segmentation2._id] , description: description1,  videos:[video1_a, video1_b, video1_c]})
+											const experiment2 = new Experiment({experimenter: user[0]._id, cuid:e_cuid_2, name:name2, segmentations:segmentation2._id , description: description2,  videos:[video2_a, video2_b, video2_c]})
 
 											Experiment.create([experiment1, experiment2], (error) => {
 												if (!error) {
 													console.log('experiments successfully created!');
+
+
+													// This is where the phases are loaded
+
+
+
+
+
 												} else {
 													console.log("something happened when creating experiments!");
 													throw error

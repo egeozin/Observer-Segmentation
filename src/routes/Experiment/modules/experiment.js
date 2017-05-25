@@ -7,10 +7,6 @@ export const REQUEST_EXPERIMENTS = 'REQUEST_EXPERIMENTS'
 export const RECEIVE_EXPERIMENTS= 'RECEIVE_EXPERIMENTS'
 export const BRING_SEGMENTATIONS = 'BRING_SEGMENTATIONS'
 
-export const SAVE_RECORD = 'SAVE_RECORD'
-export const RESET_RECORD = 'RESET_RECORD'
-export const START_RECORD = 'START_RECORD'
-
 // Actions
 
 
@@ -50,18 +46,6 @@ export const actions  = {
 
 const EXPERIMENT_ACTION_HANDLERS = {
 
-	//Record Handlers
-
-	[SAVE_RECORD]: (state: RecordStateObject): RecordStateObject => {
-		return state.current != null ? ({...state, saved: state.saved.concat(state.current)}) : state
-	},
-	[RESET_RECORD]: (state: ZenStateObject, action:{payload:ZenObject}): ZenStateObject => {
-		return ({ ...state, zens: state.zens.concat(action.payload), current: action.payload.id, fetching:false})
-	},
-	[START_RECORD]: (state:ZenStateObject): ZenStateObject => {
-		return state.current != null ? ({...state, saved: state.saved.concat(state.current)}) : state
-	},
-
 	//Experiment Handlers
 
 	[REQUEST_EXPERIMENTS]: (state: ExperimentStateObject): ExperimentStateObject => {
@@ -77,7 +61,7 @@ const EXPERIMENT_ACTION_HANDLERS = {
 
 // Reducer
 
-const initialState: ExperimentStateObject = {recording:false, saving:false, fetching:false, experiments:[], current:null, record:null}
+const initialState: ExperimentStateObject = {recording:false, saving:false, fetched:false, fetching:false, experiments:[], current:null, record:null}
 
 export default function experimentReducer (state:ExperimentStateObject = initialState, action:Action): ExperimentStateObject {
 	const handler = EXPERIMENT_ACTION_HANDLERS[action.type]

@@ -6,11 +6,12 @@ var ExperimentSchema = mongoose.Schema({
 	name:{type:String, required:true},
 	experimenter: {type:ObjectId, ref:"User", required:true},
 	segmentations: [{type:ObjectId, ref:"Segmentation", required:false}],
+	phases: [{type:ObjectId, ref:"Phase", required:false}],
 	description:{type:String, required:true},
 	created_at: {type:Date, default: Date.now},
 	//videos: {type:String, required:false}
 	videos:[String],
-	cuid: { type: 'String', required: true },
+	cuid: { type:String, required: true },
 })
 
 var ExperimentModel = mongoose.model("Experiment", ExperimentSchema);

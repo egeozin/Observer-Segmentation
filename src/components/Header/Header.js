@@ -4,7 +4,7 @@ import './Header.scss'
 
 export const Header = () => (
 <div className='navBar'>
-    <h1>Observe the Observer</h1>
+    <h1>Observing the Observers</h1>
     <ul>
       <li>
         <IndexLink to='/' activeClassName='activeRoute'>
