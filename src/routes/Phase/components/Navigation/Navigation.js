@@ -10,16 +10,19 @@ export const Navigation = () => (
           Instructions
       </li>
       <li>
+          Prepatory Phase
+      </li>
+      <li>
+          Baseline
+      </li>
+      <li>
           Phase 1
       </li>
       <li>
           Phase 2
       </li>
       <li>
-          Phase 3
-      </li>
-      <li>
-          Phase 4
+          Baseline
       </li>
     </ul>
 

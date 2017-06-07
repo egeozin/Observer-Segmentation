@@ -8,7 +8,7 @@ var PhaseSchema = mongoose.Schema({
 	experiment: {type:ObjectId, ref:"Experiment", required:false},
 	video: {type:String, required:false},
 	type: {type:String, required:true},
-	cuid: { type: String, required: true },
+	cuid: {type: String, required: true},
 	order:{type:Number, required:true}
 })
 

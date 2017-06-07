@@ -25,8 +25,6 @@ const loadTestData = function() {
 		const s_cuid_1 = cuid(); 
 		const s_cuid_2 = cuid();
 
-		console.log
-
 		const segmentation1 = new Segmentation({experimenter:'Admin',experiment:'00_test_00', orderId:0, subject:'Subject_Admin', cuid:s_cuid_1 , description:description1, breakpoints:breakpoints1, duration:duration1, labels:labels1});
 		const segmentation2 = new Segmentation({experimenter:'Admin',experiment:'00_test_01', orderId:1, subject:'Subject_Admin', cuid:s_cuid_2 , description:description2, breakpoints:breakpoints2, duration:duration2, labels:labels2});
 
@@ -86,7 +84,7 @@ const loadTestData = function() {
 											const e_cuid_2 = cuid()
 
 											const experiment1 = new Experiment({experimenter: user[0]._id, cuid:e_cuid_1, name:name1, segmentations:[segmentation1._id, segmentation2._id] , description: description1,  videos:[video1_a, video1_b, video1_c]})
-											const experiment2 = new Experiment({experimenter: user[0]._id, cuid:e_cuid_2, name:name2, segmentations:segmentation2._id , description: description2,  videos:[video2_a, video2_b, video2_c]})
+											const experiment2 = new Experiment({experimenter: user[0]._id, cuid:e_cuid_2, name:name2, segmentations:segmentation2._id, description: description2,  videos:[video2_a, video2_b, video2_c]})
 
 											Experiment.create([experiment1, experiment2], (error) => {
 												if (!error) {
