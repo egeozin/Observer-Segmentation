@@ -21,7 +21,8 @@ app.use(compress())
 const serverConfig = require('./config')
 const mongoose = require('mongoose')
 const experiments = require('./routes/experiment.routes')
-const loadTestData = require('./testData')
+//const loadTestData = require('./testData')
+const loadActualData = require('./actualData')
 
 // Set native promises as mongoose promise
 mongoose.Promise = global.Promise;
@@ -33,7 +34,7 @@ mongoose.connect(serverConfig.mongoURL, (error) => {
     throw error;
   }
 
-  loadTestData();
+  loadActualData();
 });
 
 const db = mongoose.connection;

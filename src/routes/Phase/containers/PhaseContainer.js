@@ -12,7 +12,8 @@ const mapActionCreators: {fetchPhases: Function, nextPhase: Function, finishedIn
 }
 
 const mapStateToProps = (state): {phase: ?PhaseObject} => ({
-	phase: state.phase.phases.find(phase => phase.cuid === state.phase.current)
+	phase: state.phase.phases.find(phase => phase.cuid === state.phase.current),
+	instructions: state.phase.instructions
 })
 
 export default connect(mapStateToProps, mapActionCreators)(Phase)

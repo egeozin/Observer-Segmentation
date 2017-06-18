@@ -7,6 +7,7 @@ export const STOP_VIDEO = 'STOP_VIDEO'
 export const REQUEST_PHASES = 'REQUEST_PHASES'
 export const RECEIVE_PHASES = 'RECEIVE_PHASES'
 export const FINISHED_INSTRUCTIONS = 'FINISHED_INSTRUCTIONS'
+export const NEXT_EXPERIMENT = 'NEXT_EXPERIMENT'
 export const NEXT_PHASE ='NEXT_PHASE'
 export const END_EXPERIMENT = 'END_EXPERIMENT'
 export const SAVE_PHASE_DATA = 'SAVE_PHASE_DATA'
@@ -53,6 +54,9 @@ export const fetchPhases = (): Function => {
 }
 
 
+// Need to write a better HTML generator. For example <p></p>+ <p></p> + <img/> <p></p>
+// How, so order of page elements, or just plain html? A page maybe
+
 export const Actions = {
 	requestPhases,
 	receivePhases,
@@ -72,17 +76,22 @@ const PHASE_ACTION_HANDLERS = {
 		if ( state.fetched ){
 			return ({...state, fetching:false})
 		} else {
-			const first_phase = action.phases.phases.find(phase => phase.order === 1)
+			const first_phase = action.phases.phases.find(phase => phase.order === 0)
 			return ({...state, phases:state.phases.concat(action.phases.phases), experiment:action.phases.name , current:first_phase.cuid, fetched: true, fetching:false})
 		}		
 	},
 
 	[FINISHED_INSTRUCTIONS]: (state: PhaseSessionObject): PhaseSessionObject => {
-		return({...state, instructions:false })
+		const next_phase = state.phases.find(phase => phase.order === (state.order + 1) )
+		console.log(state.instructions)
+		console.log(state.order)
+		return state.order === 0 ?
+				({...state, current:next_phase.cuid, order: state.order+1, instructions:true })
+			:   ({...state, instructions:false })
 	},
 
 	[NEXT_PHASE]: (state:PhaseSessionObject): PhaseSessionObject => {
-		const next_phase = state.phases.find(phase => phase.order === (state.order + 1) )
+		const next_phase = state.phases.find(phase => phase.order === (state.order + 1))
 		return ((state.order + 1) > state.phases.length()) ?
 				({...state, finished:true })
 			:   ({...state, current:next_phase.cuid, order:state.order+1, instructions: true})
@@ -92,7 +101,7 @@ const PHASE_ACTION_HANDLERS = {
 
 // Reducer
 
-const initialState: PhaseSessionObject = { video_playing: false,instructions:false, timeline_active: false, saving_phase_data: false, finished:false, fetched: false, order:0, fetching:false, phases:[], current:null, experiment:null}
+const initialState: PhaseSessionObject = { video_playing: false, instructions:true, timeline_active: false, saving_phase_data: false, finished:false, fetched: false, order:0, fetching:false, phases:[], current:null, experiment:null}
 
 export default function phaseReducer (state:PhaseSessionObject = initialState, action:Action): PhaseSessionObject {
 	const handler = PHASE_ACTION_HANDLERS[action.type]

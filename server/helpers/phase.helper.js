@@ -17,12 +17,12 @@ const formatPhases = (p) => {
 
 
 const getPhases = function(req, res) {
-	Experiment.findOne({cuid:req.params.cuid}).populate('phases').select('phases name').exec((err, experiment) => {
+	Experiment.findOne({name:'retrospective_protocol_00'}).populate('phases').select('phases name').exec((err, experiment) => {
 		if (err) {
 			res.status(500).send(err);
 		}
 		console.log('Success in bringing phases!')
-		const phases = experiment.phases;
+		const phases = experiment.phases
 		res.json({
 			phases:{
 				'name':experiment.name,

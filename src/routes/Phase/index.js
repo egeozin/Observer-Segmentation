@@ -11,9 +11,12 @@ export default (store) => ({
 		'./modules/phase'], (require) => {
       const Phase = require('./containers/PhaseContainer').default
       const phaseReducer = require('./modules/phase').default
+      const phaseActions = require('./modules/phase').Actions
 
       /*  Add the reducer to the store on key 'counter'  */
       injectReducer(store, { key: 'phase', reducer: phaseReducer })
+
+      store.dispatch(phaseActions.fetchPhases())
 
       /*  Return getComponent   */
       next(null, Phase)

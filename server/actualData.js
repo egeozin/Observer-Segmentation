@@ -3,7 +3,7 @@ const Segmentation = require('./models/segmentation');
 const Experiment = require('./models/experiment');
 const Phase = require('./models/phase');
 const cuid = require("cuid");
-const phases = require('/protocolData');
+const phases = require('./protocolData');
 
 
 const loadActualData = function() {
@@ -104,7 +104,7 @@ const loadActualData = function() {
 																if (count > 0 ){
 																	return;
 																}
-																const titles = ['retro_general_description', 'retro_prep', 'baseline_instructions', 'retro_phase_1', 'retro_phase_2']
+																const titles = ['General Instructions', 'Prepatory Phase', 'Baseline Recording', 'Phase 1', 'Phase 2']
 
 																const instructions = [phases.retro_general_description, phases.retro_prep, phases.baseline_instructions, phases.retro_phase_1, phases.retro_phase_2]
 
@@ -120,7 +120,7 @@ const loadActualData = function() {
 																const experiment2 = second[0]._id
 
 																const videos = ['L0kBNTtEQ1U', 'L0kBNTtEQ1U', 'L0kBNTtEQ1U', 'L0kBNTtEQ1U', 'L0kBNTtEQ1U']
-																const types = ['what?','what?','what?','what?','what?']
+																const types = ['init','prep','baseline','phase_1','phase_2']
 																const orders = [0, 1, 2, 3, 4]
 																
 																const cuid1 = cuid()
@@ -129,9 +129,28 @@ const loadActualData = function() {
 																const cuid4 = cuid()
 																const cuid5 = cuid()
 
-																Phase.create([phase1, phase2, phase3, phase4, phase5], (error) => {
+																const phase1 = new Phase({title:titles[0], instructions:instructions[0], experiment:experiment1, video:videos[0], type:types[0], cuid:cuid1, order:orders[0]})
+																const phase2 = new Phase({title:titles[1], instructions:instructions[1], experiment:experiment1, video:videos[1], type:types[1], cuid:cuid2, order:orders[1]})
+																const phase3 = new Phase({title:titles[2], instructions:instructions[2], experiment:experiment1, video:videos[2], type:types[2], cuid:cuid3, order:orders[2]})
+																const phase4 = new Phase({title:titles[3], instructions:instructions[3], experiment:experiment1, video:videos[3], type:types[3], cuid:cuid4, order:orders[3]})
+																const phase5 = new Phase({title:titles[4], instructions:instructions[4], experiment:experiment1, video:videos[4], type:types[4], cuid:cuid5, order:orders[4]})
+
+																Phase.create([phase1, phase2, phase3, phase4, phase5], (error, phases) => {
 																	if (!error) {
 																		console.log('phases successfully created!');
+																		
+
+																		Experiment.findByIdAndUpdate(experiment1, {$push:{phases: {$each: phases}}}, (error, experiment) => {
+																			if (!error) {
+																				console.log('experiment sucessfully updated')
+																				//Update second Experiment
+
+																			} else {
+																				console.log("something bad happened while updating experiments")
+																			}
+
+																		})
+
 																	} else {
 																		console.log("something bad happened while creating phases!")
 																	}

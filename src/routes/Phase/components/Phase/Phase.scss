@@ -1,5 +1,13 @@
 @import './variables';
 
+
+.phaseWrapper {
+	margin-left:156px;
+	text-align:left;
+	display:block;
+	padding-left:40px;
+}
+
 .instructions {
 	position:relative;
     margin-left:0px;
@@ -15,6 +23,7 @@
 
 .instructionsTitle {
 	font-size: 2rem;
+	text-transform: uppercase;
 }
 
 .instructions {
