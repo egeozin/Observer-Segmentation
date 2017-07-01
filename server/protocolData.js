@@ -5,8 +5,8 @@
  * with experimental phases.
  */
 
-const retro_general_description = `In this experiment. You will observe several videos and provide input according to the instructions.\
-						   In the prepatory phase in order to make you familiar with the task a short practive video will be presented.\
+const retro_general_description = `In this experiment, you will observe several videos and provide input according to the instructions.\
+						   In the prepatory phase, in order to make you familiar with the task a short practive video will be presented.\
 						   Whenever you feel you are comfortable with the task you may proceed to the main phases of the experiment. \
 						   If you are ready you can proceeed to the prepatory phase`
 

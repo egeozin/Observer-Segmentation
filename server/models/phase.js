@@ -7,6 +7,7 @@ var PhaseSchema = mongoose.Schema({
 	instructions:{type:String, required:true},
 	experiment: {type:ObjectId, ref:"Experiment", required:false},
 	video: {type:String, required:false},
+	vid_length: {type:Number, required:false},
 	type: {type:String, required:true},
 	cuid: {type: String, required: true},
 	order:{type:Number, required:true}

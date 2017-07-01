@@ -1,1 +1,20 @@
-Timeline.scss
+@import './variables';
+
+.time-box {
+	stroke:red;
+}
+
+.axis--grid .domain {
+  fill: white;/*#ddd;*/
+  stroke: none;
+  /*border: 3px solid red;*/
+}
+
+.axis--x .domain,
+.axis--grid .tick line {
+  stroke: #ddd; /*#fff;*/
+}
+
+.axis--grid .tick--minor line {
+  stroke-opacity: .5;
+}

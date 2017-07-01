@@ -120,6 +120,7 @@ const loadActualData = function() {
 																const experiment2 = second[0]._id
 
 																const videos = ['L0kBNTtEQ1U', 'L0kBNTtEQ1U', 'L0kBNTtEQ1U', 'L0kBNTtEQ1U', 'L0kBNTtEQ1U']
+																const vid_lengths = [55, 55, 55 , 55 , 55]
 																const types = ['init','prep','baseline','phase_1','phase_2']
 																const orders = [0, 1, 2, 3, 4]
 																
@@ -129,11 +130,11 @@ const loadActualData = function() {
 																const cuid4 = cuid()
 																const cuid5 = cuid()
 
-																const phase1 = new Phase({title:titles[0], instructions:instructions[0], experiment:experiment1, video:videos[0], type:types[0], cuid:cuid1, order:orders[0]})
-																const phase2 = new Phase({title:titles[1], instructions:instructions[1], experiment:experiment1, video:videos[1], type:types[1], cuid:cuid2, order:orders[1]})
-																const phase3 = new Phase({title:titles[2], instructions:instructions[2], experiment:experiment1, video:videos[2], type:types[2], cuid:cuid3, order:orders[2]})
-																const phase4 = new Phase({title:titles[3], instructions:instructions[3], experiment:experiment1, video:videos[3], type:types[3], cuid:cuid4, order:orders[3]})
-																const phase5 = new Phase({title:titles[4], instructions:instructions[4], experiment:experiment1, video:videos[4], type:types[4], cuid:cuid5, order:orders[4]})
+																const phase1 = new Phase({title:titles[0], instructions:instructions[0], experiment:experiment1, video:videos[0], vid_length: vid_lengths[0], type:types[0], cuid:cuid1, order:orders[0]})
+																const phase2 = new Phase({title:titles[1], instructions:instructions[1], experiment:experiment1, video:videos[1], vid_length: vid_lengths[1], type:types[1], cuid:cuid2, order:orders[1]})
+																const phase3 = new Phase({title:titles[2], instructions:instructions[2], experiment:experiment1, video:videos[2], vid_length: vid_lengths[2], type:types[2], cuid:cuid3, order:orders[2]})
+																const phase4 = new Phase({title:titles[3], instructions:instructions[3], experiment:experiment1, video:videos[3], vid_length: vid_lengths[3], type:types[3], cuid:cuid4, order:orders[3]})
+																const phase5 = new Phase({title:titles[4], instructions:instructions[4], experiment:experiment1, video:videos[4], vid_length: vid_lengths[4], type:types[4], cuid:cuid5, order:orders[4]})
 
 																Phase.create([phase1, phase2, phase3, phase4, phase5], (error, phases) => {
 																	if (!error) {

@@ -22,7 +22,7 @@
 }
 
 .instructionsTitle {
-	font-size: 2rem;
+	font-size: 1.8rem;
 	text-transform: uppercase;
 }
 
@@ -34,11 +34,30 @@
 	font-size: 1.2rem;
 }
 
-
 .divider{
   border: 0;
   height: 1px;
   background: #ccc;
   width: 90%;
   margin: 32px auto 0;
+}
+
+.interactionPreventer {
+	position:absolute;
+	width: 700px;
+	height: 400px;
+
+}
+
+.next {
+	float:right;
+	margin-right:40px;
+}
+
+.start {
+	float:left;
+}
+
+.timelineComponent {
+	padding-top:20px;
 }

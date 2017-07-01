@@ -2,11 +2,14 @@ import type {PhaseSessionObject, PhaseObject} from 'interfaces/auth.js'
 import {browserHistory} from 'react-router'
 import modelApi from 'utils/modelApi';
 
+
+export const START_PHASE = 'START_PHASE'
 export const START_VIDEO = 'START_VIDEO'
 export const STOP_VIDEO = 'STOP_VIDEO'
 export const REQUEST_PHASES = 'REQUEST_PHASES'
 export const RECEIVE_PHASES = 'RECEIVE_PHASES'
 export const FINISHED_INSTRUCTIONS = 'FINISHED_INSTRUCTIONS'
+export const FINISHED_PHASE = 'FINISHED_PHASE'
 export const NEXT_EXPERIMENT = 'NEXT_EXPERIMENT'
 export const NEXT_PHASE ='NEXT_PHASE'
 export const END_EXPERIMENT = 'END_EXPERIMENT'
@@ -38,6 +41,24 @@ export function nextPhase(): Action {
 	}
 }
 
+export function startVideo(): Action {
+	return {
+		type:START_VIDEO
+	}
+}
+
+export function stopVideo(): Action {
+	return {
+		type:STOP_VIDEO
+	}
+}
+
+export function startPhase(): Action {
+	return {
+		type:START_PHASE
+	}
+}
+
 let current_phase = 0
 
 // It may be better to load everything during the initial page load
@@ -62,7 +83,10 @@ export const Actions = {
 	receivePhases,
 	fetchPhases,
 	finishedInstructions,
-	nextPhase
+	nextPhase,
+	startVideo,
+	stopVideo,
+	startPhase,
 }
 
 
@@ -81,10 +105,20 @@ const PHASE_ACTION_HANDLERS = {
 		}		
 	},
 
+	[START_VIDEO]: (state: PhaseSessionObject): PhaseSessionObject => {
+		return ({...state, video_playing:true})
+	},
+
+	[STOP_VIDEO]: (state: PhaseSessionObject): PhaseSessionObject => {
+		return ({...state, video_playing:false})
+	},
+
+	[START_PHASE]:  (state: PhaseSessionObject): PhaseSessionObject => {
+		return ({...state, phase_started:true})
+	},
+
 	[FINISHED_INSTRUCTIONS]: (state: PhaseSessionObject): PhaseSessionObject => {
 		const next_phase = state.phases.find(phase => phase.order === (state.order + 1) )
-		console.log(state.instructions)
-		console.log(state.order)
 		return state.order === 0 ?
 				({...state, current:next_phase.cuid, order: state.order+1, instructions:true })
 			:   ({...state, instructions:false })
@@ -101,7 +135,7 @@ const PHASE_ACTION_HANDLERS = {
 
 // Reducer
 
-const initialState: PhaseSessionObject = { video_playing: false, instructions:true, timeline_active: false, saving_phase_data: false, finished:false, fetched: false, order:0, fetching:false, phases:[], current:null, experiment:null}
+const initialState: PhaseSessionObject = { video_playing: false, phase_started:false, phase_finished: false, instructions:true, timeline_active: false, saving_phase_data: false, finished:false, fetched: false, order:0, fetching:false, phases:[], current:null, experiment:null}
 
 export default function phaseReducer (state:PhaseSessionObject = initialState, action:Action): PhaseSessionObject {
 	const handler = PHASE_ACTION_HANDLERS[action.type]

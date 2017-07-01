@@ -1,5 +1,7 @@
 export type PhaseSessionObject = {
 	video_playing: boolean,
+	phase_started:boolean,
+	phase_finished: boolean,
 	timeline_active: boolean,
 	saving_phase_data: boolean,
 	fetching:boolean,
@@ -14,6 +16,7 @@ export type PhaseSessionObject = {
 export type PhaseObject = {
 	cuid: number,
 	video: ?string,
+	vid_length: ?number,
 	type: string,
 	order: number,
 	title: string,

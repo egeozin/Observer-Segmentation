@@ -10,6 +10,7 @@ const formatPhases = (p) => {
 		title:p.title,
 		instructions:p.instructions,
 		video:p.video,
+		vid_length: p.vid_length,
 		order:p.order,
 		type:p.type
 	}

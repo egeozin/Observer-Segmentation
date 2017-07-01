@@ -1,10 +1,10 @@
 
 /* Timer for segmentation experiments with module functionality.
  * @module Timer
- * @params duration
+ * @params during (total duration of the video)
 */
 
-const Timer = function(duration) {
+const Timer = function(during) {
 
 	const that = Object.create(Timer.prototype);
 
@@ -17,13 +17,13 @@ const Timer = function(duration) {
 	const paused = 0;
 	const last = 0;
 	const current = 0;
-	const remaining = duration;
-	const duration = duration;
+	const remaining = during;
+	const duration = during;
 	const breakpoints = [];
 
 	that.startTimer = function() {
-		start = Date.now();
-		isTicking = true;
+		that.start = Date.now();
+		that.isTicking = true;
 		const interv = setInterval(step(), 100);
 	};
 
@@ -37,20 +37,20 @@ const Timer = function(duration) {
 	}
 
 	that.pauseTicking = function() {
-		remaining = step();
+		that.remaining = step();
 		clearInterval(interv);
-		isPaused= true;
+		that.isPaused = true;
 	}
 
 	that.resumeTicking = function() {
 		const start = Date.now();
-		isTicking = true;
+		that.isTicking = true;
 		const interv = setInterval(step(), 100);
 		
 	}
 
 	const endTimer = function() {
-		isEnded = true;
+		that.isEnded = true;
 	}
 
 	that.break = function() {
@@ -63,3 +63,5 @@ const Timer = function(duration) {
 	return that;
 
 }
+
+module.exports = Timer();
