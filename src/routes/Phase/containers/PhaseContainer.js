@@ -1,17 +1,19 @@
 import { connect } from 'react-redux'
-import { fetchPhases, nextPhase, finishedInstructions, startVideo, stopVideo, startPhase } from '../modules/phase'
+import { fetchPhases, nextPhase, finishedInstructions, startPhaseAndVideo, startPhase, startVideo, stopVideo, endPhase } from '../modules/phase'
 
 import Phase from '../components/Phase'
 
 import type { PhaseObject } from '../interfaces/phase'
 
-const mapActionCreators: {fetchPhases: Function, nextPhase: Function, finishedInstructions: Function} = {
+const mapActionCreators: {fetchPhases: Function, nextPhase: Function, finishedInstructions: Function, startVideo:Function, stopVideo:Function, startPhaseAndVideo:Function, startPhase:Function, endPhase:Function} = {
 	fetchPhases,
 	nextPhase,
 	finishedInstructions,
 	startVideo,
 	stopVideo,
-	startPhase
+	startPhase,
+	startPhaseAndVideo,
+	endPhase
 }
 
 const mapStateToProps = (state): {phase: ?PhaseObject} => ({
@@ -20,7 +22,6 @@ const mapStateToProps = (state): {phase: ?PhaseObject} => ({
 	playing: state.phase.video_playing,
 	finished: state.phase.phase_finished,
 	started: state.phase.phase_started,
-
 })
 
 export default connect(mapStateToProps, mapActionCreators)(Phase)

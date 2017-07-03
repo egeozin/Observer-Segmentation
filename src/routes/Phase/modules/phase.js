@@ -4,6 +4,7 @@ import modelApi from 'utils/modelApi';
 
 
 export const START_PHASE = 'START_PHASE'
+export const END_PHASE = 'END_PHASE'
 export const START_VIDEO = 'START_VIDEO'
 export const STOP_VIDEO = 'STOP_VIDEO'
 export const REQUEST_PHASES = 'REQUEST_PHASES'
@@ -59,6 +60,12 @@ export function startPhase(): Action {
 	}
 }
 
+export function endPhase(): Action {
+	return {
+		type:END_PHASE
+	}
+}
+
 let current_phase = 0
 
 // It may be better to load everything during the initial page load
@@ -75,6 +82,13 @@ export const fetchPhases = (): Function => {
 }
 
 
+
+export const startPhaseAndVideo = ():Function => {
+	dispatch(startPhase)
+	dispatch(startVideo)
+}
+
+
 // Need to write a better HTML generator. For example <p></p>+ <p></p> + <img/> <p></p>
 // How, so order of page elements, or just plain html? A page maybe
 
@@ -87,6 +101,7 @@ export const Actions = {
 	startVideo,
 	stopVideo,
 	startPhase,
+	startPhaseAndVideo,
 }
 
 
@@ -115,6 +130,10 @@ const PHASE_ACTION_HANDLERS = {
 
 	[START_PHASE]:  (state: PhaseSessionObject): PhaseSessionObject => {
 		return ({...state, phase_started:true})
+	},
+
+	[END_PHASE]:  (state: PhaseSessionObject): PhaseSessionObject => {
+		return ({...state, phase_started:false})
 	},
 
 	[FINISHED_INSTRUCTIONS]: (state: PhaseSessionObject): PhaseSessionObject => {

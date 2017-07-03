@@ -19,7 +19,7 @@ export default class Video extends Component {
 
 		const videoUrl = youtubeUrlMaker(this.props.url)
 
-		return <ReactPlayer className='playerWrapper' url={videoUrl} />
+		return <ReactPlayer className='playerWrapper' url={videoUrl} playing={this.props.play} />
 
 	}
 

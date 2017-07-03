@@ -42,14 +42,13 @@ export default class Timeline extends Component {
 				.attr("transform", "translate(" + margin.left + "," + margin.top +  ")")
 
 
-
 		svg.append("g")
     		.attr("class", "axis axis--grid")
     		.attr("transform", "translate(0," + height + ")")
     		//.attr("border", 1)
     		.style("stroke", "red")
     		.call(d3.axisBottom(x)
-    			.ticks(Math.round(this.props.end/200))//.concat(x.domain())
+    			.ticks(Math.round(this.props.end/2000))//.concat(x.domain())
     		    //.ticks(d3.timeMillisecond, 1000)
     		    //.ticks(10)
     		    .tickSize(-height)
@@ -66,6 +65,9 @@ export default class Timeline extends Component {
     			.style("stroke", "lightgray")
     			.style("fill", "none")
     			.style("stroke-width", 1)
+
+
+    	
 
 		return timebar.toReact()
 

@@ -4,7 +4,8 @@
  * @params during (total duration of the video)
 */
 
-const Timer = function(during) {
+//const Timer = function(during) {
+export default function Timer(during) {
 
 	const that = Object.create(Timer.prototype);
 
@@ -27,10 +28,11 @@ const Timer = function(during) {
 		const interv = setInterval(step(), 100);
 	};
 
-	that.step = function() {
+	const step = function() {
 		const current = Math.max(0, remaining - (Date.now() - start))
 		if (current === 0 ) {
 			clearInterval(interv);
+			endSignal();
 			endTimer();
 		}
 		return current;
@@ -53,6 +55,14 @@ const Timer = function(during) {
 		that.isEnded = true;
 	}
 
+	that.returnStep = function() {
+		return current;
+	}
+
+	const endSignal = function() {
+		return that.isEnded
+	}
+
 	that.break = function() {
 		const elapsed = duration - step();
 		breakpoints.push(elapsed);
@@ -64,4 +74,6 @@ const Timer = function(during) {
 
 }
 
-module.exports = Timer();
+//module.exports = Timer();
+
+//export default function Timer() {}
