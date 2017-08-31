@@ -120,7 +120,7 @@ const loadActualData = function() {
 																const experiment2 = second[0]._id
 
 																const videos = ['L0kBNTtEQ1U', 'L0kBNTtEQ1U', 'L0kBNTtEQ1U', 'L0kBNTtEQ1U', 'L0kBNTtEQ1U']
-																const vid_lengths = [55, 55, 55 , 55 , 55]
+																const vid_lengths = [55, 55, 55, 55 , 55]
 																const types = ['init','prep','baseline','phase_1','phase_2']
 																const orders = [0, 1, 2, 3, 4]
 																
@@ -144,7 +144,7 @@ const loadActualData = function() {
 																		Experiment.findByIdAndUpdate(experiment1, {$push:{phases: {$each: phases}}}, (error, experiment) => {
 																			if (!error) {
 																				console.log('experiment sucessfully updated')
-																				//Update second Experiment
+																				//Update for the Second Experiment
 
 																			} else {
 																				console.log("something bad happened while updating experiments")

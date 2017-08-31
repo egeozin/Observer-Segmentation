@@ -22,6 +22,7 @@ const mapStateToProps = (state): {phase: ?PhaseObject} => ({
 	playing: state.phase.video_playing,
 	finished: state.phase.phase_finished,
 	started: state.phase.phase_started,
+	retro: state.phase.retro,
 })
 
 export default connect(mapStateToProps, mapActionCreators)(Phase)

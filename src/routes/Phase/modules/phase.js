@@ -83,9 +83,11 @@ export const fetchPhases = (): Function => {
 
 
 
-export const startPhaseAndVideo = ():Function => {
-	dispatch(startPhase)
-	dispatch(startVideo)
+export const startPhaseAndVideo = (): Function => {
+	return(dispatch: Function) => {
+		dispatch(startPhase())
+		dispatch(startVideo())
+	}
 }
 
 
@@ -101,6 +103,7 @@ export const Actions = {
 	startVideo,
 	stopVideo,
 	startPhase,
+	endPhase,
 	startPhaseAndVideo,
 }
 
@@ -116,7 +119,9 @@ const PHASE_ACTION_HANDLERS = {
 			return ({...state, fetching:false})
 		} else {
 			const first_phase = action.phases.phases.find(phase => phase.order === 0)
-			return ({...state, phases:state.phases.concat(action.phases.phases), experiment:action.phases.name , current:first_phase.cuid, fetched: true, fetching:false})
+			let re = new RegExp('^[^_]+(?=_)')
+			let isRetro = re.exec(action.phases.name) === 'retrospective'
+			return ({...state, phases:sgmtate.phases.concat(action.phases.phases), retro:isRetro ,gm experiment:action.phases.name , current:first_phase.cuid, fetched: true, fetching:false})
 		}		
 	},
 
@@ -154,7 +159,7 @@ const PHASE_ACTION_HANDLERS = {
 
 // Reducer
 
-const initialState: PhaseSessionObject = { video_playing: false, phase_started:false, phase_finished: false, instructions:true, timeline_active: false, saving_phase_data: false, finished:false, fetched: false, order:0, fetching:false, phases:[], current:null, experiment:null}
+const initialState: PhaseSessionObject = { video_playing: false, retro: true, phase_started:false, phase_finished: false, instructions:true, timeline_active: false, saving_phase_data: false, finished:false, fetched: false, order:0, fetching:false, phases:[], current:null, experiment:null}
 
 export default function phaseReducer (state:PhaseSessionObject = initialState, action:Action): PhaseSessionObject {
 	const handler = PHASE_ACTION_HANDLERS[action.type]

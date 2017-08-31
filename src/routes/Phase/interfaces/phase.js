@@ -11,10 +11,11 @@ export type PhaseSessionObject = {
 	order: number,
 	instructions, boolean,
 	experiment: string,
+	retro: boolean
 };
 
 export type PhaseObject = {
-	cuid: number,
+	cuid: string,
 	video: ?string,
 	vid_length: ?number,
 	type: string,

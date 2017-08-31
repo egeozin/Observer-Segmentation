@@ -18,3 +18,8 @@
 .axis--grid .tick--minor line {
   stroke-opacity: .5;
 }
+
+.time-axis {
+	stroke:$outer_space;
+	stroke-width:1px;
+}

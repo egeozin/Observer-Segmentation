@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import './Timeline.scss';
 import * as d3 from 'd3'
+import {calcTick} from 'utils/helpers'
 import ReactFauxDOM, {withFauxDOM} from 'react-faux-dom'
 
 
@@ -66,8 +67,14 @@ export default class Timeline extends Component {
     			.style("fill", "none")
     			.style("stroke-width", 1)
 
-
     	
+    	svg.append("line")
+    		.attr("class", "time-axis")
+    		.attr("x1", calcTick(this.props.time, this.props.length, width) )
+    		.attr("y1", -20)
+    		.attr("x2", calcTick(this.props.time, this.props.length, width) )
+    		.attr("y2", height + 20)
+		
 
 		return timebar.toReact()
 
@@ -79,7 +86,7 @@ export default class Timeline extends Component {
 
 
 Timeline.propTypes =  {
-
-	end: PropTypes.number.isRequired
-
+	end: PropTypes.number.isRequired,
+	time: PropTypes.number,
+	length: PropTypes.number
 };

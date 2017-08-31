@@ -9,13 +9,14 @@ import Video from '../Video'
 import Timer from 'utils/Timer'
 import {mapSecsToMiliSecs} from 'utils/helpers'
 
-import {fetchPhases, nextPhase, finishedInstructions, startVideo, stopVideo, startPhase} from '../../modules/phase'
+import {fetchPhases, nextPhase, finishedInstructions, startPhaseAndVideo, startVideo, stopVideo, startPhase} from '../../modules/phase'
 
 type Props = {
 	phase: ?PhaseObject,
 	fetchPhases: Function,
 	nextPhase: Function,
 	finishedInstructions: Function,
+	startPhaseAndVideo: Function,
 	startVideo: Function,
 	stopVideo: Function,
 };
@@ -26,36 +27,93 @@ export default class Phase extends Component {
     constructor(props){
         super(props);
         this.initiatePhase = this.initiatePhase.bind(this);
+        this.stepper = this.stepper.bind(this);
         this.stopVideo = this.stopVideo.bind(this);
         this.pauseVideo = this.pauseVideo.bind(this);
         this.resumeVideo = this.resumeVideo.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
         this.state = {
-        	time:null,
+        	timer:null,
+        	length: null,
         	finished: false,
         	started:false,
-        	current: 0
+        	current: 0,
+        	segment_label:'',
+        	break_label:'',
+        	breakpoints:[],
+        	segmentations:[]
         }
     }
 
     componentWillMount() {
-    	console.log(this.props);
-    	console.log(this.props.phase);
-    	const timer = Timer(this.props.phase.vid_length);
-    	console.log(timer);
     }
 
+    componentDidMount() {
+
+    }
+
+    componentWillUnmount() {
+    	//this.clearInterval(this.state.timer);
+  	}
+
     initiatePhase() {
-    	timer.startTimer();
-    	let time = setInterval(this.stepper(), 500);
-    	this.setState({time:time, started:true});
+    	clearInterval(this.state.timer);
+    	this.setState({length:this.props.phase.vid_length})
+    	let timer = setInterval(this.stepper, 100);
+    	this.setState({timer:timer, started:true});
     	this.props.startPhaseAndVideo();
     }
 
     stepper(){
-    	console.log(timer.returnStep())
-    	this.setState({
-    		current: timer.returnStep()
-    	})
+    	if(this.state.current < (this.state.length*10)) {
+    		console.log(this.state.current);
+    		this.setState({ current: this.state.current + 1 });
+    	} else {
+    		this.props.stopVideo();
+    		clearInterval(this.state.timer);
+    		this.setState({started:false, finished:true});
+    	}
+    }
+
+    handleKeyPress(event) {
+    	if(event.key == 32) {
+    		event.preventDefault();
+    		if (this.props.retro) {
+    			let segment = {
+    				breakpoint: this.state.current,
+    				segment_label:'',
+    				break_label:''
+    			}
+    			this.setState({
+    				segmentation:[...this.state.segmentation, segment],
+    				breakpoints:[...this.state.breakpoints, breakp]
+    			})
+
+    		} else {
+
+    			let breakp = this.state.current,
+
+
+
+    			let segment = {
+    				breakpoint:this.state.current,
+    				segment_label:this.state.break_label,
+    				break_label:this.state.segment_label
+    			}
+
+    		}
+
+    	}
+
+    }
+
+    handleBreakLabelChange = (evt) => {
+    	this.setState({break_label: evt.target.value});
+
+    }
+
+    handleSegmentLabelChange = (evt) => {
+    	this.setState({segment_label: evt.target.value});
     }
 
     stopVideo() {
@@ -104,10 +162,10 @@ export default class Phase extends Component {
 							<div className='timelineComponent'>
 								<h2 className='instructionsTitle'> Timeline </h2>
 								<p className='instructions'> Use space bar to provide breakpoints. </p>
-								<Timeline end={this.props.phase.vid_length ? mapSecsToMiliSecs(this.props.phase.vid_length) : 10000} time={this.state.current} />
+								<Timeline end={this.props.phase.vid_length ? mapSecsToMiliSecs(this.props.phase.vid_length) : 10000} length={this.props.phase.vid_length} time={this.state.current} />
 							</div>
 
-							<button className ='btn btn-default next' onClick ={this.props.nextPhase} disabled={!this.props.finished}>
+							<button className ='btn btn-default next' onClick={this.props.nextPhase} disabled={!this.props.finished}>
 					 			Next Phase
 							</button>
 
