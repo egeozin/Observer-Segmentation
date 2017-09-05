@@ -19,7 +19,21 @@
   stroke-opacity: .5;
 }
 
+.axis--breakpoint {
+	stroke:$outer_space;
+	stroke-opacity: .8;
+	stroke-width:1px;
+}
+
+.segment {
+	background-color:$silver-sand;
+}
+
 .time-axis {
 	stroke:$outer_space;
 	stroke-width:1px;
+}
+
+.time-rects {
+	border-left:solid 1px #B4B4B4;
 }

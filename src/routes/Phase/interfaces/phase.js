@@ -11,7 +11,9 @@ export type PhaseSessionObject = {
 	order: number,
 	instructions, boolean,
 	experiment: string,
-	retro: boolean
+	retro: boolean,
+	breakpoints: Array<number>,
+	segmentations: Array<SegmentationObject>
 };
 
 export type PhaseObject = {
@@ -26,11 +28,10 @@ export type PhaseObject = {
 };
 
 export type SegmentationObject = {
-	breakpoints: Array<number>,
-	labels: ?Array<string>,
-	type: string,
+	breakpoint: number,
+	break_label: string,
+	segment_label: string,
 };
-
 
 export type RecursiveSegmentationObject = {
 	timestamps: Array<number>,

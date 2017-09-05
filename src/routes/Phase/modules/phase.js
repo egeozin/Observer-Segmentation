@@ -11,6 +11,7 @@ export const REQUEST_PHASES = 'REQUEST_PHASES'
 export const RECEIVE_PHASES = 'RECEIVE_PHASES'
 export const FINISHED_INSTRUCTIONS = 'FINISHED_INSTRUCTIONS'
 export const FINISHED_PHASE = 'FINISHED_PHASE'
+export const SUBMIT_PHASE_FORM = 'SUBMIT_PHASE_FORM'
 export const NEXT_EXPERIMENT = 'NEXT_EXPERIMENT'
 export const NEXT_PHASE ='NEXT_PHASE'
 export const END_EXPERIMENT = 'END_EXPERIMENT'
@@ -66,6 +67,19 @@ export function endPhase(): Action {
 	}
 }
 
+export function submitPhaseForm(segmentation:Object):Action {
+	return {
+		type:SUBMIT_PHASE_FORM,
+		segmentation
+	}
+}
+
+export function savePhaseData():Action {
+	return {
+		type:SAVE_PHASE_DATA
+	}
+}
+
 let current_phase = 0
 
 // It may be better to load everything during the initial page load
@@ -105,6 +119,8 @@ export const Actions = {
 	startPhase,
 	endPhase,
 	startPhaseAndVideo,
+	submitPhaseForm,
+	savePhaseData
 }
 
 
@@ -120,9 +136,19 @@ const PHASE_ACTION_HANDLERS = {
 		} else {
 			const first_phase = action.phases.phases.find(phase => phase.order === 0)
 			let re = new RegExp('^[^_]+(?=_)')
-			let isRetro = re.exec(action.phases.name) === 'retrospective'
-			return ({...state, phases:sgmtate.phases.concat(action.phases.phases), retro:isRetro ,gm experiment:action.phases.name , current:first_phase.cuid, fetched: true, fetching:false})
+			let isRetro = re.exec(action.phases.name)[0] === 'retrospective'
+			return ({...state, phases:state.phases.concat(action.phases.phases), retro:isRetro , experiment:action.phases.name , current:first_phase.cuid, fetched: true, fetching:false})
 		}		
+	},
+
+	[SUBMIT_PHASE_FORM]:(state:PhaseSessionObject, action:{segmentation:Object}): PhaseSessionObject => {
+		return({...state, segmentations:state.segmentations.concat(action.segmentation), breakpoints:state.breakpoints.concat(action.segmentation.breakpoints)})
+
+	},
+
+	[SAVE_PHASE_DATA]:(state:PhaseSessionObject):PhaseSessionObject => {
+		retunr({...state, })
+
 	},
 
 	[START_VIDEO]: (state: PhaseSessionObject): PhaseSessionObject => {
@@ -159,7 +185,7 @@ const PHASE_ACTION_HANDLERS = {
 
 // Reducer
 
-const initialState: PhaseSessionObject = { video_playing: false, retro: true, phase_started:false, phase_finished: false, instructions:true, timeline_active: false, saving_phase_data: false, finished:false, fetched: false, order:0, fetching:false, phases:[], current:null, experiment:null}
+const initialState: PhaseSessionObject = { video_playing: false, breakpoints:[], segmentations:[],retro: true, phase_started:false, phase_finished: false, instructions:true, timeline_active: false, saving_phase_data: false, finished:false, fetched: false, order:0, fetching:false, phases:[], current:null, experiment:null}
 
 export default function phaseReducer (state:PhaseSessionObject = initialState, action:Action): PhaseSessionObject {
 	const handler = PHASE_ACTION_HANDLERS[action.type]
