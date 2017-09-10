@@ -17,7 +17,7 @@ export const calcBreak = (breakp:Number, i:Number, len:Number , w:Number): Numbe
 }
 
 export const calcSegmentWidth = (segment:Number, i:Number, len:Number ,w:Number, prev:Number): Number => {
-	return i === 0 ?  Math.round((segment - 0)/(len*100)*w) : Math.round((segment - prev)/(len*100)*w)
+	return i === 0 ?  Math.round((segment)/(len*100)*w) : Math.round((segment - prev)/(len*100)*w)
 }
 
 

@@ -46,12 +46,11 @@ class Timeline extends Component {
 
   	calcBreaks (datum, index ) {
   			//console.log(datum);
-    		return calcBreak(this.props.breaks[index-1], index,  this.props.length, this.state.width) + 20 
+    		return calcBreak(this.props.breaks[index-1], index,  this.props.length, this.state.width) + 20 // +20; 
     }
 
     calcSegmentWidths (datum, index) {
-    		console.log(calcSegmentWidth(datum, index, this.props.length, this.state.width, this.props.breaks[index-1]));
-    		return calcSegmentWidth(datum, index, this.props.length, this.state.width, this.props.breaks[index-1]) + 20;
+    		return calcSegmentWidth(datum, index, this.props.length, this.state.width, this.props.breaks[index-1]) //+ 20;
     }
 
   	renderD3 () {
@@ -127,7 +126,7 @@ class Timeline extends Component {
 				.attr("id", "thumbline")
 		    	.attr("class", "time-axis")
 		    	.attr("x1", this.calcTicks)
-		    	.attr("y1", -20)
+		    	.attr("y1", -10)
 		    	.attr("x2", this.calcTicks )
 				.attr("y2", this.state.height + 50)
 
@@ -154,7 +153,15 @@ class Timeline extends Component {
     			.attr("width", this.calcSegmentWidths)
     			.attr("height", this.state.height)
     			.attr("fill", "#E8E8E8")
+    			.attr("fill-opacity", 0.9)
 
+    	rects.enter().append("line")
+    			.attr("x1", this.calcTicks)
+    			.attr("y1", 30)
+    			.attr("x2", this.calcTicks)
+    			.attr("y2", 110)
+    			.attr("stroke", "#263238")
+    			.attr("stroke-opacity", 0.8)
 
     	//svg.append("line")
     	//	.attr("class", "axis-breakpoint")
@@ -167,11 +174,9 @@ class Timeline extends Component {
 			.attr("id", "thumbline")
 		    .attr("class", "time-axis")
 		    .attr("x1", this.calcTicks)
-		    .attr("y1", -20)
+		    .attr("y1", -10)
 		    .attr("x2", this.calcTicks )
 			.attr("y2", this.state.height + 50)
-
-
 
   	}
 

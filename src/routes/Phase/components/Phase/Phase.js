@@ -89,14 +89,11 @@ export default class Phase extends Component {
 
     handleKeyDown(event) {
         event.preventDefault();
-        console.log("s is pressed!")
-        console.log(event.keyCode);
 
         if(this.state.started) {
 
     	    if(event.keyCode == 83) {
-    	   	    
-                console.log("space is pressed!")
+                console.log("s is pressed!")
                 if (this.props.retro) {
     	   	   	   let breakp = this.state.current;
     	   	   	   let segment = {
