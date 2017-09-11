@@ -2,7 +2,6 @@ import type {PhaseSessionObject, PhaseObject} from 'interfaces/auth.js'
 import {browserHistory} from 'react-router'
 import modelApi from 'utils/modelApi';
 
-
 export const START_PHASE = 'START_PHASE'
 export const END_PHASE = 'END_PHASE'
 export const START_VIDEO = 'START_VIDEO'
@@ -16,6 +15,8 @@ export const NEXT_EXPERIMENT = 'NEXT_EXPERIMENT'
 export const NEXT_PHASE ='NEXT_PHASE'
 export const END_EXPERIMENT = 'END_EXPERIMENT'
 export const SAVE_PHASE_DATA = 'SAVE_PHASE_DATA'
+export const REQUEST_PHASE_SAVE = 'REQUEST_PHASE_SAVE'
+export const REPEAT_PHASE = 'REPEAT_PHASE'
 
 
 export function requestPhases(): Action {
@@ -39,7 +40,7 @@ export function finishedInstructions(): Action {
 
 export function nextPhase(): Action {
 	return {
-		type:NEXT_PHASE,
+		type:NEXT_PHASE
 	}
 }
 
@@ -74,9 +75,10 @@ export function submitPhaseForm(segmentation:Object):Action {
 	}
 }
 
-export function savePhaseData():Action {
+
+export function requestPhaseSave():Action {
 	return {
-		type:SAVE_PHASE_DATA
+		type:REQUEST_PHASE_SAVE
 	}
 }
 
@@ -96,7 +98,6 @@ export const fetchPhases = (): Function => {
 }
 
 
-
 export const startPhaseAndVideo = (): Function => {
 	return(dispatch: Function) => {
 		dispatch(startPhase())
@@ -104,6 +105,26 @@ export const startPhaseAndVideo = (): Function => {
 	}
 }
 
+export const savePhaseData = (phaseData): Function => {
+		return (dispatch:Function, getState) : Promise => {
+		dispatch(requestPhaseSave())
+
+		const { sessionDetails } = getState()
+
+		console.log(sessionDetails)
+
+		return modelApi('phase', 'post', {
+			segmentations: phaseData.segmentations,
+			duration: phaseData.duration,
+			experiment: sessionDetails.experiment
+
+		}).then(res => {
+			dispatch(nextPhase())
+
+		})
+
+	}
+}
 
 // Need to write a better HTML generator. For example <p></p>+ <p></p> + <img/> <p></p>
 // How, so order of page elements, or just plain html? A page maybe
@@ -120,6 +141,7 @@ export const Actions = {
 	endPhase,
 	startPhaseAndVideo,
 	submitPhaseForm,
+	requestPhaseSave,
 	savePhaseData
 }
 
@@ -146,9 +168,8 @@ const PHASE_ACTION_HANDLERS = {
 
 	},
 
-	[SAVE_PHASE_DATA]:(state:PhaseSessionObject):PhaseSessionObject => {
-		retunr({...state, })
-
+	[REQUEST_PHASE_SAVE]: (state: PhaseSessionObject): PhaseSessionObject => {
+		return({...state, fetching:true})
 	},
 
 	[START_VIDEO]: (state: PhaseSessionObject): PhaseSessionObject => {

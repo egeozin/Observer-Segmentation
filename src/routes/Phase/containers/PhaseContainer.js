@@ -1,11 +1,11 @@
 import { connect } from 'react-redux'
-import { fetchPhases, nextPhase, finishedInstructions, startPhaseAndVideo, startPhase, startVideo, stopVideo, endPhase, submitPhaseForm, savePhaseData} from '../modules/phase'
+import { fetchPhases, nextPhase, repeatPhase, finishedInstructions, startPhaseAndVideo, startPhase, startVideo, stopVideo, endPhase, submitPhaseForm, savePhaseData} from '../modules/phase'
 
 import Phase from '../components/Phase'
 
 import type { PhaseObject } from '../interfaces/phase'
 
-const mapActionCreators: {fetchPhases: Function, nextPhase: Function, finishedInstructions: Function, startVideo:Function, stopVideo:Function, startPhaseAndVideo:Function, startPhase:Function, endPhase:Function, savePhaseData:Function, submitPhaseForm:Function} = {
+const mapActionCreators: {fetchPhases: Function, nextPhase: Function, finishedInstructions: Function, startVideo:Function, stopVideo:Function, repeatPhase:Function, startPhaseAndVideo:Function, startPhase:Function, endPhase:Function, savePhaseData:Function, submitPhaseForm:Function} = {
 	fetchPhases,
 	nextPhase,
 	finishedInstructions,
@@ -15,7 +15,8 @@ const mapActionCreators: {fetchPhases: Function, nextPhase: Function, finishedIn
 	startPhaseAndVideo,
 	endPhase,
 	submitPhaseForm,
-	savePhaseData
+	savePhaseData,
+	repeatPhase
 }
 
 const mapStateToProps = (state): {phase: ?PhaseObject} => ({

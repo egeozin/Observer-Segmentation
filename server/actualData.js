@@ -15,9 +15,6 @@ const loadActualData = function() {
 		const breakpoints1 = [];
 		const breakpoints2 = [];
 
-		const labels1 = [];
-		const labels2 = [];
-
 		const duration1 = 15;
 		const duration2 = 13;
 
@@ -27,8 +24,8 @@ const loadActualData = function() {
 		const s_cuid_1 = cuid(); 
 		const s_cuid_2 = cuid();
 
-		const segmentation1 = new Segmentation({experimenter:'Admin',experiment:'00_test_00', orderId:0, subject:'Subject_Admin', cuid:s_cuid_1 , description:description1, breakpoints:breakpoints1, duration:duration1, labels:labels1});
-		const segmentation2 = new Segmentation({experimenter:'Admin',experiment:'00_test_01', orderId:1, subject:'Subject_Admin', cuid:s_cuid_2 , description:description2, breakpoints:breakpoints2, duration:duration2, labels:labels2});
+		const segmentation1 = new Segmentation({experimenter:'Admin',experiment:'00_test_00', orderId:0, subject:'Subject_Admin', cuid:s_cuid_1 , description:description1, breakpoints:breakpoints1, duration:duration1});
+		const segmentation2 = new Segmentation({experimenter:'Admin',experiment:'00_test_01', orderId:1, subject:'Subject_Admin', cuid:s_cuid_2 , description:description2, breakpoints:breakpoints2, duration:duration2});
 
 		Segmentation.create([segmentation1, segmentation2], (error) => {
 			if (!error) {
@@ -143,11 +140,11 @@ const loadActualData = function() {
 
 																		Experiment.findByIdAndUpdate(experiment1, {$push:{phases: {$each: phases}}}, (error, experiment) => {
 																			if (!error) {
-																				console.log('experiment sucessfully updated')
+																				console.log('experiment sucessfully updated!')
 																				//Update for the Second Experiment
 
 																			} else {
-																				console.log("something bad happened while updating experiments")
+																				console.log("something bad happened while updating experiments!")
 																			}
 
 																		})

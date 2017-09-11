@@ -13,8 +13,13 @@ export default (store) => ({
       const phaseReducer = require('./modules/phase').default
       const phaseActions = require('./modules/phase').Actions
 
-      /*  Add the reducer to the store on key 'counter'  */
+      /*  Add the reducer to the store on key 'path'  */
       injectReducer(store, { key: 'phase', reducer: phaseReducer })
+
+      const state = store.getState();
+
+      //Add the subject name information to the Phase state!!
+      console.log(state.auth.subject.name)
 
       store.dispatch(phaseActions.fetchPhases())
 

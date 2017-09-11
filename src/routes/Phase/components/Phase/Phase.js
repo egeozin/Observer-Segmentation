@@ -10,7 +10,7 @@ import SimultForm from '../SimultForm'
 import Timer from 'utils/Timer'
 import {mapSecsToMiliSecs} from 'utils/helpers'
 
-import {fetchPhases, nextPhase, finishedInstructions, startPhaseAndVideo, startVideo, stopVideo, startPhase, submitPhaseForm} from '../../modules/phase'
+import {fetchPhases, nextPhase, finishedInstructions, startPhaseAndVideo, startVideo, savePhaseData, stopVideo, startPhase, submitPhaseForm, repeatPhase} from '../../modules/phase'
 
 type Props = {
 	phase: ?PhaseObject,
@@ -20,7 +20,9 @@ type Props = {
 	startPhaseAndVideo: Function,
 	startVideo: Function,
 	stopVideo: Function,
-    submitPhaseForm: Function
+    submitPhaseForm: Function,
+    savePhaseData: Function,
+    repeatPhase: Function,
 };
 
 export default class Phase extends Component {
@@ -34,6 +36,7 @@ export default class Phase extends Component {
         this.pauseVideo = this.pauseVideo.bind(this);
         this.resumeVideo = this.resumeVideo.bind(this);
         this.handleKeyDown = this.handleKeyDown.bind(this);
+        this.savePhase = this.savePhase.bind(this);
         this.state = {
         	timer:null,
         	length: null,
@@ -81,10 +84,22 @@ export default class Phase extends Component {
     	} else {
     		this.props.stopVideo();
     		clearInterval(this.state.timer);
-    		this.setState({started:false, finished:true});
+
+            let breakp = this.state.current;
+            let segment = {
+               breakpoint: breakp,
+               segment_label:'',
+               break_label:''
+            }
+
+            this.setState({
+                started: false,
+                finished: true,
+                breakpoints:[...this.state.breakpoints, breakp],
+                segmentations:[...this.state.segmentations, segment]
+            })
     	}
     }
-
 
 
     handleKeyDown(event) {
@@ -144,6 +159,20 @@ export default class Phase extends Component {
 
     }
 
+    savePhase() {
+        //check whether there are enough segments
+        const nSegment = this.state.breakpoints.length
+        if (nSegment > 3) {
+            this.props.savePhaseData({
+                segmentations: this.state.segmentations,
+                duration: this.state.length 
+            })
+        } else {
+            this.props.repeatPhase()
+        }
+
+    }
+
     stopVideo() {
 
     }
@@ -190,12 +219,12 @@ export default class Phase extends Component {
 							<div  className='timelineComponent'>
 								<h2 className='instructionsTitle'> Timeline </h2>
 								<p className='instructions'> Use space bar to provide breakpoints. </p>
-								<Timeline end={this.props.phase.vid_length ? mapSecsToMiliSecs(this.props.phase.vid_length) : 10000} length={this.props.phase.vid_length} time={this.state.current} breaks={this.state.breakpoints} showLabels={this.props.retro && (this.props.phase.order === 'phase_2')} />
+								<Timeline end={this.props.phase.vid_length ? mapSecsToMiliSecs(this.props.phase.vid_length) : 10000} length={this.props.phase.vid_length} time={this.state.current} breaks={this.state.breakpoints} finished={this.state.finished} showLabels={this.props.retro && (this.props.phase.type === 'phase_2')} />
 							</div>
 
 							{this.state.simult_clicked ? <SimultForm onItsSubmit={this.handleChildSubmit} /> : null}
 
-							<button className ='btn btn-default next' onClick={this.props.nextPhase} disabled={!this.props.finished}>
+							<button className ='btn btn-default next' onClick={this.props.savePhase} disabled={!this.props.finished}>
 					 			Next Phase
 							</button>
 
