@@ -24,8 +24,8 @@ const loadActualData = function() {
 		const s_cuid_1 = cuid(); 
 		const s_cuid_2 = cuid();
 
-		const segmentation1 = new Segmentation({experimenter:'Admin',experiment:'00_test_00', orderId:0, subject:'Subject_Admin', cuid:s_cuid_1 , description:description1, breakpoints:breakpoints1, duration:duration1});
-		const segmentation2 = new Segmentation({experimenter:'Admin',experiment:'00_test_01', orderId:1, subject:'Subject_Admin', cuid:s_cuid_2 , description:description2, breakpoints:breakpoints2, duration:duration2});
+		const segmentation1 = new Segmentation({experimenter:'Admin',experiment:'retrospective_protocol_00', orderId:0, subject:'Subject_Admin', cuid:s_cuid_1 , description:description1, breakpoints:breakpoints1, duration:duration1});
+		const segmentation2 = new Segmentation({experimenter:'Admin',experiment:'simultaneous_protocol_00', orderId:1, subject:'Subject_Admin', cuid:s_cuid_2 , description:description2, breakpoints:breakpoints2, duration:duration2});
 
 		Segmentation.create([segmentation1, segmentation2], (error) => {
 			if (!error) {
@@ -63,6 +63,9 @@ const loadActualData = function() {
 											}
 											const name1 = 'retrospective_protocol_00'
 											const name2 = 'simultaneous_protocol_00'
+
+											const retro1 = true
+											const retro2 = false
 									
 											const video1_group_1 = 'x8SEDH6res0'
 											const video1_group_2 = 'x8SEDH6res0'
@@ -83,8 +86,8 @@ const loadActualData = function() {
 											const e_cuid_1 = cuid()
 											const e_cuid_2 = cuid()
 
-											const experiment1 = new Experiment({experimenter: user[0]._id, cuid:e_cuid_1, name:name1, segmentations:[segmentation1._id, segmentation2._id] , description: description1,  videos:[video1_group_1, video1_group_2, video1_baseline, video1_trial]})
-											const experiment2 = new Experiment({experimenter: user[0]._id, cuid:e_cuid_2, name:name2, segmentations:[segmentation2._id] , description: description2,  videos:[video2_group_1, video2_group_2, video2_baseline, video2_trial]})
+											const experiment1 = new Experiment({experimenter: user[0]._id, cuid:e_cuid_1, name:name1, segmentations:[segmentation1._id, segmentation2._id] , description: description1, retrospective:retro1,  videos:[video1_group_1, video1_group_2, video1_baseline, video1_trial]})
+											const experiment2 = new Experiment({experimenter: user[0]._id, cuid:e_cuid_2, name:name2, segmentations:[segmentation2._id] , description: description2, retrospective:retro2,  videos:[video2_group_1, video2_group_2, video2_baseline, video2_trial]})
 
 											Experiment.create([experiment1, experiment2], (error) => {
 												if (!error) {
@@ -115,6 +118,8 @@ const loadActualData = function() {
 
 																const experiment1 = first[0]._id
 																const experiment2 = second[0]._id
+
+																console.log(experiment1);
 
 																const videos = ['L0kBNTtEQ1U', 'L0kBNTtEQ1U', 'L0kBNTtEQ1U', 'L0kBNTtEQ1U', 'L0kBNTtEQ1U']
 																const vid_lengths = [55, 55, 55, 55 , 55]

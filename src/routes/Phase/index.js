@@ -22,6 +22,7 @@ export default (store) => ({
       console.log(state.auth.subject.name)
 
       store.dispatch(phaseActions.fetchPhases())
+      store.dispatch(phaseActions.receiveName(state.auth.subject.name))
 
       /*  Return getComponent   */
       next(null, Phase)

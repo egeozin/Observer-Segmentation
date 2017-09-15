@@ -37,6 +37,8 @@ export default class Phase extends Component {
         this.resumeVideo = this.resumeVideo.bind(this);
         this.handleKeyDown = this.handleKeyDown.bind(this);
         this.savePhase = this.savePhase.bind(this);
+        this.reinitializeState = this.reinitializeState.bind(this);
+        this.handleChildSubmit = this.handleChildSubmit.bind(this);
         this.state = {
         	timer:null,
         	length: null,
@@ -101,7 +103,6 @@ export default class Phase extends Component {
     	}
     }
 
-
     handleKeyDown(event) {
         event.preventDefault();
 
@@ -109,7 +110,7 @@ export default class Phase extends Component {
 
     	    if(event.keyCode == 83) {
                 console.log("s is pressed!")
-                if (this.props.retro) {
+                if (!this.props.retro) {
     	   	   	   let breakp = this.state.current;
     	   	   	   let segment = {
     	   	   		  breakpoint: breakp,
@@ -123,19 +124,25 @@ export default class Phase extends Component {
     	   	   	   })
                 } else {
                     console.log("here?");
+                    // Should think about whether it's better to change state from Parent component
+                    // Or executing an instance method.
+                    console.log(this.state.current);
                     this.setState({
                         current_stopped: this.state.current,
                         simult_clicked: true,
                         stopped: true,
+                        started:false
                     })
                     clearInterval(this.state.timer);
+                    window.removeEventListener('keydown', this.handleKeyDown);
+
                 }
             }
         }
     }
 
     handleChildSubmit(labels) {
-
+        console.log('whaat?');
     	let thisbreak = this.state.current_stopped;
     	let segment = {
     		breakpoints: [...this.state.breakpoints, thisbreak],
@@ -147,11 +154,14 @@ export default class Phase extends Component {
     	this.setState({
     		timer:timer, 
     		stopped:false,
+            started: true,
     		breakpoints: [...thus.state.breakpoints, thisbreak]
     	});
+        window.addEventListener('keydown', this.handleKeyDown);
     }
 
     handleThumbChange(location) {
+        console.log(location)
 
         this.setState({
             thumb_loc: location
@@ -159,15 +169,50 @@ export default class Phase extends Component {
 
     }
 
+    handleBreakpointChange(location) {
+        this.refs.video.seekToLocation(location)
+    }
+
+    reinitializeState(){
+
+        this.setState({
+            timer:null,
+            length: null,
+            finished: false,
+            simult_clicked:false,
+            started:false,
+            stopped:false,
+            thumb_loc: 0, 
+            current_stopped: null,
+            current: 0,
+            segment_label:'',
+            break_label:'',
+            breakpoints:[],
+            segmentations:[]
+        });
+    }
+
     savePhase() {
-        //check whether there are enough segments
-        const nSegment = this.state.breakpoints.length
+
+        // During development, being able to skip phases might be better.
+
+        // Check whether there are enough segments
+        const nSegment = this.state.breakpoints.length 
         if (nSegment > 3) {
-            this.props.savePhaseData({
-                segmentations: this.state.segmentations,
-                duration: this.state.length 
-            })
+            if (this.props.phase.type === 'phase_2' || this.props.phase.type === 'phase_1' || this.props.phase.type === 'baseline' ) {
+
+                this.props.savePhaseData({
+                    segmentations: this.state.segmentations,
+                    duration: this.state.length,
+                    type: this.props.phase.type 
+                })
+            } else {
+                this.props.nextPhase()
+            } 
+
         } else {
+
+            this.reinitializeState()
             this.props.repeatPhase()
         }
 
@@ -213,7 +258,7 @@ export default class Phase extends Component {
 							<div className='videoComponent'>
 								<h2 className='instructionsTitle'> Video </h2>
 								{this.props.phase.order === 'phase_2'? null : <div className='interactionPreventer'></div>}
-								<Video url={this.props.phase.video} play={this.state.started} onThumbChange={this.handleThumbChange}/>
+								<Video ref="video" url={this.props.phase.video} play={this.state.started} onThumbChange={this.handleThumbChange}/>
 							</div>
 
 							<div  className='timelineComponent'>
@@ -224,7 +269,7 @@ export default class Phase extends Component {
 
 							{this.state.simult_clicked ? <SimultForm onItsSubmit={this.handleChildSubmit} /> : null}
 
-							<button className ='btn btn-default next' onClick={this.props.savePhase} disabled={!this.props.finished}>
+							<button className ='btn btn-default next' onClick={this.savePhase} disabled={!this.props.finished}>
 					 			Next Phase
 							</button>
 

@@ -8,6 +8,7 @@ export const START_VIDEO = 'START_VIDEO'
 export const STOP_VIDEO = 'STOP_VIDEO'
 export const REQUEST_PHASES = 'REQUEST_PHASES'
 export const RECEIVE_PHASES = 'RECEIVE_PHASES'
+export const RECEIVE_NAME = 'RECEIVE_NAME'
 export const FINISHED_INSTRUCTIONS = 'FINISHED_INSTRUCTIONS'
 export const FINISHED_PHASE = 'FINISHED_PHASE'
 export const SUBMIT_PHASE_FORM = 'SUBMIT_PHASE_FORM'
@@ -29,6 +30,14 @@ export function receivePhases(phases:Object): Action {
 	return {
 		type:RECEIVE_PHASES,
 		phases
+	}
+}
+
+export function receiveName(name:String): Action {
+	const payload = {name: name};
+	return {
+		type:RECEIVE_NAME,
+		payload
 	}
 }
 
@@ -113,11 +122,15 @@ export const savePhaseData = (phaseData): Function => {
 
 		console.log(sessionDetails)
 
-		return modelApi('phase', 'post', {
-			segmentations: phaseData.segmentations,
-			duration: phaseData.duration,
-			experiment: sessionDetails.experiment
-
+		return modelApi('segment', 'post', {
+			phaseData: {
+				segmentations: phaseData.segmentations,
+				duration: phaseData.duration,
+				type: phaseData.type,
+				experiment: sessionDetails.experiment,
+				experiment_id: sessionDetails.experiment_id,
+				subject: sessionDetails.subject_name 
+			}
 		}).then(res => {
 			dispatch(nextPhase())
 
@@ -132,6 +145,7 @@ export const savePhaseData = (phaseData): Function => {
 export const Actions = {
 	requestPhases,
 	receivePhases,
+	receiveName,
 	fetchPhases,
 	finishedInstructions,
 	nextPhase,
@@ -151,7 +165,7 @@ const PHASE_ACTION_HANDLERS = {
 	[REQUEST_PHASES]: (state: PhaseSessionObject): PhaseSessionObject => {
 		return({...state, fetching:true})
 	},
-
+ 
 	[RECEIVE_PHASES]: (state: PhaseSessionObject, action:{phases:Object}): PhaseSessionObject => {
 		if ( state.fetched ){
 			return ({...state, fetching:false})
@@ -159,13 +173,16 @@ const PHASE_ACTION_HANDLERS = {
 			const first_phase = action.phases.phases.find(phase => phase.order === 0)
 			let re = new RegExp('^[^_]+(?=_)')
 			let isRetro = re.exec(action.phases.name)[0] === 'retrospective'
-			return ({...state, phases:state.phases.concat(action.phases.phases), retro:isRetro , experiment:action.phases.name , current:first_phase.cuid, fetched: true, fetching:false})
+			return ({...state, phases:state.phases.concat(action.phases.phases), retro:isRetro , experiment:action.phases.name, experiment_id:action.phases.id, current:first_phase.cuid, fetched: true, fetching:false})
 		}		
+	},
+
+	[RECEIVE_NAME]: (state: PhaseSessionObject, action:{payload:Object}): PhaseSessionObject => {
+		return ({...state, subject_name: action.payload.name})
 	},
 
 	[SUBMIT_PHASE_FORM]:(state:PhaseSessionObject, action:{segmentation:Object}): PhaseSessionObject => {
 		return({...state, segmentations:state.segmentations.concat(action.segmentation), breakpoints:state.breakpoints.concat(action.segmentation.breakpoints)})
-
 	},
 
 	[REQUEST_PHASE_SAVE]: (state: PhaseSessionObject): PhaseSessionObject => {
@@ -195,9 +212,14 @@ const PHASE_ACTION_HANDLERS = {
 			:   ({...state, instructions:false })
 	},
 
+	[REPEAT_PHASE]: (state:PhaseSessionObject): PhaseSessionObject => {
+		const this_phase = state.phases.find(phase => phase.order === (state.order))
+		return ({...state, current:this_phase.cuid, order:state.order, instructions: true})
+	},
+
 	[NEXT_PHASE]: (state:PhaseSessionObject): PhaseSessionObject => {
 		const next_phase = state.phases.find(phase => phase.order === (state.order + 1))
-		return ((state.order + 1) > state.phases.length()) ?
+		return ((state.order + 1) >= state.phases.length()) ?
 				({...state, finished:true })
 			:   ({...state, current:next_phase.cuid, order:state.order+1, instructions: true})
 	},
@@ -206,7 +228,7 @@ const PHASE_ACTION_HANDLERS = {
 
 // Reducer
 
-const initialState: PhaseSessionObject = { video_playing: false, breakpoints:[], segmentations:[],retro: true, phase_started:false, phase_finished: false, instructions:true, timeline_active: false, saving_phase_data: false, finished:false, fetched: false, order:0, fetching:false, phases:[], current:null, experiment:null}
+const initialState: PhaseSessionObject = { video_playing: false, breakpoints:[], segmentations:[], retro: true, phase_started:false, phase_finished: false, instructions:true, timeline_active: false, saving_phase_data: false, finished:false, fetched: false, order:0, fetching:false, phases:[], current:null, experiment:null, experiment_id:null, subject_name:null}
 
 export default function phaseReducer (state:PhaseSessionObject = initialState, action:Action): PhaseSessionObject {
 	const handler = PHASE_ACTION_HANDLERS[action.type]

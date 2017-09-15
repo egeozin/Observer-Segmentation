@@ -9,6 +9,7 @@ var ExperimentSchema = mongoose.Schema({
 	phases: [{type:ObjectId, ref:"Phase", required:false}],
 	description:{type:String, required:true},
 	created_at: {type:Date, default: Date.now},
+	retrospective: {type:Boolean, required:false},
 	//videos: {type:String, required:false}
 	videos:[String],
 	cuid: { type:String, required: true },

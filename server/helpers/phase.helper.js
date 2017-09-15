@@ -28,6 +28,8 @@ const getPhases = function(req, res) {
 		res.json({
 			phases:{
 				'name':experiment.name,
+				'retro':experiment.retrospective,
+				'id': experiment.cuid,
 				'phases':phases.map(formatPhases)
 			}
 		})
@@ -35,33 +37,49 @@ const getPhases = function(req, res) {
 	});
 }
 
-const postPhase = function(req, res) {
+const addSegmentation = function(req, res) {
 
-	if (!req.body.segmentations) {
+	if (!req.body.phaseData.segmentations) {
 		console.log("You should provide appropriate segments");
 		res.status(403).end();
-		
 	}
+
+	const newPhaseData = req.body.phaseData;
 
 	const newSegmentation = new Segmentation();
 
-	newSegmentation.breakpoints = sanitizeHtml(newSubject.email);
-	newSubject.password = sanitizeHtml(newSubject.password);
-	newSubject.cuid = cuid();
-	newSubject.ip = getIP(req);
+	newSegmentation.breakpoints = sanitizeHtml(newPhaseData.segmentations.breakpoints);
+	newSegmentation.segment_labels = sanitizeHtml(newPhaseData.segmentations.segment_labels);
+	newSegmentation.break_labels = sanitizeHtml(newPhaseData.segmentations.break_labels);
+	newSegmentation.duration = sanitizeHtml(newPhaseData.duration);
+	newSegmentation.type = sanitizeHtml(newPhaseData.type);
+	newSegmentation.experiment = sanitizeHtml(newPhaseData.experiment);
+	newSegmentation.experiment_id = sanitizeHtml(newPhaseData.experiment_id);
+	newSegmentation.experimenter = 'Admin'
+	newSegmentation.subject = sanitizeHtml(newPhaseData.subject);
+	newSegmentation.cuid = cuid();
 
-	newSubject.save((err, sub) => {
+	newSegmentation.save((err, seg) => {
 		if(err) {
 			console.log(err);
-			// Should send a response with error message, like "You should enter a valid username"
 			res.status(500).send(err);
 		}
-		res.json({ signupInfo:{ 
-			name:sub.email,
-			cuid:sub.cuid,
-			ip:sub.ip,
-			completed_exp: sub.completed_exp
-		} });
+
+		Experiment.findOne({cuid:seg.experiment_id}, {$push:{segmentations: newSegmentation._id }}, (error, experiment) => {
+			if (!error) {
+				console.log('experiment sucessfully updated!')
+				//Update for the Second Experiment
+				res.json({ segmentInfo: {
+						breakpoints: seg.breakpoints,
+						break_labels: seg.break_labels,
+						segment_labels: seg.segment_labels
+					}
+				});
+			} else {
+				console.log('error pushing segmentation into the experiment!')
+			} 
+
+		})
 
 	});
 
@@ -70,5 +88,6 @@ const postPhase = function(req, res) {
 
 
 module.exports = {
-	getPhases
+	getPhases,
+	addSegmentation
 }

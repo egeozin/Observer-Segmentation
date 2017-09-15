@@ -19,10 +19,9 @@ with experiment, subject, breakpoints and labels might help
 */
 
 var SegmentationSchema = mongoose.Schema({
-	//owner: {type:ObjectId, ref:"User", required:true},
 	experimenter: {type:String, required:true},
-	//experiment: {type:ObjectId, ref:"Experiment", required:true},
-	experiment: {type:String, required:true},
+	experiment_id: {type:String, required:false},
+	experiment:{ type:String, required:true},
 	type: {type:String, required:false},
 	orderId: {type:Number, reqired:false},
 	subject:{type:String, required:true},

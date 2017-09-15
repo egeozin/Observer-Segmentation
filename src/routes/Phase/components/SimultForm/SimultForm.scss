@@ -3,11 +3,13 @@
 .simultForm {
 	position:absolute;
     z-index:99;
-	width:50%;
+    top:40%;
+    left:50%;
+    width:300px;
+    height:340px;
     border:0.5px solid rgba(38, 50, 56, 0.1);
     border-radius:2px;
     padding:10px;
-    height:290px;
     margin-left:auto;
     margin-right:auto;
     margin-top:0px;
@@ -16,8 +18,9 @@
     box-shadow: -1px -1px 1px 0.1px rgba(38, 50, 56, 0.05);
 
     h3 {
-    	margin-top:35px;
+    	margin-top:15px;
     	font-size:2rem;
+        text-align:center;
     	text-transform: uppercase;
     	color: rgba(38, 50, 56, 0.9);
     	margin-bottom:20px;
@@ -28,7 +31,7 @@
     	margin-left:auto;
     	margin-right:auto;
     	margin-bottom:20px;
-    	width: 30%;
+    	width: 70%;
     	height:30px;
     	border-radius: 2px;
     	border: 0.5px solid rgba(38, 50, 56, 0.1);
@@ -37,8 +40,39 @@
     	display:block;
     	font-size: 1.6rem;
     	
+    }
+
+    textarea{
+        margin-left:auto;
+        margin-right:auto;
+        margin-bottom:20px;
+        width: 70%;
+        height:30px;
+        border-radius: 2px;
+        border: 0.5px solid rgba(38, 50, 56, 0.1);
+        outline:none;
+        background-color: whitesmoke;
+        display:block;
+        font-size: 1.6rem;
 
     }
+
+    ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+        color: rgba(38, 50, 56, 0.2);
+    }
+    ::-moz-placeholder { /* Firefox 19+ */
+        color: rgba(38, 50, 56, 0.2);
+    }
+
+    
+    .breakpointid {
+
+    }
+
+    .segmentid {
+        height:100px;
+    }
+
 
     input[type=number] {-moz-appearance: textfield;}
 
@@ -57,6 +91,8 @@
     }
 
     .submit {
+        margin:auto;
+        display:block;
     	background-color: whitesmoke;
     	border: 1px solid rgba(38, 50, 56, 0.1);
     	padding: 5px;

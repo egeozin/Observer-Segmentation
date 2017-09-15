@@ -11,7 +11,9 @@ export type PhaseSessionObject = {
 	order: number,
 	instructions, boolean,
 	experiment: string,
+	experiment_id:string,
 	retro: boolean,
+	subject_name: string,
 	breakpoints: Array<number>,
 	segmentations: Array<SegmentationObject>
 };
