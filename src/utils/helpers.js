@@ -20,6 +20,11 @@ export const calcSegmentWidth = (segment:Number, i:Number, len:Number ,w:Number,
 	return i === 0 ?  Math.round((segment)/(len*100)*w) : Math.round((segment - prev)/(len*100)*w)
 }
 
+export const calcSegmentLabel = (segment:Number, i:Number, len:Number, w:Number, prev: Number):Number => {
+	return i === 0 ? Math.round((segment/2)/(len*100)*w) : Math.round(((segment - prev)/2)/(len*100)*w)
+}
+
+
 
 export const youtubeUrlMaker = (endpoint:String): String => {
 	return `https://www.youtube.com/watch?v=${endpoint}`

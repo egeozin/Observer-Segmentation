@@ -1,6 +1,6 @@
 # Observing the Observers
 
-A web based software that can be used to collect data from human subjects in a reliable and scalable way. This software further enables researchers to develop and analyze their own segmentation experiments.
+A web based software that can be used to collect segmentation data from human subjects in a reliable and scalable way. This software further enables researchers to develop and analyze their own segmentation experiments.
 
 	This project is designed with: 
 
@@ -8,7 +8,8 @@ A web based software that can be used to collect data from human subjects in a r
 	Express as backend server  + 
 	Webpack as module bundler + 
 	MongoDB for database +
-	Redux + React as frontend state management and view library.
+	Redux for frontend state management +
+	React as view library.
 
 
 You can generate experimental procedures similar to the following:

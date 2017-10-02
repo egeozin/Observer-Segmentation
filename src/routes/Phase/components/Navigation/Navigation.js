@@ -1,41 +1,33 @@
-import React from 'react'
+import React, {Component, PropTypes} from 'react'
 import { Link } from 'react-router'
 import './Navigation.scss'
 
-export const Navigation = () => {
+export default class Navigation extends Component {
 
-    const isActive = 'True';
+    constructor(props){
+      super(props);
 
-    return (
+    }
+
+    render () {
+
+      return (
         <div className='navigation'>
             <h1>Observing the Observers</h1>
             <ul>
-              <li>
-                  Instructions
-              </li>
-              <li>
-                  Prepatory Phase
-              </li>
-              <li>
-                  Baseline
-              </li>
-              <li>
-                  Phase 1
-              </li>
-              <li>
-                  Phase 2
-              </li>
-              <li>
-                  Baseline
-              </li>
-              <li>
-                {isActive}
-              </li>
+              {this.props.types.map((type, i) => {
+                let actual = type === 'init' ? "Instructions" : (type === 'prep' ? 'Preparatory Phase' : type)
+                return type === this.props.active ? 
+                                  (<li className='activeYo' key={i}> {actual} </li>) : (<li key={i}> {actual} </li>)
+
+              })}
             </ul>
         
         </div>
-    )
+     ) }
 
 }
 
-export default Navigation
+Navigation.propTypes = {
+
+}

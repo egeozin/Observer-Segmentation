@@ -12,6 +12,7 @@ class Timeline extends Component {
 		this.renderD3 = this.renderD3.bind(this)
     	this.updateTime = this.updateTime.bind(this)
     	this.updateAll = this.updateAll.bind(this)
+    	this.updateSegments = this.updateSegments.bind(this)
     	this.calcTicks = this.calcTicks.bind(this)
     	this.calcBreaks = this.calcBreaks.bind(this)
     	this.calcSegmentWidths = this.calcSegmentWidths.bind(this)
@@ -31,11 +32,14 @@ class Timeline extends Component {
 
 	componentDidUpdate (prevProps, prevState) {
     	// do not compare props.chart as it gets updated in updateD3()
-    	if (this.props.breaks !== prevProps.breaks) {
+
+    	if (this.props.time !== prevProps.time ) {
+    		this.updateTime()
+    	} else if (this.props.breaks !== prevProps.breaks) {
     		console.log('this fired!');
     		this.updateAll()
-    	} else if (this.props.time !== prevProps.time) {
-    		this.updateTime()
+    	} else if (this.props.showLabels) {
+    		this.updateSegments()
     	}
   	}
 
@@ -44,7 +48,7 @@ class Timeline extends Component {
   		return calcTick(this.props.time, this.props.length, this.state.width) + 20
   	}
 
-  	calcBreaks (datum, index ) {
+  	calcBreaks (datum, index) {
   			//console.log(datum);
     		return calcBreak(this.props.breaks[index-1], index,  this.props.length, this.state.width) + 20 // +20; 
     }
@@ -119,7 +123,7 @@ class Timeline extends Component {
     	thumb.select("#thumbline").remove()
 
     	if (this.props.showLabels) {
-
+s
     	}
 
 		thumb.append("line")
@@ -136,7 +140,9 @@ class Timeline extends Component {
   	updateAll () {
   		const time = [this.props.time]
   		const breaks = this.props.breaks
-
+  		const showLabels = this.props.showLabels
+  		const onElementClick = this.props.onElementClick
+  		//
   		//const faux = this.props.connectFauxDOM('div', 'timebar')
 
     	const thumb = d3.select("#mainFrame")
@@ -155,6 +161,7 @@ class Timeline extends Component {
     			.attr("fill", "#E8E8E8")
     			.attr("fill-opacity", 0.9)
 
+
     	rects.enter().append("line")
     			.attr("x1", this.calcTicks)
     			.attr("y1", 30)
@@ -163,12 +170,96 @@ class Timeline extends Component {
     			.attr("stroke", "#263238")
     			.attr("stroke-opacity", 0.8)
 
-    	//svg.append("line")
-    	//	.attr("class", "axis-breakpoint")
+    	thumb.append("line")
+			.attr("id", "thumbline")
+		    .attr("class", "time-axis")
+		    .attr("x1", this.calcTicks)
+		    .attr("y1", -10)
+		    .attr("x2", this.calcTicks )
+			.attr("y2", this.state.height + 50)
 
-    	if (this.props.showLabels) {
+		//if (showLabels) {
+		//	thumb.attr("class", "time-axis-editable")
+    	//}
 
-    	}
+
+  	}
+
+
+  	updateSegments(){
+  		const time = [this.props.time]
+  		const breaks = this.props.breaks
+  		const showLabels = this.props.showLabels
+  		const onElementClick = this.props.onElementClick
+  		//
+  		//const faux = this.props.connectFauxDOM('div', 'timebar')
+
+    	const thumb = d3.select("#mainFrame")
+
+    	thumb.select("#thumbline").remove()
+
+    	const rects = thumb.selectAll("rect")
+    					.data(breaks, function(d){return d;})
+
+    	rects.enter().append("rect")
+    			.attr("class", "time-rects")
+    			.attr("y", 30)
+    			.attr("x", this.calcBreaks)
+    			.attr("width", this.calcSegmentWidths)
+    			.attr("height", this.state.height)
+    			.attr("fill", "#E8E8E8")
+    			.attr("fill-opacity", 0.9)
+    			.on('mouseover', function(){
+    				if (showLabels) {
+    					d3.select(this).attr("fill", "#fd8d3c");
+    					d3.select(this).attr("fill-opacity", 0.7)
+    				}
+            	})
+            	.on('mouseout', function(){
+            		if (showLabels) {
+                		d3.select(this).attr("fill", "#E8E8E8");
+                		d3.select(this).attr("fill-opacity", 0.9)
+                	}
+            	})
+            	.on('click', function(e, i){
+            		if (showLabels) {
+            			let x = d3.select(this).attr("x");
+            			let width = d3.select(this).attr("width");
+            			let xpos = x + width;
+            			console.log(xpos);
+            			let segment = true;
+            			onElementClick(xpos, i)
+            		}
+
+            	})
+
+
+    	rects.enter().append("line")
+    			.attr("x1", this.calcTicks)
+    			.attr("y1", 30)
+    			.attr("x2", this.calcTicks)
+    			.attr("y2", 110)
+    			.attr("stroke", "#263238")
+    			.attr("stroke-opacity", 0.8)
+    			.on('mouseover', function(){
+    				if (showLabels) {
+    					d3.select(this).attr("stroke", "#fd8d3c");
+    				}
+            	})
+            	.on('mouseout', function(){
+            		if (showLabels) {
+                		d3.select(this).attr("stroke", "#263238");
+                		d3.select(this).attr("stroke-opacity", 0.8);
+                	}
+            	})
+            	.on('click', function(e, i){
+            		if (showLabels) {
+            			let xpos = d3.select(this).attr("x1");
+            			let segment = false;
+            			onElementClick(xpos, i)
+            		}
+
+            	})
 
     	thumb.append("line")
 			.attr("id", "thumbline")
@@ -177,6 +268,10 @@ class Timeline extends Component {
 		    .attr("y1", -10)
 		    .attr("x2", this.calcTicks )
 			.attr("y2", this.state.height + 50)
+
+		//if (showLabels) {
+		//	thumb.attr("class", "time-axis-editable")
+    	//}
 
   	}
 

@@ -21,6 +21,7 @@ const mapActionCreators: {fetchPhases: Function, nextPhase: Function, finishedIn
 
 const mapStateToProps = (state): {phase: ?PhaseObject} => ({
 	phase: state.phase.phases.find(phase => phase.cuid === state.phase.current),
+	types: state.phase.phases.map(phase => phase.type),
 	instructions: state.phase.instructions,
 	playing: state.phase.video_playing,
 	finished: state.phase.phase_finished,

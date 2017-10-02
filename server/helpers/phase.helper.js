@@ -18,8 +18,20 @@ const formatPhases = (p) => {
 }
 
 
+const produceSegments = (seg) => {
+	const segments = seg.breakpoints.map((e, i) => {
+		return {
+			breakpoint: e,
+			segment_label: seg.segment_labels[i],
+			break_label: seg.break_labels[i],
+		}
+	})
+	return segments
+}
+
+
 const getPhases = function(req, res) {
-	Experiment.findOne({name:'retrospective_protocol_00'}).populate('phases').select('phases name').exec((err, experiment) => {
+	Experiment.findOne({name:'retrospective_protocol_00'}).populate('phases').select('phases name cuid retrospective').exec((err, experiment) => {
 		if (err) {
 			res.status(500).send(err);
 		}
@@ -46,12 +58,14 @@ const addSegmentation = function(req, res) {
 
 	const newPhaseData = req.body.phaseData;
 
+	console.log(newPhaseData.segmentations.map((e) => {return sanitizeHtml(e.segment_label)}))
+
 	const newSegmentation = new Segmentation();
 
-	newSegmentation.breakpoints = sanitizeHtml(newPhaseData.segmentations.breakpoints);
-	newSegmentation.segment_labels = sanitizeHtml(newPhaseData.segmentations.segment_labels);
-	newSegmentation.break_labels = sanitizeHtml(newPhaseData.segmentations.break_labels);
-	newSegmentation.duration = sanitizeHtml(newPhaseData.duration);
+	newSegmentation.breakpoints = newPhaseData.segmentations.map((e) => {return e.breakpoint});
+	newSegmentation.segment_labels = newPhaseData.segmentations.map((e) => {return sanitizeHtml(e.segment_label)}) ;
+	newSegmentation.break_labels = newPhaseData.segmentations.map((e) => {return sanitizeHtml(e.break_label)});
+	newSegmentation.duration = newPhaseData.duration;
 	newSegmentation.type = sanitizeHtml(newPhaseData.type);
 	newSegmentation.experiment = sanitizeHtml(newPhaseData.experiment);
 	newSegmentation.experiment_id = sanitizeHtml(newPhaseData.experiment_id);
@@ -65,18 +79,19 @@ const addSegmentation = function(req, res) {
 			res.status(500).send(err);
 		}
 
-		Experiment.findOne({cuid:seg.experiment_id}, {$push:{segmentations: newSegmentation._id }}, (error, experiment) => {
+		Experiment.findOneAndUpdate({cuid:seg.experiment_id}, {$push:{segmentations: newSegmentation._id }}, (error, experiment) => {
 			if (!error) {
 				console.log('experiment sucessfully updated!')
 				//Update for the Second Experiment
-				res.json({ segmentInfo: {
-						breakpoints: seg.breakpoints,
-						break_labels: seg.break_labels,
-						segment_labels: seg.segment_labels
+				res.json({ 
+					segmentation: {
+						segments:produceSegments(seg),
+						type: seg.type
 					}
 				});
 			} else {
-				console.log('error pushing segmentation into the experiment!')
+				console.log(error);
+				console.log('error pushing segmentation into the experiment!');
 			} 
 
 		})

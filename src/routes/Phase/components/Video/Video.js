@@ -36,7 +36,7 @@ export default class Video extends Component {
 
 		const videoUrl = youtubeUrlMaker(this.props.url)
 
-		return <ReactPlayer ref={this.ref} className='playerWrapper' url={videoUrl} playing={this.props.play} onStart={this.props.whenStart} onDuration={this.props.durationChange} onPlay={this.props.whenPlay} onPause={this.props.whenPause}/>
+		return <ReactPlayer ref={this.ref} className='playerWrapper' url={videoUrl} progressFrequency={10} playing={this.props.play} onStart={this.props.whenStart} onProgress={this.props.onVideoProgress} onDuration={this.props.onThumbChange} onPlay={this.props.onVideoReady} onEnded={this.props.whenEnd} onPause={this.props.whenPause}/>
 
 	}
 

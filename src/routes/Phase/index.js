@@ -19,7 +19,6 @@ export default (store) => ({
       const state = store.getState();
 
       //Add the subject name information to the Phase state!!
-      console.log(state.auth.subject.name)
 
       store.dispatch(phaseActions.fetchPhases())
       store.dispatch(phaseActions.receiveName(state.auth.subject.name))

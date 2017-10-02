@@ -1,14 +1,14 @@
 import React, {Component, PropTypes} from 'react'
-import './SimultForm.scss'
+import './RetroForm.scss'
 
 import type {PhaseObject} from '../interfaces/phase'
 
 type Props = {
-	simultForm: Function,
+	retroForm: Function,
     onItsSubmit:Function
 };
 
-export default class SimultForm extends Component {
+export default class RetroForm extends Component {
 
 //export const Experiment = (props: Props) => (
     constructor(props){
@@ -22,17 +22,24 @@ export default class SimultForm extends Component {
         }
     }
 
+
     componentDidMount() {
 
     }
+
 
     persistLabels(event) {
         event.preventDefault();
         const brkpntRef = this.refs.brkpntLabel;
         const sgmntRef = this.refs.sgmntLabel;
-        if (brkpntRef && sgmntRef) {
-            this.props.onItsSubmit({breakpoint:brkpntRef.value, segment:sgmntRef.value});
-            brkpntRef.value = sgmntRef.value = '';
+        if (brkpntRef || sgmntRef) {
+        if (brkpntRef) {
+            this.props.onItsSubmit({breakpoint:brkpntRef.value});
+            brkpntRef.value = '';
+        } else if (sgmntRef) {
+        	this.props.onItsSubmit({segment:sgmntRef.value});
+        	sgmntRef.value = '';
+
         } else {
             const error = true;
         }
@@ -67,12 +74,14 @@ export default class SimultForm extends Component {
 		
 		return (
 
-			<div className='simultForm'>
+			<div className='retroForm'>
 
 				<form onSubmit={this.persistLabels}>
 					<h3>Labels</h3>
-					<textarea className="breakpointid" placeholder="Breakpoint Label"  value={this.state.breakpointLabel} ref="brkpntLabel" onChange={this.handleBrkpntChange} />
-					<textarea className="segmentid" placeholder="Segment Label" value={this.state.segmentLabel} ref="sgmntLabel" onChange={this.handleSgmntChange} />
+					{	this.props.segment ? 
+						<textarea className="segmentid" placeholder="Segment Label" value={this.state.segmentLabel} ref="sgmntLabel" onChange={this.handleSgmntChange} /> :
+						<input className="breakpointid" placeholder="Breakpoint Label"  value={this.state.breakpointLabel} ref="brkpntLabel" onChange={this.handleBrkpntChange} />
+					}
 					<hr className='divider'/>
 					<button className='submit' disabled={isDisabled}>Done!</button>
 				</form>
@@ -84,5 +93,5 @@ export default class SimultForm extends Component {
 
 }
 
-SimultForm.propTypes = {
+RetroForm.propTypes = {
 }

@@ -15,7 +15,8 @@ export type PhaseSessionObject = {
 	retro: boolean,
 	subject_name: string,
 	breakpoints: Array<number>,
-	segmentations: Array<SegmentationObject>
+	segmentations: Array<SegmentationObject>,
+	identified: Array<boolean>
 };
 
 export type PhaseObject = {

@@ -4,6 +4,8 @@ const Experiment = require('./models/experiment');
 const Phase = require('./models/phase');
 const cuid = require("cuid");
 const phases = require('./protocolData');
+const videos = require('./videoData');
+const permuter =  require('./util/permuter');
 
 
 const loadActualData = function() {
@@ -119,8 +121,6 @@ const loadActualData = function() {
 																const experiment1 = first[0]._id
 																const experiment2 = second[0]._id
 
-																console.log(experiment1);
-
 																const videos = ['L0kBNTtEQ1U', 'L0kBNTtEQ1U', 'L0kBNTtEQ1U', 'L0kBNTtEQ1U', 'L0kBNTtEQ1U']
 																const vid_lengths = [55, 55, 55, 55 , 55]
 																const types = ['init','prep','baseline','phase_1','phase_2']
@@ -142,7 +142,6 @@ const loadActualData = function() {
 																	if (!error) {
 																		console.log('phases successfully created!');
 																		
-
 																		Experiment.findByIdAndUpdate(experiment1, {$push:{phases: {$each: phases}}}, (error, experiment) => {
 																			if (!error) {
 																				console.log('experiment sucessfully updated!')

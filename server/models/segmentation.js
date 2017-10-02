@@ -26,7 +26,7 @@ var SegmentationSchema = mongoose.Schema({
 	orderId: {type:Number, reqired:false},
 	subject:{type:String, required:true},
 	description:{type:String, required:false},
-	breakpoints: [Number],
+	breakpoints: {type: [Number], required:false},
 	duration: {type:Number, required:false},
 	segment_labels: {type:[String], required:false},
 	break_labels:{type:[String], required:false},

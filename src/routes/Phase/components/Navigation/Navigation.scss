@@ -40,7 +40,7 @@
       text-align:left;
       margin-bottom:0.5rem;
       text-align:left;
-      font-size:1.4rem;
+      font-size:1.3rem;
       text-transform:uppercase;
 
       .active {
@@ -52,5 +52,10 @@
         text-decoration:line-through;
       }
   }
+
+  .activeYo {
+        font-weight: bold;
+        text-decoration: underline;
+      }
 
 }

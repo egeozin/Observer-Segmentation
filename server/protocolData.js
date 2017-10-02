@@ -10,7 +10,7 @@ const retro_general_description = `In this experiment, you will observe several 
 						   Whenever you feel you are comfortable with the task you may proceed to the main phases of the experiment. \
 						   If you are ready you can proceeed to the prepatory phase`
 
-const retro_prep = `Before you begin you will get familiar with the experimental protocol in this prepatory phase.\
+const retro_prep = `Before you begin the experiment you will get familiar with the experimental protocol in this prepatory phase.\
 					When you press the "Next" button below, you will proceed to the prepatory phase.\
 					In this phase, whenever you press the "Start" button the practice video will start playing.\
 					Below the video frame there will be a timeline. On this timeline you will see the indicator of current time as a long vertical bar.\
@@ -29,6 +29,10 @@ const retro_phase_1 = `You are ready for the first part of the experiment!\
 const retro_phase_2 = `In this last phase, you will be presented with the same video from the previous phase.\
 					   But now, you will provide labels for your segments and breakpoints determined in the first phase. \
 					   Also, you will be able to start, pause and resume the video however you want.`
+
+const between = `Now you will take the simultaneous protocol. In this phase ... `
+
+const final_remarks = `Thanks for participating in this experiment. `
 
 
 module.exports = {

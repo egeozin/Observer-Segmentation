@@ -34,6 +34,16 @@
 	stroke-width:1px;
 }
 
+.time-axis-editable {
+	stroke:$outer_space;
+	stroke-width:1px;
+}
+
+.time-axis-editable:active {
+	stroke:$better-green;
+	stroke-width:1px;
+}
+
 .time-rects {
 	border-left:solid 1px #B4B4B4;
 }
