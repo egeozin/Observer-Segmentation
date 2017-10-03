@@ -52,11 +52,12 @@ export default class SimultForm extends Component {
     	return !isDisabled;
     }
 
-    handleBrkpntChange = (evt) => {
+    handleBrkpntChange (evt) {
+        console.log("fire!")
     	this.setState({breakpointLabel: evt.target.value});
     }
 
-    handleSgmntChange = (evt) => {
+    handleSgmntChange (evt) {
         console.log("fire!")
     	this.setState({segmentLabel: evt.target.value});
     }
@@ -75,6 +76,7 @@ export default class SimultForm extends Component {
 					<textarea className="segmentid" placeholder="Segment Label" value={this.state.segmentLabel} ref="sgmntLabel" onChange={this.handleSgmntChange} />
 					<hr className='divider'/>
 					<button className='submit' disabled={isDisabled}>Done!</button>
+                    <button className='close' onClick={this.props.onClose} disabled={this.props.isSimult}>x</button>
 				</form>
 				
 			</div>

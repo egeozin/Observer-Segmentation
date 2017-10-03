@@ -58,6 +58,18 @@
 
 }
 
+.timelineInteractionPreventer {
+  position:absolute;
+  width: 1000px;
+  height: 1000px;
+}
+
+.generalizedInteractionPreventer {
+  position:absolute;
+  width: 100%;
+  height: 100%;
+}
+
 .next {
 	float:right;
 	margin-right:40px;

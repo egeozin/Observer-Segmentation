@@ -119,6 +119,32 @@
         color: rgba(38, 50, 56, 0.2)
     }
 
+    .close {
+        border:none;
+        position:absolute;
+        top:0;
+        right:0;
+        margin-top:1px;
+        margin-right: 2px;
+        width:18px;
+        font-size: 2rem;
+        color: rgba(38, 50, 56, 0.9);
+
+    }
+
+    .close:hover {
+        border:none;
+        background-color: white;
+    }
+
+    .close:focus {
+        outline: 0
+    }
+
+    .close:disabled {
+        color: rgba(38, 50, 56, 0.2)
+    }
+
     .divider {
   		border: 0;
   		height: 1px;

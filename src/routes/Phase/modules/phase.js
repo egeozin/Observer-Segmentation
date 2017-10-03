@@ -55,6 +55,12 @@ export function nextPhase(): Action {
 	}
 }
 
+export function repeatPhase(): Action {
+	return {
+		type:REPEAT_PHASE
+	}
+}
+
 export function savedNNextPhase(segment:Object): Action {
 	return {
 		type:SAVE_NEXT_PHASE,
@@ -98,7 +104,6 @@ export function submitPhaseForm(segment:Object):Action {
 		segment
 	}
 }
-
 
 export function requestPhaseSave():Action {
 	return {
@@ -162,6 +167,7 @@ export const Actions = {
 	fetchPhases,
 	finishedInstructions,
 	nextPhase,
+	repeatPhase,
 	returnState,
 	savedNNextPhase,
 	startVideo,

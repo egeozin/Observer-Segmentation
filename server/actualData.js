@@ -145,7 +145,7 @@ const loadActualData = function() {
 																		Experiment.findByIdAndUpdate(experiment1, {$push:{phases: {$each: phases}}}, (error, experiment) => {
 																			if (!error) {
 																				console.log('experiment sucessfully updated!')
-																				//Update for the Second Experiment
+																				// Update for the Second Experiment
 
 																			} else {
 																				console.log("something bad happened while updating experiments!")
