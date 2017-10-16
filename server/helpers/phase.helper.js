@@ -18,6 +18,14 @@ const formatPhases = (p) => {
 }
 
 
+const breakpointChecker = (bs) => {
+	bs.filter((e, i, arr) => {
+		// The value on the right side of the inequality(15ms) is the definition of a mistake in this context.
+		return i !== 0 ? (Math.abs(arr[i-1] - e) < 15 ? false : e ) : e
+	})
+}
+
+
 const produceSegments = (seg) => {
 	const segments = seg.breakpoints.map((e, i) => {
 		return {
@@ -58,8 +66,6 @@ const addSegmentation = function(req, res) {
 
 	const newPhaseData = req.body.phaseData;
 
-	console.log(newPhaseData.segmentations.map((e) => {return sanitizeHtml(e.segment_label)}))
-
 	const newSegmentation = new Segmentation();
 
 	newSegmentation.breakpoints = newPhaseData.segmentations.map((e) => {return e.breakpoint});
@@ -83,6 +89,9 @@ const addSegmentation = function(req, res) {
 			if (!error) {
 				console.log('experiment sucessfully updated!')
 				//Update for the Second Experiment
+
+				console.log(produceSegments(seg))
+
 				res.json({ 
 					segmentation: {
 						segments:produceSegments(seg),

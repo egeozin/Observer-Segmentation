@@ -37,11 +37,14 @@ export default class Phase extends Component {
         this.reinitializeState = this.reinitializeState.bind(this);
         this.handleChildSubmit = this.handleChildSubmit.bind(this);
         this.handleThumbChange = this.handleThumbChange.bind(this);
-        this.handleBreakpointChange = this.handleBreakpointChange.bind(this);
         this.timelineElementClicked = this.timelineElementClicked.bind(this);
+        this.cursorDragged = this.cursorDragged.bind(this);
+        this.cursorStarted = this.cursorStarted.bind(this);
         this.progress = this.progress.bind(this);
         this.videoReady = this.videoReady.bind(this);
         this.videoEnds = this.videoEnds.bind(this);
+        this.videoPlay = this.videoPlay.bind(this);
+        this.videoPause = this.videoPause.bind(this);
         this.updateDuration = this.updateDuration.bind(this);
         this.closeRetroForm = this.closeRetroForm.bind(this);
         this.state = {
@@ -98,27 +101,51 @@ export default class Phase extends Component {
 
     progress(progs) {
 
-        if (this.state.video_ended) {
-            this.props.stopVideo();
-            //clearInterval(this.state.timer);
 
-            console.log(this.state.current)
-            let breakp = this.state.length*100;
-            let segment = {
-               breakpoint: breakp,
-               segment_label:'',
-               break_label:''
+        if (this.props.phase.type !== 'phase_2') {
+
+            if (this.state.video_ended) {
+                this.props.stopVideo();
+                //clearInterval(this.state.timer);
+
+                console.log(this.state.current)
+                let breakp = this.state.length*100;
+                let segment = {
+                    breakpoint: breakp,
+                    segment_label:'',
+                    break_label:''
+                }
+
+               
+                this.setState({
+                    started: false,
+                    stopped: true,
+                    finished: true,
+                    breakpoints:[...this.state.breakpoints, breakp],
+                    segmentations:[...this.state.segmentations, segment]
+                })
+
+            
+
+            } else if (progs.playedSeconds < this.state.length){
+
+                this.setState({ current: progs.playedSeconds*100})
+
             }
-            this.setState({
-                started: false,
-                finished: true,
-                breakpoints:[...this.state.breakpoints, breakp],
-                segmentations:[...this.state.segmentations, segment]
-            })
+        } else {
 
-        }
-        else if (progs.playedSeconds < this.state.length){
-            this.setState({ current: progs.playedSeconds*100})
+            if (this.state.video_ended) {
+                //this.props.stopVideo();
+
+                this.setState({
+                        started: false,
+                        stopped:true,
+                        breakpoints:[...this.state.breakpoints, breakp],
+                        segmentations:[...this.state.segmentations, segment]
+                })
+
+            }
+
         }
     }
 
@@ -230,6 +257,24 @@ export default class Phase extends Component {
         })
     }
 
+    cursorDragged(location) {
+        console.log(location)
+        this.refs.video.seekToLocation(location)
+        this.setState({
+            thumb_loc: location,
+            started: true,
+            stopped: false
+        })
+    }
+
+    cursorStarted() {
+        console.log('hoppa!')
+        this.setState({
+            current_stopped: this.state.current,
+            started: false,
+            stopped: true
+        })
+    }
 
     timelineElementClicked(xpos, idx) {
         window.removeEventListener('keydown', this.handleKeyDown);
@@ -240,6 +285,21 @@ export default class Phase extends Component {
         })
     }
 
+    videoPlay() {
+        this.setState({
+            started: true,
+            stopped: false,
+        })
+
+    }
+
+    videoPause() {
+        this.setState({
+            started: false,
+            stopped: true,
+        })
+
+    }
 
     videoReady() {
         this.setState({
@@ -248,22 +308,21 @@ export default class Phase extends Component {
     }
 
     videoEnds() {
-        this.setState({
-            video_ended: true
-        })
+
+        if (this.props.phase.type !== 'phase_2') {
+            this.setState({
+                video_ended: true
+            })
+        }
     }
 
     handleThumbChange(location) {
         console.log(location)
-
+        this.refs.video.seekToLocation(location)
         this.setState({
             thumb_loc: location
         })
 
-    }
-
-    handleBreakpointChange(location) {
-        this.refs.video.seekToLocation(location)
     }
 
     reinitializeState(){
@@ -298,7 +357,7 @@ export default class Phase extends Component {
         // Check whether there are enough segments
         const nSegment = this.state.breakpoints.length 
         if (nSegment > 3) {
-            if (this.props.phase.type === 'phase_2' || this.props.phase.type === 'phase_1' /*|| this.props.phase.type === 'baseline'*/ ) {
+            if (this.props.phase.type === 'phase_2' || this.props.phase.type === 'phase_1' || this.props.phase.type === 'baseline' ) {
 
                 this.props.savePhaseData({
                     segmentations: this.state.segmentations,
@@ -312,10 +371,17 @@ export default class Phase extends Component {
                         video_ended: false,
                         video_ready: false,
                         finished: false,
-                        current: 0
+                        started: false,
+                        stopped:true,
+                        current: 0,
+                        /*started: false*/
                     })
                 }
 
+                if (this.props.phase.type === 'phase_2') {
+                }
+
+                
                 if (this.props.phase.type === 'baseline') {
                     this.reinitializeState()
                 }
@@ -343,7 +409,7 @@ export default class Phase extends Component {
 
 					<div className='phaseWrapper'>
 
-					{this.props.instructions
+					{ this.props.instructions
 
 						? <div>
 							<h2 className='instructionsTitle'>
@@ -360,29 +426,29 @@ export default class Phase extends Component {
 
 							<div className='videoComponent'>
 								<h2 className='instructionsTitle'> Video </h2>
-								{this.props.phase.order === 'phase_2'? null : <div className='interactionPreventer'></div>}
+								{this.props.phase.type === 'phase_2'? <div className='interactionPreventer'></div> : <div className='interactionPreventer'></div>}
 								<Video ref="video" onVideoReady={this.videoReady} url={this.props.phase.video} updateDuration={this.updateDuration} onVideoProgress={this.progress} play={this.state.started} whenEnd={this.videoEnds} onThumbChange={this.handleThumbChange} />
 							</div>
 
 							<div  className='timelineComponent'>
 								<h2 className='instructionsTitle'> Timeline </h2>
 								<p className='instructions'> Press space bar to provide breakpoints. </p>
-                                {this.props.phase.order === 'phase_2' && this.state.retro_clicked? <div className='timelineInteractionPreventer'></div> : null}
-								<Timeline end={this.props.length ? mapSecsToMiliSecs(this.props.length) : (this.props.phase.vid_length ? mapSecsToMiliSecs(this.props.phase.vid_length) : 10000)} onElementClick={this.timelineElementClicked} length={this.props.length ? this.props.length : (this.props.phase.vid_length ? this.props.phase.vid_length : 10)} time={this.state.current} breaks={this.state.breakpoints} finished={this.state.finished} identified={this.state.identified} showLabels={this.props.retro && (this.props.phase.type === 'phase_2')} />
+                                {this.props.phase.type === 'phase_2' && this.state.retro_clicked? <div className='timelineInteractionPreventer'></div> : null}
+								<Timeline end={this.props.length ? mapSecsToMiliSecs(this.props.length) : (this.props.phase.vid_length ? mapSecsToMiliSecs(this.props.phase.vid_length) : 10000)} onElementClick={this.timelineElementClicked} onDragEnd={this.cursorDragged} onDragStart={this.cursorStarted} length={this.props.length ? this.props.length : (this.props.phase.vid_length ? this.props.phase.vid_length : 10)} time={this.state.current} breaks={this.state.breakpoints} finished={this.state.finished} identified={this.state.identified} showLabels={this.props.retro && (this.props.phase.type === 'phase_2')} />
 							</div>
 
 							{this.state.simult_clicked ? <SimultForm onItsSubmit={this.handleChildSubmit} xPos={this.state.form_pos} isSimult={true}/> : null}
 
                             {this.state.retro_clicked ? <SimultForm onItsSubmit={this.handleChildSubmit} identified={this.state.identified} xPos={this.state.form_pos} isSimult={false} onClose={this.closeRetroForm} /> : null}
 
-                            { (this.props.phase.order === 'phase_2' && this.props.retro) || (this.props.phase.order === 'phase_1' && !this.props.retro) ? 
+                            { (this.props.phase.type === 'phase_2' && this.props.retro) || (this.props.phase.type === 'phase_1' && !this.props.retro) ? 
 
 							     <button className ='btn btn-default next' onClick={this.savePhase} disabled={!this.state.finished}> Finalize </button> :
 
                                  <button className ='btn btn-default next' onClick={this.savePhase} disabled={this.state.finished && !this.state.finished}> Next Phase </button>
                             }
 
-							{ (this.props.phase.order === 'phase_2' && this.props.retro) || (this.props.phase.order === 'phase_1' && !this.props.retro) ? 
+							{  (this.props.phase.type === 'phase_1' && !this.props.retro) ? 
 
 								( this.props.started ?
 
@@ -390,7 +456,15 @@ export default class Phase extends Component {
 
 								: <button className='btn btn-default start' onClick={this.initiatePhase} disabled={this.state.started} > Start </button> ) 
 
-								:  ( <button className='btn btn-default start' onClick={this.initiatePhase} disabled={this.state.started} > Start </button> )
+								:  ( (this.props.phase.type === 'phase_2' && this.props.retro)  ?
+
+                                    (this.props.started ?
+
+                                    <button className='btn btn-default start' onClick={this.videoPause} disabled={!this.state.started} > Pause </button>
+
+                                    :   <button className='btn btn-default start' onClick={this.videoPlay} disabled={this.state.started} > Play </button> )
+
+                                    :   <button className='btn btn-default start' onClick={this.initiatePhase} disabled={this.state.started} > Start </button>  )
 
 							}
 

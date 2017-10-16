@@ -21,8 +21,8 @@ export default class Video extends Component {
 	}
 
 	seekToLocation(loc) {
-		this.player.seekTo(parseFloat(loc))
-		this.player.stopVideo()
+		//this.player.seekTo(parseFloat(loc), true)
+		this.player.seekTo(loc/55)
 	}
 
 	durationUpdate(dur) {
