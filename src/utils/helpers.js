@@ -13,7 +13,7 @@ export const calcSegmentWidth = (arr:Array, i:Number ): Number => {
 } */
 
 export const backToSeconds = (eventPos: Number, len:Number, w: Number):Number => {
-	return Math.round((eventPos/w)*len) < (len-1) ? Math.round((eventPos/w)*len) : (len-1) 
+	return Math.round((eventPos/w)*len) < (len-1) ? ((eventPos/w)*len).toFixed(2) : (len-1) 
 }
 
 export const calcBreak = (breakp:Number, i:Number, len:Number , w:Number): Number => {

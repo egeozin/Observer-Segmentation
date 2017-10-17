@@ -31,7 +31,6 @@ export default class Phase extends Component {
     constructor(props){
         super(props);
         this.initiatePhase = this.initiatePhase.bind(this);
-        //this.stepper = this.stepper.bind(this);
         this.handleKeyDown = this.handleKeyDown.bind(this);
         this.savePhase = this.savePhase.bind(this);
         this.reinitializeState = this.reinitializeState.bind(this);
@@ -144,34 +143,14 @@ export default class Phase extends Component {
                         segmentations:[...this.state.segmentations, segment]
                 })
 
+            } else if (progs.playedSeconds < this.state.length){
+
+                this.setState({ current: progs.playedSeconds*100})
+
             }
 
         }
     }
-
-    /*
-    stepper(){
-    	if(this.state.current < (this.state.length*100)) {
-    		//console.log(this.state.current);
-    		this.setState({ current: this.state.current + 1 });
-    	} else {
-    		this.props.stopVideo();
-    		clearInterval(this.state.timer);
-
-            let breakp = this.state.current;
-            let segment = {
-               breakpoint: breakp,
-               segment_label:'',
-               break_label:''
-            }
-            this.setState({
-                started: false,
-                finished: true,
-                breakpoints:[...this.state.breakpoints, breakp],
-                segmentations:[...this.state.segmentations, segment]
-            })
-    	}
-    } */
 
     handleKeyDown(event) {
         event.preventDefault();
@@ -235,12 +214,14 @@ export default class Phase extends Component {
             }
             console.log(this.state.clicked_element)
             this.props.submitPhaseForm(segment)
+            let identified = this.state.identified.map((e, i) => {return (i === this.state.clicked_element || e) ? true : false})
             this.setState({ 
-                stopped:false,
-                started: true,
+                stopped:true,
+                started: false,
                 retro_clicked:false,
-                breakpoints: [...this.state.breakpoints, thisbreak],
-                identified: this.state.identified.map((e, i) => {return i === this.state.clicked_element ? true : false})
+                finished: identified.reduce((final, val) => final && val, true), 
+                segmentations: [...this.state.segmentations, segment],
+                identified: identified
            });
 
            // Redux may know that video started after labeling
@@ -262,6 +243,7 @@ export default class Phase extends Component {
         this.refs.video.seekToLocation(location)
         this.setState({
             thumb_loc: location,
+            current: location*100,
             started: true,
             stopped: false
         })
@@ -434,7 +416,7 @@ export default class Phase extends Component {
 								<h2 className='instructionsTitle'> Timeline </h2>
 								<p className='instructions'> Press space bar to provide breakpoints. </p>
                                 {this.props.phase.type === 'phase_2' && this.state.retro_clicked? <div className='timelineInteractionPreventer'></div> : null}
-								<Timeline end={this.props.length ? mapSecsToMiliSecs(this.props.length) : (this.props.phase.vid_length ? mapSecsToMiliSecs(this.props.phase.vid_length) : 10000)} onElementClick={this.timelineElementClicked} onDragEnd={this.cursorDragged} onDragStart={this.cursorStarted} length={this.props.length ? this.props.length : (this.props.phase.vid_length ? this.props.phase.vid_length : 10)} time={this.state.current} breaks={this.state.breakpoints} finished={this.state.finished} identified={this.state.identified} showLabels={this.props.retro && (this.props.phase.type === 'phase_2')} />
+								<Timeline end={this.props.length ? mapSecsToMiliSecs(this.props.length) : (this.props.phase.vid_length ? mapSecsToMiliSecs(this.props.phase.vid_length) : 10000)} onElementClick={this.timelineElementClicked} onDragEnd={this.cursorDragged} onDragStart={this.cursorStarted} length={this.props.length ? this.props.length : (this.props.phase.vid_length ? this.props.phase.vid_length : 10)} time={this.state.current}  playing={this.state.started} breaks={this.state.breakpoints} finished={this.state.finished} identified={this.state.identified} showLabels={this.props.retro && (this.props.phase.type === 'phase_2')} />
 							</div>
 
 							{this.state.simult_clicked ? <SimultForm onItsSubmit={this.handleChildSubmit} xPos={this.state.form_pos} isSimult={true}/> : null}
@@ -450,7 +432,7 @@ export default class Phase extends Component {
 
 							{  (this.props.phase.type === 'phase_1' && !this.props.retro) ? 
 
-								( this.props.started ?
+								( this.state.started ?
 
 								<button className='btn btn-default start' onClick={this.stopVideo} disabled={!this.state.started}> Stop </button> 
 
@@ -458,7 +440,7 @@ export default class Phase extends Component {
 
 								:  ( (this.props.phase.type === 'phase_2' && this.props.retro)  ?
 
-                                    (this.props.started ?
+                                    (this.state.started ?
 
                                     <button className='btn btn-default start' onClick={this.videoPause} disabled={!this.state.started} > Pause </button>
 

@@ -35,13 +35,15 @@
 }
 
 .time-axis-editable {
+	cursor: ew-resize;
 	stroke:$outer_space;
-	stroke-width:1px;
+	stroke-width:2px;
+	stroke-opacity: .7;
 }
 
 .time-axis-editable:active {
 	stroke:$better-green;
-	stroke-width:1px;
+	stroke-width:2px;
 }
 
 .time-rects {

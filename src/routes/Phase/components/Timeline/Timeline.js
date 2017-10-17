@@ -18,6 +18,7 @@ class Timeline extends Component {
     	this.calcBreaks = this.calcBreaks.bind(this)
     	this.calcBreakpoints = this.calcBreakpoints.bind(this)
     	this.calcSegmentWidths = this.calcSegmentWidths.bind(this)
+    	this.updateCursor = this.updateCursor.bind(this)
     	this.setDrag = this.setDrag.bind(this)
     	this.calcThumb = this.calcThumb.bind(this)
     	this.state = {
@@ -27,7 +28,8 @@ class Timeline extends Component {
     		right: 0, 
     		top: 0,
     		bottom: 0,
-    		cursorPos: 0
+    		playFlag : true,
+    		cursorPos: 20,
     	}
 	}
 
@@ -40,7 +42,7 @@ class Timeline extends Component {
 
     	if (this.props.length !== prevProps.length) {
     		this.updateBox()
-    	} else if (this.props.time !== prevProps.time ) {
+    	} else if (this.props.time !== prevProps.time && !this.props.showLabels) {
     		this.updateTime()
     	} else if (this.props.breaks !== prevProps.breaks) {
     		console.log('this fired!');
@@ -55,11 +57,19 @@ class Timeline extends Component {
   	}
 
   	calcThumb(){
-  		return this.state.cursorPos + this.state.left
+  		return this.state.cursorPos
+  	}
+
+  	updateCursor(){
+  		this.setState({
+    		cursorPos: calcTick(this.props.time, this.props.length, this.state.width) + this.state.left,
+    		playFlag: false
+    	})
   	}
 
   	calcTicks () {
   		//console.log(calcTick(datum, this.props.length, this.state.width));
+  		//console.log(this.props.time)
   		return calcTick(this.props.time, this.props.length, this.state.width) + this.state.left
   	}
 
@@ -276,6 +286,7 @@ class Timeline extends Component {
 
   	updateSegments(){
   		const time = [this.props.time]
+  		const playing = this.props.playing
   		const breaks = this.props.breaks
   		const showLabels = this.props.showLabels
   		const onElementClick = this.props.onElementClick
@@ -287,6 +298,8 @@ class Timeline extends Component {
   		const right = this.state.right
   		const rWidth = this.state.width
   		const calcLocs = this.calcLocs
+  		const calcThumb = this.calcThumb
+  		const calcTicks = this.calcTicks
   		//
   		//const faux = this.props.connectFauxDOM('div', 'timebar')
 
@@ -345,7 +358,7 @@ class Timeline extends Component {
             			let width = d3.select(this).attr("width");
             			let xpos = x + width;
             			let segment = true;
-            			console.log(x);
+            			console.log(i);
             			onElementClick(xpos, i)
             		}
 
@@ -393,6 +406,16 @@ class Timeline extends Component {
             	}) */
 
 
+        if (!this.props.playing && this.state.playFlag) {
+    		this.updateCursor()	
+    	}
+
+    	if (this.props.playing && !this.state.playFlag) {
+    		this.setState({
+    			playFlag: true
+    		})
+    	}
+
         const drag = d3.drag()
     			.subject(function() { 
     				const t = d3.select(this);
@@ -438,8 +461,10 @@ class Timeline extends Component {
     					if (d3.event.x >= left || d3.event.x <= (rWidth - left)) {
     						onDragEnd(calcLocs(d3.event.x))
     					} else if (d3.event.x < left) {
+    						console.log("too left!")
     						onDragEnd(calcLocs(left))
   						} else if (d3.event.x > (rWidth - left)) {
+  							console.log("too right!")
   							onDragEnd(calcLocs(rWidth - right))
   						}
             			
@@ -452,10 +477,28 @@ class Timeline extends Component {
 
     	thumb.append("line")
 			.attr("id", "thumbline")
-		    .attr("class", "time-axis")
-		    .attr("x1", this.calcThumb)
+		    .attr("class", "time-axis-editable")
+		    .attr("x1", function() {
+		    	if (time[0] === 0) {
+		    		return left
+		    	} else if (time[0] > 0 && !playing) {
+		    		//console.log("both?");
+		    		return calcThumb()
+		    	} else if (playing)  {
+		    		//console.log("playing?");
+		    		return calcTicks()
+		    	}
+		    })
 		    .attr("y1", -10)
-		    .attr("x2", this.calcThumb )
+		    .attr("x2", function() {
+		    	if (time[0] === 0) {
+		    		return left
+		    	} else if (time[0] > 0 && !playing) {
+		    		return calcThumb()
+		    	} else if (playing)  {
+		    		return calcTicks()
+		    	}
+		    })
 			.attr("y2", this.state.height + 50)
 			.on("click", function(e){
 				if (d3.event.defaultPrevented) return;
@@ -474,9 +517,10 @@ class Timeline extends Component {
 		//this.props.animateFauxDOM(3500) // duration + margin
 	}
 
+
 	render () { 
 		return (
-		    <div>
+		    <div >
         		{this.props.timebar}
       		</div>
       	)
