@@ -23,7 +23,7 @@ const retro_prep = `Before you begin the experiment you will get familiar with t
 					In this phase, whenever you press the "Start" button the practice video will start playing.\
 					Below the video frame there will be a timeline. On this timeline you will see the indicator of current time as a long vertical bar.\
 					This bar is showing the corresponding time in the video during the playing of the video.\
-					Your task is to press the 'S' key or Space Bar whenever you think that there is an event boundary in the video.\
+					Your task is to press the Space Bar or 'S' key whenever you think that there is an event boundary in the video.\
 					You will not be able to stop the video in this phase but you can repeat this prepatory task as many times as you want.`
 
 const baseline_instructions = `Before you start the experiment we would like to understand how much time it takes for you to respond\
@@ -46,7 +46,7 @@ const simult_prep = `Before you begin the experiment you will get familiar with 
 					In this phase, whenever you press the "Start" button the practice video will start playing.\
 					Below the video frame there will be a timeline. On this timeline you will see the indicator of current time as a long vertical bar.\
 					This bar is showing the corresponding time in the video during the playing of the video.\
-					Your task is to press the 'S' key or Space Bar whenever you think that there is an event boundary in the video.\
+					Your task is to press the Space Bar or 'S' key whenever you think that there is an event boundary in the video.\
 					When you press the key, a pop-up form will appear. You are asked to write your descriptions for both the breakpoints and segments. \
 					You will not be able to stop the video in this phase but you can repeat this prepatory task as many times as you want.`
 
