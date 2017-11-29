@@ -13,6 +13,8 @@
     "lint": "eslint bin build config server src tests",
     "lint:fix": "npm run lint -- --fix",
     "start": "better-npm-run start",
+    "serve": "better-npm-run start",
+    "postinstall": "npm run deploy:prod",
     "dev": "better-npm-run dev",
     "test": "better-npm-run test",
     "test:dev": "npm run test -- --watch",
@@ -60,8 +62,16 @@
     "start": {
       "command": "node bin/dev-server",
       "env": {
+        "NODE_ENV":"production",
         "DEBUG": "app:*"
       }
+    },
+
+    "start:prod": {
+      "command": "node bin/server",
+      "env": {
+        "NODE_ENV": "production"
+        }
     },
     "test": {
       "command": "node ./node_modules/karma/bin/karma start config/karma.config",
