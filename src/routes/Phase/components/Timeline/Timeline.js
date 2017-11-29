@@ -123,7 +123,7 @@ class Timeline extends Component {
     		.attr("transform", "translate(0," + height + ")")
     		.style("stroke", "red")
     		.call(d3.axisBottom(x)
-    			.ticks(Math.round(this.props.end/2000))//.concat(x.domain())
+    			.ticks(0)//.concat(x.domain())
     		    .tickSize(-height)
     		    .tickFormat(function() { return null; }))
   		  .selectAll(".tick")

@@ -10,11 +10,13 @@ import SimultForm from '../SimultForm'
 import Timer from 'utils/Timer'
 import {mapSecsToMiliSecs} from 'utils/helpers'
 
-import {fetchPhases, nextPhase, finishedInstructions, startPhaseAndVideo, startVideo, savePhaseData, stopVideo, startPhase, submitPhaseForm, repeatPhase} from '../../modules/phase'
+import {fetchPhases, fetchNextPhases, endExperiment, nextPhase, finishedInstructions, startPhaseAndVideo, startVideo, savePhaseData, stopVideo, startPhase, submitPhaseForm, repeatPhase} from '../../modules/phase'
 
 type Props = {
 	phase: ?PhaseObject,
 	fetchPhases: Function,
+    fetchNextPhases: Function,
+    endExperiment: Function,
 	nextPhase: Function,
 	finishedInstructions: Function,
 	startPhaseAndVideo: Function,
@@ -157,8 +159,8 @@ export default class Phase extends Component {
 
         if(this.state.started && this.props.phase.type !== 'phase_2' ) {
 
-    	    if(event.keyCode == 83) {
-                if (this.props.retro) {
+    	    if(event.keyCode == 83 || event.keyCode == 32) {
+                if (this.props.retro || (!this.props.retro && (this.props.phase.type === 'baseline'))) {
     	   	   	   let breakp = this.state.current;
     	   	   	   let segment = {
     	   	   		  breakpoint: breakp,
@@ -173,6 +175,7 @@ export default class Phase extends Component {
                 } else {
                     // Should think about whether it's better to change state from Parent component
                     // Or executing an instance method.
+
                     console.log(this.state.current);
                     this.setState({
                         current_stopped: this.state.current,
@@ -198,11 +201,14 @@ export default class Phase extends Component {
                 break_label:labels.breakpoint
     	   }
     	   this.props.submitPhaseForm(segment)
+           //console.log(labels.segment)
+           //console.log(labels.breakpoint)
     	   this.setState({
                 stopped:false,
                 started: true,
                 simult_clicked:false,
-                breakpoints: [...this.state.breakpoints, thisbreak]
+                breakpoints: [...this.state.breakpoints, thisbreak],
+                segmentations:[...this.state.segmentations, segment]
     	   });
            // Redux may know that video started after labeling
         }
@@ -215,12 +221,17 @@ export default class Phase extends Component {
             console.log(this.state.clicked_element)
             this.props.submitPhaseForm(segment)
             let identified = this.state.identified.map((e, i) => {return (i === this.state.clicked_element || e) ? true : false})
+            // Add
+            const segmentations = this.state.segmentations
+            segmentations[this.state.clicked_element]["segment_label"] = labels.segment
+            segmentations[this.state.clicked_element]["break_label"] = labels.breakpoint
+            //segmentations: [...this.state.segmentations, segment],
             this.setState({ 
                 stopped:true,
                 started: false,
                 retro_clicked:false,
                 finished: identified.reduce((final, val) => final && val, true), 
-                segmentations: [...this.state.segmentations, segment],
+                segmentations: segmentations,
                 identified: identified
            });
 
@@ -341,6 +352,9 @@ export default class Phase extends Component {
         if (nSegment > 3) {
             if (this.props.phase.type === 'phase_2' || this.props.phase.type === 'phase_1' || this.props.phase.type === 'baseline' ) {
 
+                console.log(this.state.segmentations)
+                console.log(this.state.breakpoints)
+
                 this.props.savePhaseData({
                     segmentations: this.state.segmentations,
                     duration: this.state.length,
@@ -358,6 +372,11 @@ export default class Phase extends Component {
                         current: 0,
                         /*started: false*/
                     })
+                }
+
+                if (this.props.phase.type === 'phase_1' && !this.props.retro) {
+
+                    this.reinitializeState()
                 }
 
                 if (this.props.phase.type === 'phase_2') {
@@ -387,7 +406,8 @@ export default class Phase extends Component {
 				{ this.props.phase ? 
 
                     <div >
-                        <Navigation active={this.props.phase.type} types={this.props.types}/>
+
+                    {   this.props.phase.type !== 'end' ? <Navigation active={this.props.phase.type} types={this.props.types}/> : null }
 
 					<div className='phaseWrapper'>
 
@@ -397,11 +417,24 @@ export default class Phase extends Component {
 							<h2 className='instructionsTitle'>
 								{this.props.phase.title}
 							</h2>
-							<p className='instructions'>{this.props.phase.instructions}</p>
+							<p className='instructions'> {this.props.phase.instructions} </p>
+
+                            {
+                                this.props.phase.type !== 'end' ?
+
+                                ( this.props.phase.type !== 'between' ?
+
+                                    <button className ='btn btn-default' onClick ={this.props.finishedInstructions}>Got it!</button> :
+                                    <div>
+                                        <button className='btn btn-default start' onClick={this.props.fetchNextPhases} disabled={this.state.started}> Next Experiment </button> 
+                                        <button className ='btn btn-default next' onClick ={this.props.endExperiment}> Finish! </button>
+                                    </div> )
+
+                                 : null
+
+                            }
 		
-							<button className ='btn btn-default' onClick ={this.props.finishedInstructions}>
-					 			Got it!
-							</button>
+							
 						</div>
 	
 						: <div >
@@ -423,20 +456,17 @@ export default class Phase extends Component {
 
                             {this.state.retro_clicked ? <SimultForm onItsSubmit={this.handleChildSubmit} identified={this.state.identified} xPos={this.state.form_pos} isSimult={false} onClose={this.closeRetroForm} /> : null}
 
-                            { (this.props.phase.type === 'phase_2' && this.props.retro) || (this.props.phase.type === 'phase_1' && !this.props.retro) ? 
+                            { 
+                                (this.props.phase.type === 'phase_2' && this.props.retro) || (this.props.phase.type === 'phase_1' && !this.props.retro) ? 
 
 							     <button className ='btn btn-default next' onClick={this.savePhase} disabled={!this.state.finished}> Finalize </button> :
 
-                                 <button className ='btn btn-default next' onClick={this.savePhase} disabled={this.state.finished && !this.state.finished}> Next Phase </button>
+                                 <button className ='btn btn-default next' onClick={this.savePhase} disabled={!this.state.finished}> Next Phase </button>
                             }
 
 							{  (this.props.phase.type === 'phase_1' && !this.props.retro) ? 
 
-								( this.state.started ?
-
-								<button className='btn btn-default start' onClick={this.stopVideo} disabled={!this.state.started}> Stop </button> 
-
-								: <button className='btn btn-default start' onClick={this.initiatePhase} disabled={this.state.started} > Start </button> ) 
+								<button className='btn btn-default start' onClick={this.initiatePhase} disabled={this.state.started} > Start </button>
 
 								:  ( (this.props.phase.type === 'phase_2' && this.props.retro)  ?
 

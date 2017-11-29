@@ -15,6 +15,8 @@ router.route('/subjects').get(SubjectHelper.getSubjects);
 
 router.route('/phases').get(PhaseHelper.getPhases);
 
-router.route('/segment').post(PhaseHelper.addSegmentation)
+router.route('/nextPhases').get(PhaseHelper.getNextPhases);
+
+router.route('/segment').post(PhaseHelper.addSegmentation);
 
 module.exports = router;

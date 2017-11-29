@@ -39,6 +39,25 @@ const produceSegments = (seg) => {
 
 
 const getPhases = function(req, res) {
+	Experiment.findOne({name:'simultaneous_protocol_00'}).populate('phases').select('phases name cuid retrospective').exec((err, experiment) => {
+		if (err) {
+			res.status(500).send(err);
+		}
+		console.log('Success in bringing phases!')
+		const phases = experiment.phases
+		res.json({
+			phases:{
+				'name':experiment.name,
+				'retro':experiment.retrospective,
+				'id': experiment.cuid,
+				'phases':phases.map(formatPhases)
+			}
+		})
+
+	});
+}
+
+const getNextPhases = function(req, res) {
 	Experiment.findOne({name:'retrospective_protocol_00'}).populate('phases').select('phases name cuid retrospective').exec((err, experiment) => {
 		if (err) {
 			res.status(500).send(err);
@@ -56,6 +75,8 @@ const getPhases = function(req, res) {
 
 	});
 }
+
+
 
 const addSegmentation = function(req, res) {
 
@@ -90,7 +111,7 @@ const addSegmentation = function(req, res) {
 				console.log('experiment sucessfully updated!')
 				//Update for the Second Experiment
 
-				console.log(produceSegments(seg))
+				//console.log(produceSegments(seg))
 
 				res.json({ 
 					segmentation: {
@@ -113,5 +134,6 @@ const addSegmentation = function(req, res) {
 
 module.exports = {
 	getPhases,
+	getNextPhases,
 	addSegmentation
 }

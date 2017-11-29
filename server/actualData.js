@@ -106,9 +106,12 @@ const loadActualData = function() {
 																if (count > 0 ){
 																	return;
 																}
-																const titles = ['General Instructions', 'Prepatory Phase', 'Baseline Recording', 'Phase 1', 'Phase 2']
+																const titles = ['General Instructions', 'Prepatory Phase', 'Baseline Recording', 'Phase 1', 'Phase 2', 'Final']
 
-																const instructions = [phases.retro_general_description, phases.retro_prep, phases.baseline_instructions, phases.retro_phase_1, phases.retro_phase_2]
+																const instructions_retro = [phases.between_description, phases.retro_prep, phases.baseline_instructions, phases.retro_phase_1, phases.retro_phase_2]
+																const instructions_simult = [phases.general_description, phases.simult_prep, phases.baseline_instructions, phases.simult_phase_1]
+																const generic_between = phases.generic_between
+																const generic_end = phases.generic_end
 
 																const first = experiments.filter(function( el ) {
   																	return el.name === 'retrospective_protocol_00';
@@ -121,31 +124,76 @@ const loadActualData = function() {
 																const experiment1 = first[0]._id
 																const experiment2 = second[0]._id
 
-																const videos = ['L0kBNTtEQ1U', 'L0kBNTtEQ1U', 'L0kBNTtEQ1U', 'L0kBNTtEQ1U', 'L0kBNTtEQ1U']
-																const vid_lengths = [55, 55, 55, 55 , 55]
-																const types = ['init','prep','baseline','phase_1','phase_2']
-																const orders = [0, 1, 2, 3, 4]
+																const which = permuter.permuter2(["6MjnnMpT024", "erwYrSVazSA"])
+
+																console.log(which)
+
+																const videos = ['L0kBNTtEQ1U', 'L0kBNTtEQ1U', 'L0kBNTtEQ1U', which, which]
+																const vid_lengths = [55, 55, 55, 37 , 37]
+																const types = ['init','prep','baseline','phase_1','phase_2', 'between', 'end']
+																const orders = [0, 1, 2, 3, 4, 5, 6]
 																
 																const cuid1 = cuid()
 																const cuid2 = cuid()
 																const cuid3 = cuid()
 																const cuid4 = cuid()
 																const cuid5 = cuid()
+																const cuid6 = cuid()
+																const cuid7 = cuid()
+																const cuid8 = cuid()
+																const cuid9 = cuid()
+																const cuid10 = cuid()
+																const cuid11 = cuid()
+																const cuid12 = cuid()
+																const cuid13 = cuid()
 
-																const phase1 = new Phase({title:titles[0], instructions:instructions[0], experiment:experiment1, video:videos[0], vid_length: vid_lengths[0], type:types[0], cuid:cuid1, order:orders[0]})
-																const phase2 = new Phase({title:titles[1], instructions:instructions[1], experiment:experiment1, video:videos[1], vid_length: vid_lengths[1], type:types[1], cuid:cuid2, order:orders[1]})
-																const phase3 = new Phase({title:titles[2], instructions:instructions[2], experiment:experiment1, video:videos[2], vid_length: vid_lengths[2], type:types[2], cuid:cuid3, order:orders[2]})
-																const phase4 = new Phase({title:titles[3], instructions:instructions[3], experiment:experiment1, video:videos[3], vid_length: vid_lengths[3], type:types[3], cuid:cuid4, order:orders[3]})
-																const phase5 = new Phase({title:titles[4], instructions:instructions[4], experiment:experiment1, video:videos[4], vid_length: vid_lengths[4], type:types[4], cuid:cuid5, order:orders[4]})
+																const phase1 = new Phase({title:titles[0], instructions:instructions_retro[0], experiment:experiment1, video:videos[0], vid_length: vid_lengths[0], type:types[0], cuid:cuid1, order:orders[0]})
+																const phase2 = new Phase({title:titles[1], instructions:instructions_retro[1], experiment:experiment1, video:videos[1], vid_length: vid_lengths[1], type:types[1], cuid:cuid2, order:orders[1]})
+																const phase3 = new Phase({title:titles[2], instructions:instructions_retro[2], experiment:experiment1, video:videos[2], vid_length: vid_lengths[2], type:types[2], cuid:cuid3, order:orders[2]})
+																const phase4 = new Phase({title:titles[3], instructions:instructions_retro[3], experiment:experiment1, video:videos[3], vid_length: vid_lengths[3], type:types[3], cuid:cuid4, order:orders[3]})
+																const phase5 = new Phase({title:titles[4], instructions:instructions_retro[4], experiment:experiment1, video:videos[4], vid_length: vid_lengths[4], type:types[4], cuid:cuid5, order:orders[4]})
+																//const phase6 = new Phase({title:titles[5], instructions:generic_between, experiment:experiment1, type:types[5], cuid:cuid6, order:orders[5]})
+																const phase7 = new Phase({title:titles[5], instructions:generic_end, experiment:experiment1, type:types[6], cuid:cuid7, order:orders[5]})
 
-																Phase.create([phase1, phase2, phase3, phase4, phase5], (error, phases) => {
+																const phase8 = new Phase({title:titles[0], instructions:instructions_simult[0], experiment:experiment2, video:videos[0], vid_length: vid_lengths[0], type:types[0], cuid:cuid8, order:orders[0]})
+																const phase9 = new Phase({title:titles[1], instructions:instructions_simult[1], experiment:experiment2, video:videos[1], vid_length: vid_lengths[1], type:types[1], cuid:cuid9, order:orders[1]})
+																const phase10 = new Phase({title:titles[2], instructions:instructions_simult[2], experiment:experiment2, video:videos[2], vid_length: vid_lengths[2], type:types[2], cuid:cuid10, order:orders[2]})
+																const phase11 = new Phase({title:titles[3], instructions:instructions_simult[3], experiment:experiment2, video:videos[3], vid_length: vid_lengths[3], type:types[3], cuid:cuid11, order:orders[3]})
+																//const phase12 = new Phase({title:titles[4], instructions:instructions_simult[4], experiment:experiment2, video:videos[4], vid_length: vid_lengths[4], type:types[4], cuid:cuid12, order:orders[4]})
+																//const phase13 = new Phase({title:titles[5], instructions:instructions_simult[4], experiment:experiment2, video:videos[4], vid_length: vid_lengths[4], type:types[6], cuid:cuid13, order:orders[5]})
+																const phase14 = new Phase({title:titles[5], instructions:generic_between, experiment:experiment2, type:types[5], cuid:cuid12, order:orders[4]})
+																const phase15 = new Phase({title:titles[5], instructions:generic_end, experiment:experiment2, type:types[6], cuid:cuid13, order:orders[5]})
+
+																Phase.create([phase1, phase2, phase3, phase4, phase5, phase7], (error, phases) => {
 																	if (!error) {
 																		console.log('phases successfully created!');
 																		
 																		Experiment.findByIdAndUpdate(experiment1, {$push:{phases: {$each: phases}}}, (error, experiment) => {
 																			if (!error) {
-																				console.log('experiment sucessfully updated!')
+																				console.log('experiment  1 sucessfully updated!')
 																				// Update for the Second Experiment
+
+																				Phase.create([phase8, phase9, phase10, phase11, phase14, phase15], (error, initial_phases) => {
+																						if (!error) {
+
+																							console.log('experiment sucessfully updated!')
+
+																							Experiment.findByIdAndUpdate(experiment2, {$push:{phases: {$each:initial_phases}}}, (error, experiment) => {
+
+																								if (!error) {
+																									console.log('experiment 2 successfully updated!')
+																								} else {
+																									console.log("something bad happened while creating experiment 2")
+
+																								}
+																							
+																							})
+
+																						} else {
+																							console.log("something bad happened while creating phases 2!")
+
+																						}
+																				})
 
 																			} else {
 																				console.log("something bad happened while updating experiments!")

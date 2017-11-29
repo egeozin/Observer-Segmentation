@@ -31,6 +31,7 @@ export default class SimultForm extends Component {
         const brkpntRef = this.refs.brkpntLabel;
         const sgmntRef = this.refs.sgmntLabel;
         if (brkpntRef && sgmntRef) {
+            //console.log(brkpntRef.value)
             this.props.onItsSubmit({breakpoint:brkpntRef.value, segment:sgmntRef.value});
             brkpntRef.value = sgmntRef.value = '';
         } else {
@@ -53,12 +54,10 @@ export default class SimultForm extends Component {
     }
 
     handleBrkpntChange (evt) {
-        console.log("fire!")
     	this.setState({breakpointLabel: evt.target.value});
     }
 
     handleSgmntChange (evt) {
-        console.log("fire!")
     	this.setState({segmentLabel: evt.target.value});
     }
 

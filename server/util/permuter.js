@@ -14,6 +14,13 @@ const permuter = function(videoList) {
 
 }
 
+
+const permuter2 = function(videoList) {
+	const flip = Math.floor(Math.random()*2)
+	return flip ? videoList[flip] : videoList[flip]
+}
+
 module.exports = {
-	permuter
+	permuter,
+	permuter2
 }
