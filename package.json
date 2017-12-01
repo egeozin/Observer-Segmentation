@@ -19,6 +19,7 @@
     "deploy": "better-npm-run deploy",
     "deploy:dev": "better-npm-run deploy:dev",
     "deploy:prod": "better-npm-run deploy:prod",
+    "deploy:serve": "better-npm-run deploy:serve",
     "codecov": "cat coverage/*/lcov.info | codecov",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
@@ -55,6 +56,12 @@
       "env": {
         "NODE_ENV": "production",
         "DEBUG": "app:*"
+      }
+    },
+    "deploy:serve": {
+      "command": "npm run deploy && npm start",
+      "env": {
+        "NODE_ENV": "production"
       }
     },
     "start": {
