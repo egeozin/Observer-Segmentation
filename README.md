@@ -12,7 +12,7 @@ A web based software that can be used to collect segmentation data from human su
 	React as view library.
 
 
-You can generate experimental procedures similar to the following:
+You can generate experimental procedures similar to the following  :
 
 <p align="center"><img src="https://github.mit.edu/egeozin/observer-dashboard/blob/master/images/retrospective_protocol.png"/></p>
 
