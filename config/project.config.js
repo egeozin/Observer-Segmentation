@@ -25,7 +25,7 @@ const config = {
   // Server Configuration
   // ----------------------------------
   //server_host : ip.address(), // use string 'localhlost' to prevent exposure on local network
-  server_host: ip.address() || process.env.IP || process.env.HOST,
+  server_host: process.env.IP || process.env.HOST || ip.address()
   server_port : process.env.PORT || 3000,
 
   // ----------------------------------
