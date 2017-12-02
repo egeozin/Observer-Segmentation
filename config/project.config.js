@@ -15,6 +15,7 @@ const config = {
   // Project Structure
   // ----------------------------------
   path_base  : path.resolve(__dirname, '..'),
+  //path_base  : __dirname,
   dir_client : 'src',
   dir_dist   : 'dist',
   dir_public : 'public',
@@ -25,7 +26,7 @@ const config = {
   // Server Configuration
   // ----------------------------------
   //server_host : ip.address(), // use string 'localhlost' to prevent exposure on local network
-  server_host: '', //ip.address(),
+  server_host: 'https://segmented.herokuapp.com', //ip.address(),
   server_port : process.env.PORT || 3000,
 
   // ----------------------------------
