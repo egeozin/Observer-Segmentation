@@ -1,7 +1,7 @@
 {
   "name": "observer-dashboard",
   "version": "3.0.0-alpha.2",
-  "description": "A tool for segmenting and analyzing visual and sensorimotor tasks.",
+  "description": "A tool for segmenting and analyzing visual and sensorimotor tasks",
   "main": "index.js",
   "engines": {
     "node": ">=4.5.0",
@@ -38,7 +38,7 @@
       }
     },
     "deploy": {
-      "command": "npm run lint && npm run test && npm run clean && npm run compile",
+      "command": "npm run clean && npm run compile",
       "env": {
         "DEBUG": "app:*"
       }
@@ -60,7 +60,6 @@
     "start": {
       "command": "node bin/dev-server",
       "env": {
-        "NODE_ENV":"production",
         "DEBUG": "app:*"
       }
     },
