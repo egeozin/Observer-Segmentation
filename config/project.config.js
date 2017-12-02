@@ -27,7 +27,7 @@ const config = {
   // ----------------------------------
   //server_host : ip.address(), // use string 'localhlost' to prevent exposure on local network
   server_host: 'segmented.herokuapp.com', //ip.address(),
-  server_port : process.env.PORT || 3000,
+  server_port : '', //process.env.PORT, //|| 3000,
 
   // ----------------------------------
   // Compiler Configuration
