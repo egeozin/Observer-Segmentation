@@ -14,8 +14,8 @@ const SubjectSchema = mongoose.Schema({
         lowercase:true, 
         unique:false, 
         required: 'E-mail address is required',
-        validate: [validateEmail, 'Please fill a valid e-mail address'],
-        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid e-mail address']
+        //validate: [validateEmail, 'Please fill a valid e-mail address'],
+        //match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid e-mail address']
     },
 	password: {type:String},
     ip: {type:String},
@@ -44,6 +44,7 @@ SubjectSchema.path("email").validate(function(value) {
 */
 
 
+/*
 SubjectSchema.pre("save",function(next, done) {
     var that = this;
     mongoose.models["Subject"].findOne({email:that.email},function(err, results) {
@@ -58,7 +59,7 @@ SubjectSchema.pre("save",function(next, done) {
             next();
         }
     });
-});
+});*/
 
 
 
