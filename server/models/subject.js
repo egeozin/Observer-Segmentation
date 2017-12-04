@@ -18,7 +18,7 @@ const SubjectSchema = mongoose.Schema({
         //match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid e-mail address']
     },
 	password: {type:String},
-    ip: {type:String},
+    ip: {type:String, required:false},
     completed_exp: {type:Boolean, default:false},
     cuid: { type:String, required: true },
 })

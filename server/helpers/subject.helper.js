@@ -32,7 +32,7 @@ const addSubject = function(req, res) {
 	newSubject.email = sanitizeHtml(newSubject.email);
 	newSubject.password = sanitizeHtml(newSubject.password);
 	newSubject.cuid = cuid();
-	newSubject.ip = getIP(req);
+	//newSubject.ip = getIP(req);
 
 	newSubject.save((err, sub) => {
 		if(err) {
