@@ -51,8 +51,9 @@ SubjectSchema.pre("save",function(next, done) {
             next(err);
         } else if(results) {
         	console.log('results', results);
-            that.invalidate("email","email must be unique");
-            next(new Error("email must be unique"));
+            //that.invalidate("email","email must be unique");
+            //next(new Error("email must be unique"));
+            next();
         } else {
             next();
         }
