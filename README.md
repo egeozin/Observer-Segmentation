@@ -1,7 +1,5 @@
 # Observing the Observers
 
-Check the experiment: 
-
 A web based software that can be used to collect segmentation data from human subjects in a reliable and scalable way. This software further enables researchers to develop and analyze their own segmentation experiments.
 
 	This project is designed with: 
