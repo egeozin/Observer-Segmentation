@@ -33,6 +33,7 @@ const addSubject = function(req, res) {
 	newSubject.password = sanitizeHtml(newSubject.password);
 	newSubject.cuid = cuid();
 	//newSubject.ip = getIP(req);
+	newSubject.isNew = false;
 
 	newSubject.save((err, sub) => {
 		if(err) {
