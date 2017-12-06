@@ -28,8 +28,7 @@ const retro_prep = `Before you begin the experiment you will get familiar with t
 
 const baseline_instructions = `Before you start the experiment we would like to understand how much time it takes for you to respond\
 							  to a stimuli in sequence. In the following section, you will watch a simple video and press "spacebar" whenever you see a change in video\
-							  (whenever you see a change in stimuli). When you press "spacebar" the video will not stop, s When you press the "Got it!" button below, you will proceed to the baseline phase.\
-							  `
+							  (whenever you see a change in stimuli). When you press spacebar the video will not stop. When you press the "Got it!" button below, you will proceed to the baseline phase.`
 
 const retro_phase_1 = `You are ready for the first part of the experiment!\
 					   In the next section a drawing performance video will start playing whenever you press the "Start" button.\
@@ -39,7 +38,7 @@ const retro_phase_2 = `In this last phase, you will be presented with the same v
 					   But now, you will provide labels for your segments and breakpoints determined in the first phase. \
 					   Go through the segments you defined in the first phase and click on one to submit your label or descriptions for both\
 					   the breakpoints and segments. For a particular breakpoint, please write in the breakpoint box what happened in the video that might have caused you \
-					   to provide breakpoint at that moment. Similary for the segment box, please write what happened in the video between this breakpoint and previous breakpoint.
+					   to provide breakpoint at that moment. Similary for the segment box, please write what happened in the video between this breakpoint and previous breakpoint.\
 					   You will be able to start, pause and resume the video however you want. Finally in order to finish this protocol you have to provide a description for each breakpoint and segment.`
 
 const simult_prep = `Before you begin the experiment you will get familiar with this protocol in this preparatory phase.\

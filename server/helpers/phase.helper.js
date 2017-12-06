@@ -3,7 +3,6 @@ const Experiment = require('../models/experiment')
 const Segmentation = require('../models/segmentation')
 const cuid = require('cuid')
 const sanitizeHtml = require('sanitize-html')
-const permuter =  require('./util/permuter');
 
 
 const formatPhases = (p) => {
