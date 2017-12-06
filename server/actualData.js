@@ -124,11 +124,11 @@ const loadActualData = function() {
 																const experiment1 = first[0]._id
 																const experiment2 = second[0]._id
 
-																const which = permuter.permuter2(["6MjnnMpT024", "erwYrSVazSA"])
+																//const which = permuter.permuter2(["6MjnnMpT024", "erwYrSVazSA"])
 
-																console.log(which)
+																//console.log(which)
 
-																const videos = ['L0kBNTtEQ1U', 'L0kBNTtEQ1U', 'L0kBNTtEQ1U', which, which]
+																const videos = ['L0kBNTtEQ1U', 'L0kBNTtEQ1U', 'L0kBNTtEQ1U', "erwYrSVazSA", "erwYrSVazSA"]
 																const vid_lengths = [55, 55, 55, 37 , 37]
 																const types = ['init','prep','baseline','phase_1','phase_2', 'between', 'end']
 																const orders = [0, 1, 2, 3, 4, 5, 6]

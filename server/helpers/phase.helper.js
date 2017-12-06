@@ -3,6 +3,7 @@ const Experiment = require('../models/experiment')
 const Segmentation = require('../models/segmentation')
 const cuid = require('cuid')
 const sanitizeHtml = require('sanitize-html')
+const permuter =  require('./util/permuter');
 
 
 const formatPhases = (p) => {
@@ -87,6 +88,8 @@ const addSegmentation = function(req, res) {
 
 	const newPhaseData = req.body.phaseData;
 
+	console.log(newPhaseData.segmentations)
+
 	const newSegmentation = new Segmentation();
 
 	newSegmentation.breakpoints = newPhaseData.segmentations.map((e) => {return e.breakpoint});
@@ -111,7 +114,7 @@ const addSegmentation = function(req, res) {
 				console.log('experiment sucessfully updated!')
 				//Update for the Second Experiment
 
-				//console.log(produceSegments(seg))
+				console.log(produceSegments(seg))
 
 				res.json({ 
 					segmentation: {
