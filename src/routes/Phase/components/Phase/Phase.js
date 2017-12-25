@@ -397,6 +397,8 @@ export default class Phase extends Component {
             this.props.repeatPhase()
         }
 
+        //<button className='btn btn-default start' onClick={this.props.fetchNextPhases} disabled={this.state.started}> Next Experiment </button> 
+
     }
 
 	render(){
@@ -426,7 +428,6 @@ export default class Phase extends Component {
 
                                     <button className ='btn btn-default' onClick ={this.props.finishedInstructions}>Got it!</button> :
                                     <div>
-                                        <button className='btn btn-default start' onClick={this.props.fetchNextPhases} disabled={this.state.started}> Next Experiment </button> 
                                         <button className ='btn btn-default next' onClick ={this.props.endExperiment}> Finish! </button>
                                     </div> )
 

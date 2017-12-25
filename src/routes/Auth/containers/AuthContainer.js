@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { emailSignUpRequest } from '../modules/auth'
 
-import Auth from '../components/Auth'
+import Auth from '../components/Auth2'
 
 import type { AuthObject } from '../interfaces/auth'
 

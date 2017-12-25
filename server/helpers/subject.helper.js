@@ -21,7 +21,7 @@ const getSubjects = function(req, res) {
 
 const addSubject = function(req, res) {
 
-	if (!req.body.signupInfo.email || !req.body.signupInfo.password) {
+	if (!req.body.signupInfo.email) {
 		console.log('You have to provide an email and password for your experiment');
 		res.status(403).end();
 		

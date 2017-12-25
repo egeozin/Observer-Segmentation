@@ -34,11 +34,13 @@ const apiCall = (path:string, signupInfo:Object): Function => {
  * @return {Promise}
  */
 
+//signupInfo: {email:signupInfo.email, password:signupInfo.password},
+
 export const emailSignUpRequest = (signupInfo:Object): Function => {
 	return (dispatch: Function) : Promise => {
 		
 		return modelApi('signup', 'post', {
-			signupInfo: {email:signupInfo.email, password:signupInfo.password},
+			signupInfo: {email:signupInfo.email},
 		}).then(res => { 
 			dispatch(createSession(res.signupInfo)) 
 		}).then(

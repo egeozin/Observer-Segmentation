@@ -27,6 +27,7 @@ var SegmentationSchema = mongoose.Schema({
 	subject:{type:String, required:true},
 	description:{type:String, required:false},
 	breakpoints: {type: [Number], required:false},
+	video: {type:String, required:false},
 	duration: {type:Number, required:false},
 	segment_labels: {type:[String], required:false},
 	break_labels:{type:[String], required:false},
