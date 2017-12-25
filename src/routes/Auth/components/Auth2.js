@@ -25,7 +25,7 @@ export default class Auth2 extends Component {
     	//const passwordRef = this.refs.password;
     	if (emailRef) {
     		this.props.emailSignUpRequest({email:emailRef.value});
-    		emailRef.value '';
+    		emailRef.value = '';
     	} else {
     		const error = true;
     	}
