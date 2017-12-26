@@ -5,10 +5,19 @@
  * with experimental phases.
  */
 
-const general_description = `In this experiment, you will observe several videos and provide input according to the given instructions.\
-						   In the preparatory phase, in order to make you familiar with the task a short practive video will be presented.\
-						   Whenever you feel you are comfortable with the task you may proceed to the main phases of the experiment. \
-						   If you are ready you can proceeed to the preparatory phase`
+ /*
+In the preparatory phase, in order to make you familiar with the task a short practice video will be presented.\n
+After the preparatory phase, in the baseline phase you will provid
+Whenever you feel you are comfortable with the task you may proceed to the main phases of the experiment. \n
+If you are ready you can proceeed to the preparatory phase`
+ */
+
+const general_description = `In this experiment, you will observe several videos and provide input according to the given instructions.\n \
+							This experiment consists of three phases including preparatory, baseline and phase_1.\n \
+							In the preparatory phase, you will get familiar with the task.\n \ 
+							In the baseline phase your response times will be recorded.\n \
+						   	Then in the last phase of the experiment you will watch a similar video as in the preparatory phase and you will provide your responses accordingly.\n \
+						   	When you are ready you can start the experiment by pressing 'Got it!'`
 
 const general_description_2 = `In this experiment, you will observe several videos and provide input according to the given instructions.\
 						   In the preparatory phase, in order to make you familiar with the task a short practive video will be presented.\
