@@ -15,7 +15,7 @@ If you are ready you can proceeed to the preparatory phase`
 const general_description = `In this experiment, you will observe several videos and provide input according to the given instructions.\n \
 							This experiment consists of three phases including preparatory, baseline and phase_1.\n \
 							In the preparatory phase, you will get familiar with the task.\n \ 
-							In the baseline phase your response times will be recorded.\n \
+							In the baseline phase your response times will be recorded. \n \
 						   	Then in the last phase of the experiment you will watch a similar video as in the preparatory phase and you will provide your responses accordingly.\n \
 						   	When you are ready you can start the experiment by pressing 'Got it!'`
 
