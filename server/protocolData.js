@@ -15,7 +15,7 @@ If you are ready you can proceeed to the preparatory phase`
 const general_description = `In this experiment, you will observe several videos and provide input according to the given instructions.\n \
 							This experiment consists of three phases including preparatory, baseline and phase_1.\n \
 							In the preparatory phase, you will get familiar with the task.\n \ 
-							In the baseline phase your response times will be recorded. \n \
+							In the baseline phase your response times will be recorded.\n \
 						   	Then in the last phase of the experiment you will watch a similar video as in the preparatory phase and you will provide your responses accordingly.\n \
 						   	When you are ready you can start the experiment by pressing 'Got it!'`
 
@@ -80,10 +80,10 @@ const simult_prep_2 = `Before you begin the experiment you will get familiar wit
 const simult_phase_1 = `You are ready for the experiment!\
 					   In the next section a drawing performance video will start playing when you press the "Start" button.\
 					   Your task is to press the Space Bar or 'S' key to indicate the important moments in the video. What constitutes an important moment is up to you.\
-					   When you press the key video will stop and a pop-up form will appear and the video will not continue until you provide your descriptions for both the breakpoints and segments. \
+					   When you press the key, video will stop and a pop-up form will appear and the video will not continue until you provide your descriptions for both the breakpoints and segments. \
 					   For a particular breakpoint, please write in the breakpoint box what happened in the video that might have caused you \
 					   to provide breakpoint at that moment. \
-					   Similary for the segment box, please write what happened in the video between this breakpoint and previous breakpoint.`
+					   Similarly for the segment box, please write what happened in the video between this breakpoint and previous breakpoint.`
 
 
 const generic_between = `If you want to take the second protocol that is similar to this one but slightly different, press "Continue". Otherwise press "Finish" to end the experiment. `
