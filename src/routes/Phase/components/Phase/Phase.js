@@ -421,6 +421,7 @@ export default class Phase extends Component {
 							</h2>
                             <ul>
                                 {this.props.phase.instructions.map((instruction, i) => {
+                                        console.log(instruction)
                                         if (instruction.includes("0")) {
                                             const splitted = instruction.split(" ")
                                             let last = splitted[splitted.length-1]
