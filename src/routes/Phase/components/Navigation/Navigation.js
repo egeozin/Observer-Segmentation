@@ -16,7 +16,7 @@ export default class Navigation extends Component {
             <h1>Observing the Observers</h1>
             <ul>
               {this.props.types.map((type, i) => {
-                let actual = type === 'init' ? "Instructions" : (type === 'prep' ? 'Preparatory Phase' : type)
+                let actual = type === 'init' ? "Instructions" : (type === 'prep' ? 'Preparatory Phase' : (type === 'phase_1' ? 'Main' : type))
                 return type === this.props.active ? 
                                   (<li className='activeYo' key={i}> {actual} </li>) : (<li key={i}> {actual} </li>)
 

@@ -2,9 +2,11 @@ var mongoose =require("mongoose");
 mongoose.Promise = global.Promise;
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
+//instructions:{type:String, required:true},
+
 var PhaseSchema = mongoose.Schema({
 	title:{type:String, required:true},
-	instructions:{type:String, required:true},
+	instructions:{type:[String], required:true},
 	experiment: {type:ObjectId, ref:"Experiment", required:false},
 	video: {type:String, required:false},
 	vid_length: {type:Number, required:false},

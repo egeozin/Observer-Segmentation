@@ -398,7 +398,7 @@ export default class Phase extends Component {
         }
 
         //<button className='btn btn-default start' onClick={this.props.fetchNextPhases} disabled={this.state.started}> Next Experiment </button> 
-
+        // <p className='instructions'> {this.props.phase.instructions} </p>
     }
 
 	render(){
@@ -419,7 +419,20 @@ export default class Phase extends Component {
 							<h2 className='instructionsTitle'>
 								{this.props.phase.title}
 							</h2>
-							<p className='instructions'> {this.props.phase.instructions} </p>
+                            <ul>
+                                {this.props.phase.instructions.map((instruction, i) => {
+                                        if (instruction.includes("0")) {
+                                            const splitted = instruction.split(" ")
+                                            let last = splitted[splitted.length-1]
+                                            const first = splitted.slice(0, splitted.length-1)
+                                            let first_part = first.join(" ")
+                                            return <li className='instructions' key={i}> {first_part} <a href="https://www.youtube.com/watch?v=L0kBNTtEQ1U" target="_blank">{last}</a></li>
+                                        } else {
+                                            return <li className='instructions' key={i}> {instruction} </li> 
+                                        }
+                                    })
+                                }
+                            </ul>
 
                             {
                                 this.props.phase.type !== 'end' ?
