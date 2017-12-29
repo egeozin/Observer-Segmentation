@@ -16,6 +16,6 @@ export const permuter3 = (videoList:Array): String => {
 
 
 export const permuter2 = (videoList:Array): String => {
-	const flip = Math.floor(Math.random()*2)
+	let flip = Math.floor(Math.random()*2)
 	return flip ? videoList[flip] : videoList[flip]
 }

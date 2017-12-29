@@ -1,7 +1,7 @@
 import type {PhaseSessionObject, PhaseObject} from 'interfaces/auth.js'
 import {browserHistory} from 'react-router'
 import modelApi from 'utils/modelApi';
-import permuter2 from 'utils/permuter';
+import {permuter2} from 'utils/permuter';
 
 export const START_PHASE = 'START_PHASE'
 export const END_PHASE = 'END_PHASE'
