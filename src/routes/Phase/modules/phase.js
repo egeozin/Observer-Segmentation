@@ -221,6 +221,7 @@ const PHASE_ACTION_HANDLERS = {
 		} else {
 			const first_phase = action.phases.phases.find(phase => phase.order === 0)
 			const videos = ["6MjnnMpT024", "erwYrSVazSA"]
+			console.log(permuter2)
 			let selected = permuter2(videos)
 			console.log(action.phases.id)
 			console.log(action.phases.retro)

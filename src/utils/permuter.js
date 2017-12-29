@@ -1,4 +1,4 @@
-export const permuter = (videoList:Array): String => {
+export const permuter3 = (videoList:Array): String => {
 
 	const flip = Math.floor(Math.random()*2)
 
