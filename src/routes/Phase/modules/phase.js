@@ -307,16 +307,17 @@ const PHASE_ACTION_HANDLERS = {
 
 	[SAVE_NEXT_PHASE]: (state:PhaseSessionObject, action:{segment:Object} ): PhaseSessionObject => {
 		if (  ((state.order + 3) >= state.phases.length) && (state.protocol_order === 1) ) {
+			let selected = permuter2(videos)
 			const next_phase = state.phases.find(phase => phase.order === (state.order + 1))
-			return ({...state, current:next_phase.cuid, finished:true, instructions:true, order:state.order+1 }) 
+			return ({...state, current:next_phase.cuid, finished:true, instructions:true, order:state.order+1, video:selected}) 
 		} else if ( ((state.order + 2) >= state.phases.length) && (state.protocol_order === 2)  ) {
 			const next_phase = state.phases.find(phase => phase.order === (state.order + 1))
-			let selected = permuter2(videos)
+			//let selected = permuter2(videos)
 			return ({...state, current:next_phase.cuid, finished:true, instructions:true, order:state.order+1, video:selected}) 
 		} else {
 			const next_phase = state.phases.find(phase => phase.order === (state.order + 1))
 			let selected = permuter2(videos)
-			return ({...state, current:next_phase.cuid, order:state.order+1, instructions: true, identified:action.segment.segments.map((arr) => {return false}) })
+			return ({...state, current:next_phase.cuid, order:state.order+1, instructions: true, video:selected, identified:action.segment.segments.map((arr) => {return false}) })
 		}
 	},
 
