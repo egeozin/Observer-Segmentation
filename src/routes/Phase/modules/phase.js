@@ -237,8 +237,8 @@ const PHASE_ACTION_HANDLERS = {
 			const first_phase = action.phases.phases.find(phase => phase.order === 0)
 			//let re = new RegExp('^[^_]+(?=_)')
 			//let isRetro = re.exec(action.phases.name)[0] === 'retrospective'
-			console.log(action.phases.id)
-			console.log(action.phases.retro)
+			//console.log(action.phases.id)
+			//console.log(action.phases.retro)
 			return ({...state, phases:action.phases.phases ,protocol_order:2, retro:action.phases.retro , experiment:action.phases.name, experiment_id:action.phases.id, current:first_phase.cuid, fetched: true, fetching:false, breakpoints:[], order:0, segmentations:[], identified:[], finished:false})
 		}		
 	},
@@ -250,8 +250,8 @@ const PHASE_ACTION_HANDLERS = {
 	[SUBMIT_PHASE_FORM]:(state:PhaseSessionObject, action:{segment:Object}): PhaseSessionObject => {
 		if (action.segment.idx) {
 			let idx = action.segment.idx
-			console.log(action.segment.segment_label)
-			console.log(action.segment.break_label)
+			//console.log(action.segment.segment_label)
+			//console.log(action.segment.break_label)
 			return ({...state, segmentations:Object.assign([...state.segmentations], {idx: {segment_label: action.segment.segment_label, break_label: action.segment.break_label}})})
 		} else {
 			//console.log(action.segment.segment_label)
