@@ -175,7 +175,7 @@ export const savePhaseData = (phaseData): Function => {
 				type: phaseData.type,
 				experiment: sessionDetails.experiment,
 				experiment_id: sessionDetails.experiment_id,
-				subject: sessionDetails.subject_name 
+				subject: sessionDetails.subject_name,
 				video: sessionDetails.video
 			}
 		}).then(res => {
