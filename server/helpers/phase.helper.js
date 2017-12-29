@@ -98,6 +98,7 @@ const addSegmentation = function(req, res) {
 	newSegmentation.type = sanitizeHtml(newPhaseData.type);
 	newSegmentation.experiment = sanitizeHtml(newPhaseData.experiment);
 	newSegmentation.experiment_id = sanitizeHtml(newPhaseData.experiment_id);
+	newSegmentation.video = sanitizeHtml(newPhaseData.video);
 	newSegmentation.experimenter = 'Admin'
 	newSegmentation.subject = sanitizeHtml(newPhaseData.subject);
 	newSegmentation.cuid = cuid();

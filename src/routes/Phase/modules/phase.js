@@ -176,6 +176,7 @@ export const savePhaseData = (phaseData): Function => {
 				experiment: sessionDetails.experiment,
 				experiment_id: sessionDetails.experiment_id,
 				subject: sessionDetails.subject_name 
+				video: sessionDetails.video
 			}
 		}).then(res => {
 			dispatch(savedNNextPhase(res.segmentation))
