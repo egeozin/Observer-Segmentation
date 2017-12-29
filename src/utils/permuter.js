@@ -1,4 +1,4 @@
-const permuter = function(videoList) {
+export const permuter = (videoList:Array): String => {
 
 	const flip = Math.floor(Math.random()*2)
 
@@ -15,12 +15,7 @@ const permuter = function(videoList) {
 }
 
 
-const permuter2 = function(videoList) {
+export const permuter2 = (videoList:Array): String => {
 	const flip = Math.floor(Math.random()*2)
 	return flip ? videoList[flip] : videoList[flip]
-}
-
-module.exports = {
-	permuter,
-	permuter2
 }

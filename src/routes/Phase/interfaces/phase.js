@@ -7,6 +7,7 @@ export type PhaseSessionObject = {
 	fetching:boolean,
 	finished:boolean,
 	phases: Array<PhaseObject>,
+	video: string,
 	current: number,
 	order: number,
 	instructions, boolean,

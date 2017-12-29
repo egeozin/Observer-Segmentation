@@ -76,9 +76,11 @@ const retro_phase_2 = `In this last phase, you will be presented with the same v
 
 const simult_prep = ['In this preparatory phase you will get familiar with the task.',
 					'1. In this task you will see a video frame and a timeline below that.',
-					'2. In order to start the task, press the "Start" button under the timeline instead of the play button on the video.',
+					'2. In order to start the task, press the "Start" button under the timeline instead of the play button on the video frame.',
 					'3. Your task is to press the "spacebar" to indicate the important moments in the video. What constitutes an important moment is up to you.',
-					'4. When you press the key, a pop-up form will appear. You are asked to write your descriptions for both the breakpoints and segments.',
+					'4. When you press the key, a form will pop-up. You are asked to write your descriptions for both the breakpoints and segments.',
+					'5. Think of a breakpoint as a mark for that important moment. A description for a breakpoint should be about what happened at that exact moment,'
+					'6. Whereas, a segment is defined as the period from the previous breakpoint and the current breakpoint. A description for a segment should be about what happened during that period.'
 					'5. If you produce less than 4 breakpoints, you will have to repeat this task.',
 					'0. In order to better understand the task, watch this video.',
 					'You can proceed to the task by pressing "Got it!" button below.']

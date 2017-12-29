@@ -427,7 +427,7 @@ export default class Phase extends Component {
                                             let last = splitted[splitted.length-1]
                                             const first = splitted.slice(0, splitted.length-1)
                                             let first_part = first.join(" ")
-                                            return <li className='instructions' key={i}> {first_part} <a href="https://www.youtube.com/watch?v=L0kBNTtEQ1U" target="_blank">{last}</a></li>
+                                            return <li className='instructions' key={i}> {first_part} <a href="https://youtu.be/7_7cZFR1v70" target="_blank">{last}</a></li>
                                         } else {
                                             return <li className='instructions' key={i}> {instruction} </li> 
                                         }
@@ -457,7 +457,7 @@ export default class Phase extends Component {
 							<div className='videoComponent'>
 								<h2 className='instructionsTitle'> Video </h2>
 								{this.props.phase.type === 'phase_2'? <div className='interactionPreventer'></div> : <div className='interactionPreventer'></div>}
-								<Video ref="video" onVideoReady={this.videoReady} url={this.props.phase.video} updateDuration={this.updateDuration} onVideoProgress={this.progress} play={this.state.started} whenEnd={this.videoEnds} onThumbChange={this.handleThumbChange} />
+								<Video ref="video" onVideoReady={this.videoReady} url={this.props.phase.video !== '' ? this.props.phase.video : this.props.video } updateDuration={this.updateDuration} onVideoProgress={this.progress} play={this.state.started} whenEnd={this.videoEnds} onThumbChange={this.handleThumbChange} />
 							</div>
 
 							<div  className='timelineComponent'>

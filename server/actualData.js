@@ -5,7 +5,7 @@ const Phase = require('./models/phase');
 const cuid = require("cuid");
 const phases = require('./protocolData');
 const videos = require('./videoData');
-const permuter =  require('./util/permuter');
+//const permuter =  require('./util/permuter');
 
 
 const loadActualData = function() {
@@ -71,12 +71,12 @@ const loadActualData = function() {
 									
 											const video1_group_1 = 'x8SEDH6res0'
 											const video1_group_2 = 'x8SEDH6res0'
-											const video1_baseline = 'x8SEDH6res0'
+											const video1_baseline = 'FZ5qHMd8u-M'
 											const video1_trial = 'x8SEDH6res0'
 								
 											const video2_group_1 = 'cLtKIsDekpM'
 											const video2_group_2 = 'cLtKIsDekpM'
-											const video2_baseline = 'cLtKIsDekpM'
+											const video2_baseline = 'FZ5qHMd8u-M'
 											const video2_trial = 'cLtKIsDekpM'
 								
 											const description1 = "Initial experiment test to check if everything is ok."
@@ -128,7 +128,7 @@ const loadActualData = function() {
 
 																//console.log(which)
 
-																const videos = ['L0kBNTtEQ1U', 'L0kBNTtEQ1U', 'L0kBNTtEQ1U', "erwYrSVazSA", "erwYrSVazSA"]
+																const videos = ['L0kBNTtEQ1U', 'L0kBNTtEQ1U', 'FZ5qHMd8u-M', "", ""]
 																const vid_lengths = [55, 55, 55, 37 , 37]
 																const types = ['init','prep','baseline','phase_1','phase_2', 'between', 'end']
 																const orders = [0, 1, 2, 3, 4, 5, 6]

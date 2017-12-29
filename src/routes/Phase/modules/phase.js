@@ -1,6 +1,7 @@
 import type {PhaseSessionObject, PhaseObject} from 'interfaces/auth.js'
 import {browserHistory} from 'react-router'
 import modelApi from 'utils/modelApi';
+import permuter2 from 'utils/permuter';
 
 export const START_PHASE = 'START_PHASE'
 export const END_PHASE = 'END_PHASE'
@@ -219,11 +220,11 @@ const PHASE_ACTION_HANDLERS = {
 			return ({...state, fetching:false})
 		} else {
 			const first_phase = action.phases.phases.find(phase => phase.order === 0)
-			//let re = new RegExp('^[^_]+(?=_)')
-			//let isRetro = re.exec(action.phases.name)[0] === 'retrospective'
+			const videos = ["6MjnnMpT024", "erwYrSVazSA"]
+			let selected = permuter2(videos)
 			console.log(action.phases.id)
 			console.log(action.phases.retro)
-			return ({...state, phases:state.phases.concat(action.phases.phases), retro:action.phases.retro , experiment:action.phases.name, experiment_id:action.phases.id, current:first_phase.cuid, fetched: true, fetching:false})
+			return ({...state, phases:state.phases.concat(action.phases.phases), video:selected, retro:action.phases.retro , experiment:action.phases.name, experiment_id:action.phases.id, current:first_phase.cuid, fetched: true, fetching:false})
 		}		
 	},
 
@@ -326,7 +327,7 @@ const PHASE_ACTION_HANDLERS = {
 
 // Reducer
 
-const initialState: PhaseSessionObject = { video_playing: false, breakpoints:[], segmentations:[], identified:[], protocol_order: 1,  retro: true, phase_started:false, phase_finished: false, instructions:true, timeline_active: false, saving_phase_data: false, finished:false, fetched: false, order:0, fetching:false, phases:[], current:null, experiment:null, experiment_id:null, subject_name:null}
+const initialState: PhaseSessionObject = { video_playing: false, breakpoints:[], segmentations:[], identified:[], protocol_order: 1,  retro: true, phase_started:false, phase_finished: false, instructions:true, timeline_active: false, saving_phase_data: false, finished:false, fetched: false, order:0, fetching:false, phases:[], current:null, video:null, experiment:null, experiment_id:null, subject_name:null}
 
 export default function phaseReducer (state:PhaseSessionObject = initialState, action:Action): PhaseSessionObject {
 	const handler = PHASE_ACTION_HANDLERS[action.type]
