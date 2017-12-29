@@ -23,6 +23,9 @@ export const REPEAT_PHASE = 'REPEAT_PHASE'
 export const RETURN_STATE = 'RETURN_STATE'
 
 
+const videos = ["6MjnnMpT024", "erwYrSVazSA"]
+
+
 export function requestPhases(): Action {
 	return {
 		type:REQUEST_PHASES
@@ -308,11 +311,11 @@ const PHASE_ACTION_HANDLERS = {
 			return ({...state, current:next_phase.cuid, finished:true, instructions:true, order:state.order+1 }) 
 		} else if ( ((state.order + 2) >= state.phases.length) && (state.protocol_order === 2)  ) {
 			const next_phase = state.phases.find(phase => phase.order === (state.order + 1))
-			const videos = ["6MjnnMpT024", "erwYrSVazSA"]
 			let selected = permuter2(videos)
 			return ({...state, current:next_phase.cuid, finished:true, instructions:true, order:state.order+1, video:selected}) 
 		} else {
 			const next_phase = state.phases.find(phase => phase.order === (state.order + 1))
+			let selected = permuter2(videos)
 			return ({...state, current:next_phase.cuid, order:state.order+1, instructions: true, identified:action.segment.segments.map((arr) => {return false}) })
 		}
 	},

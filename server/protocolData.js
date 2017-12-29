@@ -50,8 +50,8 @@ const retro_prep = `Before you begin the experiment you will get familiar with t
 					You will not be able to stop the video in this phase but you can repeat this preparatory task as many times as you want.`
 
 const baseline_instructions = ['Before you start the experiment we would like to understand how much time it takes for you to respond to a stimuli.', 
-							'Press the spacebar or "S" key whenever you see a cross in this video.',
-							'In this phase, When you press the spacebar the video will not stop.',
+							'1. Press the spacebar or "S" key whenever you see a cross in this video.',
+							'2. In this phase, When you press the spacebar the video will not stop.',
 							'Press the "Got it!" button below to proceed to the baseline phase.']
 
 const baseline_instructions_3 = `Before you start the experiment we would like to understand how much time it takes for you to respond\
