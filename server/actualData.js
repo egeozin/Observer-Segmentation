@@ -129,7 +129,7 @@ const loadActualData = function() {
 																//console.log(which)
 
 																const videos = ['L0kBNTtEQ1U', 'L0kBNTtEQ1U', 'FZ5qHMd8u-M', "", ""]
-																const vid_lengths = [55, 55, 55, 37 , 37]
+																const vid_lengths = [55, 55, 21, 37 , 37]
 																const types = ['init','prep','baseline','phase_1','phase_2', 'between', 'end']
 																const orders = [0, 1, 2, 3, 4, 5, 6]
 																
