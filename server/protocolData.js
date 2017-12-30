@@ -51,8 +51,8 @@ const retro_prep = `Before you begin the experiment you will get familiar with t
 
 const baseline_instructions = ['Before you start the experiment we would like to understand how much time it takes for you to respond to a stimuli.', 
 							'1. Press the spacebar or "S" key whenever you see a cross in this video.',
-							'2. In this phase, When you press the spacebar the video will not stop.',
-							'Press the "Got it!" button below to proceed to the baseline phase.']
+							'2. In this phase, when you press the spacebar the video will not stop.',
+							'Press the "Got it!" button below to proceed to the baseline task.']
 
 const baseline_instructions_3 = `Before you start the experiment we would like to understand how much time it takes for you to respond\
 							  to a stimuli. Press the Space Bar or 'S' key whenever you see a cross in this video. What constitutes an important moment is up to you.\
@@ -123,7 +123,7 @@ const simult_phase_2 = `You are ready for the experiment!\
 					   Similarly for the segment box, please write what happened in the video between this breakpoint and previous breakpoint.`
 
 
-const generic_between = `Press "Finish" to end the experiment. `
+const generic_between = `Press "Finish" to end the experiment. Don't forget to include your email in the Amazon window.`
 
 const generic_end = `Thanks for participating in this experiment.`
 
