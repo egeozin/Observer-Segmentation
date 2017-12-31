@@ -80,7 +80,7 @@ export default class Auth2 extends Component {
 			<div className='authForm'>
 
                 <button className='submit' onClick ={this.generateKey} disabled={this.state.keyGenerated}>Generate Survey Key</button>
-                {this.state.keyGenerated ? <p>{this.state.key}</p> : null}
+                {this.state.keyGenerated ? <p className='code'>{this.state.key}</p> : null}
 
 				<form onSubmit={this.signUpRequest}>
 					<h3>Sign-Up Form</h3>

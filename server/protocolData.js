@@ -123,7 +123,7 @@ const simult_phase_2 = `You are ready for the experiment!\
 					   Similarly for the segment box, please write what happened in the video between this breakpoint and previous breakpoint.`
 
 
-const generic_between = `Press "Finish" to end the experiment. Don't forget to include your email in the Amazon window.`
+const generic_between = `Press "Finish" to end the experiment. Don't forget to include generated survey key in the Amazon window.`
 
 const generic_end = `Thanks for participating in this experiment.`
 
