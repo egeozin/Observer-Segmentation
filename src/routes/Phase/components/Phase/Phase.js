@@ -434,6 +434,10 @@ export default class Phase extends Component {
                                 }
                             </ul>
 
+                            {this.props.phase.type === 'between' ? 
+                                <div><p>Your survey key was:</p><p className='code'>{this.props.id}</p></div> : null
+                            }
+
                             {
                                 this.props.phase.type !== 'end' ?
 
