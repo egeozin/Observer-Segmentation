@@ -11,7 +11,6 @@ const SubjectSchema = mongoose.Schema({
 	email: {
         type: String, 
         trim:true, 
-        lowercase:true, 
         unique:false, 
         required: 'E-mail address is required',
         //validate: [validateEmail, 'Please fill a valid e-mail address'],

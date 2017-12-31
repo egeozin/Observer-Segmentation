@@ -4186,6 +4186,10 @@ keycode@^2.1.1:
   version "2.1.8"
   resolved "https://registry.yarnpkg.com/keycode/-/keycode-2.1.8.tgz#94d2b7098215eff0e8f9a8931d5a59076c4532fb"
 
+keygenerator@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/keygenerator/-/keygenerator-1.0.4.tgz#4ac884827cbf3b153636bb5425efe5831f9fe8ad"
+
 kind-of@^3.0.2:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-3.0.4.tgz#7b8ecf18a4e17f8269d73b501c9f232c96887a74"
