@@ -16,6 +16,7 @@ A web based software that can be used to collect segmentation data from human su
 <br>
 You can generate experimental procedures similar to the following :
 <br>
+
 <p align="center"><img src="https://github.mit.edu/egeozin/observer-dashboard/blob/master/images/simultaneous_protocol.png"/></p>
 
 
