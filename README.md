@@ -11,11 +11,11 @@ A web based software that can be used to collect segmentation data from human su
 	Redux for frontend state management +
 	React as view library.
 
--------------------------------------------------------------------------------
+<br>
 <p align="center"><img src="https://github.mit.edu/egeozin/observer-dashboard/blob/master/images/sample_session.gif"/></p>
 <br>
-You can generate experimental procedures similar to the following  :
-
+You can generate experimental procedures similar to the following :
+<br>
 <p align="center"><img src="https://github.mit.edu/egeozin/observer-dashboard/blob/master/images/simultaneous_protocol.png"/></p>
 
 
