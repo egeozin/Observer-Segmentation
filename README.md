@@ -1,6 +1,6 @@
 # Observing the Observers
 
-A web based software that can be used to collect segmentation data from human subjects in a reliable and scalable way. This software further enables researchers to develop and analyze their own segmentation experiments.
+A web based software that can be used to collect segmentation data from human subjects in a reliable and scalable way. This software enables researchers to develop and analyze their own segmentation experiments.
 
 	This project is designed with: 
 
@@ -12,6 +12,8 @@ A web based software that can be used to collect segmentation data from human su
 	React as view library.
 
 
+<p align="center"><img src="https://github.mit.edu/egeozin/observer-dashboard/blob/master/images/sample_session.gif"/></p>
+
 You can generate experimental procedures similar to the following  :
 
 <p align="center"><img src="https://github.mit.edu/egeozin/observer-dashboard/blob/master/images/retrospective_protocol.png"/></p>
@@ -19,7 +21,3 @@ You can generate experimental procedures similar to the following  :
 <p align="center"><img src="https://github.mit.edu/egeozin/observer-dashboard/blob/master/images/simultaneous_protocol.png"/></p>
 
 
-
-## Note
-
-This project uses David Zukowski's [React-Redux-Starter-Kit](https://github.com/davezuko/react-redux-starter-kit) for basic folder structure and webpack configurations.
