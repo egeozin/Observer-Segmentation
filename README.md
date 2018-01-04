@@ -12,11 +12,11 @@ A web based software that can be used to collect segmentation data from human su
 	React as view library.
 
 <br>
-<p align="center"><img src="https://github.mit.edu/egeozin/observer-dashboard/blob/master/images/sample_session.gif"/></p>
+<p align="center"><img src="https://github.com/egeozin/observer-segmentation/blob/master/images/sample_session.gif"/></p>
 <br>
 You can generate experimental procedures similar to the following :
 <br>
 
-<p align="center"><img src="https://github.mit.edu/egeozin/observer-dashboard/blob/master/images/simultaneous_protocol.png"/></p>
+<p align="center"><img src="https://github.com/egeozin/observer-segmentation/blob/master/images/simultaneous_protocol.png"/></p>
 
 
