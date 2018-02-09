@@ -22,9 +22,9 @@ Additionally, the software enables researchers to produce protocols that let sub
 
 Sample protocols that can be produced with the software:
 
-<p align="center"><img src="https://github.com/egeozin/observer-segmentation/blob/master/images/protocol_retro.png" width="600"/></p>
+<p align="center"><img src="https://github.com/egeozin/observer-segmentation/blob/master/images/protocol_retro.png" width="500"/></p>
 <br>
-<p align="center"><img src="https://github.com/egeozin/observer-segmentation/blob/master/images/protocol_simult.png" width="600"/></p>
+<p align="center"><img src="https://github.com/egeozin/observer-segmentation/blob/master/images/protocol_simult.png" width="500"/></p>
 
     This project is designed with: 
 
