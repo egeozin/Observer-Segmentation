@@ -6,7 +6,7 @@ Observr is an easy-to-use and accurate segmentation tool. Capturing accurate and
 <br>
 A segmentation study starts with researchers selecting which events to focus on. Events under study can be any event featuring specific everyday tasks, improvised dance or design performances or footage of observations of human interaction. The software then lets researchers upload or link their videos into their protocols. A protocol might feature multiple phases. For example, in order to make subjects familiar with the task researchers can introduce a preparatory segmentation phase. This phase can be followed by additional phases for recording baseline measurements or distracting subjects for the purposes of the experiment. Then, the main phases of measurement and collection can be appended to the protocol. Finally, multiple protocols can be appended together to create more complex experiments or to test new protocols.
 
-<p align="center"><img src="https://github.com/egeozin/observer-segmentation/blob/master/images/software_setup.png"/></p>
+<p align="center"><img src="https://github.com/egeozin/observer-segmentation/blob/master/images/software_setup.png" width="500"/></p>
 
 The design of the segmentation interface comprises a software screen that contains the design video and an interactive timeline below it. This timeline provides the area where observers indicate event boundaries and segments. An indicator of the current time is shown with a protruded, sliding bar. Subjects press a key to indicate breakpoints. Within the context of this methodology, it is decided to define breakpoints as marks to indicate a specific moment, whereas segments are defined by the interval between consecutive breakpoints.
 
