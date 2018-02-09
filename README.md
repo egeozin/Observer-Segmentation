@@ -14,17 +14,17 @@ Depending on the protocol, when subjects press a key, they may be instructed to 
 
 For example, with this software, researchers can develop protocols allowing for retrospective labeling. Retrospective labeling protocol work as follows: Initially, subjects are made familiar with the task and their baseline measurements are recorded. Then, in the first phase of the experiment subjects are presented with the video to be segmented. In this phase they are instructed to provide breakpoints only and they are not able to stop the video. In the second phase, subjects are presented with the same video and are instructed to provide labels for the segments and breakpoints they gave in the first phase. They can freely start and stop the video in this second phase. As subjects will have more time and control in this phase, the labels are subject to more careful interpretation. However, this protocol has its disadvantages. Primarily, a retrospective look on the given breakpoints and segments can contaminate the labels that they originally gave in the first phase.
 
-<p align="center"><img src="https://github.com/egeozin/observer-segmentation/blob/master/images/form.png"/></p>
+<p align="center"><img src="https://github.com/egeozin/observer-segmentation/blob/master/images/form.png" width="500"/></p>
 
 Additionally, the software enables researchers to produce protocols that let subjects change the locations of breakpoints, change the labels from previous phases, or even introduce new breakpoints or delete existing ones. Responses to this protocol can give clues about how the segmentation strategies of a subject change through multiple iterations. Furthermore, this protocol could help researchers understand what constitutes better information for a particular observer and study how subjects construct hierarchical relationships between coarse and fine segments.
 
-<p align="center"><img src="https://github.com/egeozin/observer-segmentation/blob/master/images/recursive.png"/></p>
+<p align="center"><img src="https://github.com/egeozin/observer-segmentation/blob/master/images/recursive.png" width="500"/></p>
 
 Sample protocols that can be produced with the software:
 
-<p align="center"><img src="https://github.com/egeozin/observer-segmentation/blob/master/images/protocol_retro.png"/></p>
+<p align="center"><img src="https://github.com/egeozin/observer-segmentation/blob/master/images/protocol_retro.png" width="600"/></p>
 <br>
-<p align="center"><img src="https://github.com/egeozin/observer-segmentation/blob/master/images/protocol_simult.png"/></p>
+<p align="center"><img src="https://github.com/egeozin/observer-segmentation/blob/master/images/protocol_simult.png" width="600"/></p>
 
     This project is designed with: 
 
