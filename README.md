@@ -20,7 +20,7 @@ Additionally, the software enables researchers to produce protocols that let sub
 
 <p align="center"><img src="https://github.com/egeozin/observer-segmentation/blob/master/images/recursive.png" width="500"/></p>
 
-Sample protocols that can be produced with the software;
+Sample protocols that can be produced with the software;<br>
 Retrospective Protocol:
 <p align="center"><img src="https://github.com/egeozin/observer-segmentation/blob/master/images/protocol_retro.png" width="500"/></p>
 <br>
